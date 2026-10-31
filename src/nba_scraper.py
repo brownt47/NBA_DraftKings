@@ -174,16 +174,23 @@ def main():
             dtype={"GAME_ID": str, "PLAYER_ID": str}
         )
 
-        # Refresh recent games to capture stat corrections
-        refresh_start = max(
-            START_DATE,
-            END_DATE - timedelta(days=REFRESH_DAYS - 1)
-        )
+        if existing_df.empty:
+            refresh_start = START_DATE
+            print("\nExisting CSV is empty. Full-season download.")
+        else:
+            latest_saved_date = date.fromisoformat(
+                existing_df["GAME_DATE"].max()
+            )
 
-        print(
-            f"\nIncremental update: "
-            f"refreshing games from {refresh_start}"
-        )
+            refresh_start = max(
+                START_DATE,
+                latest_saved_date - timedelta(days=REFRESH_DAYS - 1)
+            )
+
+            print(
+                f"\nIncremental update: "
+                f"refreshing games from {refresh_start}"
+            )
 
     else:
         existing_df = pd.DataFrame()
