@@ -13,6 +13,9 @@ from dk_scoring import calculate_dk_points
 START_DATE = date(2026, 10, 20)
 END_DATE = date.today()
 
+# Number of recent days to refresh for stat corrections
+REFRESH_DAYS = 3
+
 SCOREBOARD_URL = (
     "https://site.api.espn.com/apis/site/v2/"
     "sports/basketball/nba/scoreboard"
@@ -47,10 +50,10 @@ def get_json(url, params):
     raise RuntimeError(f"Failed after 3 attempts: {params}")
 
 
-def discover_games():
-    """Find all completed regular-season games."""
+def discover_games(start_date=START_DATE):
+    """Find completed regular-season games from start_date."""
     games = {}
-    current_date = START_DATE
+    current_date = start_date
 
     while current_date <= END_DATE:
         date_string = current_date.strftime("%Y%m%d")
@@ -164,13 +167,37 @@ def main():
     print("ESPN NBA 2026-27 Player Game Scraper")
     print("=" * 40)
 
+    # Load existing data if available
+    if OUTPUT_FILE.exists():
+        existing_df = pd.read_csv(
+            OUTPUT_FILE,
+            dtype={"GAME_ID": str, "PLAYER_ID": str}
+        )
+
+        # Refresh recent games to capture stat corrections
+        refresh_start = max(
+            START_DATE,
+            END_DATE - timedelta(days=REFRESH_DAYS - 1)
+        )
+
+        print(
+            f"\nIncremental update: "
+            f"refreshing games from {refresh_start}"
+        )
+
+    else:
+        existing_df = pd.DataFrame()
+        refresh_start = START_DATE
+
+        print("\nNo existing CSV. Full-season download.")
+
     print("\nDiscovering completed games...")
-    games = discover_games()
+    games = discover_games(refresh_start)
 
     print(f"\nFound {len(games)} completed games.")
 
     if not games:
-        print("No completed games. CSV unchanged.")
+        print("No completed games to refresh. CSV unchanged.")
         return
 
     all_records = []
@@ -188,10 +215,31 @@ def main():
             f"({len(records)} players)"
         )
 
-        time.sleep(0.2)
+        time.sleep(0.1) # Be polite to ESPN's servers
 
-    df = pd.DataFrame(all_records)
+    
+    # Build DataFrame from newly downloaded games
+    new_df = pd.DataFrame(all_records)
+
+    # Remove old records for games being refreshed
+    if not existing_df.empty:
+        refreshed_game_ids = set(games.keys())
+
+        existing_df = existing_df[
+            ~existing_df["GAME_ID"].isin(refreshed_game_ids)
+        ]
+
+        # Combine historical and refreshed records
+        df = pd.concat(
+            [existing_df, new_df],
+            ignore_index=True
+        )
+    else:
+        df = new_df
+
+    # Recalculate DraftKings points for all records
     df = calculate_dk_points(df)
+
 
     if df.empty:
         raise RuntimeError("No player data. CSV unchanged.")
@@ -225,7 +273,8 @@ def main():
 
     print("\n" + "=" * 40)
     print("SCRAPE COMPLETE")
-    print(f"Games: {len(games)}")
+    print(f"Games refreshed: {len(games)}")
+    print(f"Total games in dataset: {df['GAME_ID'].nunique()}")
     print(f"Player-game records: {len(df):,}")
     print(f"Unique players: {df['PLAYER_ID'].nunique()}")
     print(f"Saved to: {OUTPUT_FILE}")
