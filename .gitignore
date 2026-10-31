@@ -1,0 +1,11 @@
+# Python generated files
+__pycache__/
+*.pyc
+
+# VS Code local settings
+.vscode/
+
+# Conda and virtual environments
+.env
+.venv/
+venv/
