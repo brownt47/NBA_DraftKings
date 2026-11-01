@@ -199,6 +199,7 @@ def main():
     print(f"Games needing download: {len(game_ids)}")
 
     records = []
+    failed_games = []
 
 
     for i, game_id in enumerate(game_ids, start=1):
@@ -221,6 +222,7 @@ def main():
                     f"{len(teams)} invalid/incomplete team records. "
                     "Skipping."
                 )
+                failed_games.append(str(game_id))
                 continue
 
             records.extend(teams)
@@ -238,6 +240,7 @@ def main():
         ) as error:
 
             print(f"ERROR: Game {game_id}: {error}")
+            failed_games.append(str(game_id))
 
 
     # ---------------------------------------------------------
@@ -247,6 +250,15 @@ def main():
 
     if not records:
         print("\nNo new team records downloaded. CSV unchanged.")
+        print(f"Failed games: {len(failed_games)}")
+
+        if failed_games:
+            print(f"Failed game IDs: {', '.join(failed_games)}")
+            raise RuntimeError(
+                f"Team scraper failed to download "
+                f"{len(failed_games)} game(s)."
+            )
+
         return
 
     new_df = pd.DataFrame(records)
@@ -320,7 +332,20 @@ def main():
     print(f"Total team records: {len(df):,}")
     print(f"Unique teams: {df['TEAM'].nunique()}")
     print(f"Saved to: {OUTPUT_FILE}")
+    print(f"Failed games: {len(failed_games)}")
 
+    if failed_games:
+        print(f"Failed game IDs: {', '.join(failed_games)}")
+
+        # ---------------------------------------------------------
+        # SIGNAL PARTIAL DOWNLOAD FAILURE
+        # Successful records have already been saved.
+        # ---------------------------------------------------------
+
+        raise RuntimeError(
+            f"Team scraper failed to download "
+            f"{len(failed_games)} game(s)."
+        )
 # ---------------------------------------------------------
 # SCRIPT ENTRY POINT
 # ---------------------------------------------------------

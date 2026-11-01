@@ -479,7 +479,11 @@ def test_team_scraper_preserves_data_on_failure(
         fake_fetch_team_game
     )
 
-    nba_team_scraper.main()
+    with pytest.raises(
+        RuntimeError,
+        match="Team scraper failed to download 1 game"
+    ):
+        nba_team_scraper.main()
 
     # Existing CSV must remain completely unchanged
     assert output_file.read_bytes() == original_contents
@@ -490,7 +494,7 @@ def test_team_scraper_preserves_data_on_failure(
 # Save successful games even if another game fails.
 # ---------------------------------------------------------
 
-def test_team_scraper_partial_failure(tmp_path, monkeypatch):
+def test_team_scraper_partial_failure(tmp_path, monkeypatch, capsys):
 
     player_file = tmp_path / "player_games.csv"
     output_file = tmp_path / "team_games.csv"
@@ -552,7 +556,11 @@ def test_team_scraper_partial_failure(tmp_path, monkeypatch):
         fake_fetch_team_game
     )
 
-    nba_team_scraper.main()
+    with pytest.raises(
+        RuntimeError,
+        match="Team scraper failed to download 1 game"
+    ):
+        nba_team_scraper.main()
 
     result = pd.read_csv(
         output_file,
@@ -569,6 +577,12 @@ def test_team_scraper_partial_failure(tmp_path, monkeypatch):
 
     # Every saved game has two team records
     assert result.groupby("GAME_ID").size().eq(2).all()
+
+    # Verify only the failed game is reported
+    output = capsys.readouterr().out
+
+    assert "Failed games: 1" in output
+    assert "Failed game IDs: G3" in output
 
 
 # ---------------------------------------------------------
@@ -611,7 +625,11 @@ def test_team_scraper_rejects_incomplete_game(
         fake_fetch_team_game
     )
 
-    nba_team_scraper.main()
+    with pytest.raises(
+        RuntimeError,
+        match="Team scraper failed to download 1 game"
+    ):
+        nba_team_scraper.main()
 
     # No incomplete CSV should have been created
     assert not output_file.exists()
@@ -686,7 +704,7 @@ def test_team_scraper_refreshes_recent_game(
 # ---------------------------------------------------------
 
 def test_team_scraper_failed_refresh_preserves_data(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, capsys
 ):
     player_file = tmp_path / "player_games.csv"
     output_file = tmp_path / "team_games.csv"
@@ -722,7 +740,16 @@ def test_team_scraper_failed_refresh_preserves_data(
         nba_team_scraper, "fetch_team_game", fake_fetch_team_game
     )
 
-    nba_team_scraper.main()
+    with pytest.raises(
+        RuntimeError,
+        match="Team scraper failed to download 1 game"
+    ):
+        nba_team_scraper.main()
 
     assert requested_games == ["G1"]
     assert output_file.read_bytes() == original_contents
+    # Verify the failed refresh is reported
+    output = capsys.readouterr().out
+
+    assert "Failed games: 1" in output
+    assert "Failed game IDs: G1" in output

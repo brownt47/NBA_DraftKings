@@ -31,9 +31,11 @@ jobs:
         run: python -m pytest tests/ -q
 
       - name: Update NBA data
+        id: update
         run: python -m src.update_nba_data
 
       - name: Commit updated CSV
+        if: ${{ success() || steps.update.outcome == 'failure' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

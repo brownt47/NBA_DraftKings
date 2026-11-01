@@ -95,6 +95,15 @@ def split_shooting(value):
     made, attempted = str(value).split("-")
     return int(made), int(attempted)
 
+# ---------------------------------------------------------
+# PARSE PLUS/MINUS
+# Convert ESPN plus/minus to a consistent numeric value.
+# ---------------------------------------------------------
+def parse_plus_minus(value):
+    if value is None or str(value).strip() in ("", "--"):
+        return None
+
+    return int(value)
 
 def parse_boxscore(game):
     """Convert one ESPN box score into player records."""
@@ -150,7 +159,7 @@ def parse_boxscore(game):
                     "OREB": int(stats["OREB"]),
                     "DREB": int(stats["DREB"]),
                     "PF": int(stats["PF"]),
-                    "PLUS_MINUS": stats["+/-"],
+                    "PLUS_MINUS": parse_plus_minus(stats.get("+/-")),
                 }
 
                 records.append(record)
