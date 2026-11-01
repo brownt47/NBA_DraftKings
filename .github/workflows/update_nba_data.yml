@@ -1,5 +1,5 @@
 
-name: Update NBA Player Data
+name: Update NBA Data
 
 on:
   schedule:
@@ -27,16 +27,20 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Run tests
+        run: python -m pytest tests/ -q
+
       - name: Update NBA data
-        run: python src/nba_scraper.py
+        run: python -m src.update_nba_data
 
       - name: Commit updated CSV
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/nba_player_games_2026_27.csv
+          git add data/nba_team_games_2026_27.csv
           if ! git diff --cached --quiet; then
-            git commit -m "Update NBA player data"
+            git commit -m "Update NBA player and team data"
             git push
           else
             echo "No changes to commit."
