@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 import requests
 
-from dk_scoring import calculate_dk_points
+from src.dk_scoring import calculate_dk_points
 
 # Configuration
 START_DATE = date(2026, 10, 20)
