@@ -35,3 +35,39 @@ def calculate_team_features(games):
         records.append(record)
 
     return pd.DataFrame(records)
+
+
+def add_historical_team_features(games, windows=(3, 5, 7, 10)):
+    """Calculate pregame team performance features."""
+    games = games.copy()
+
+    games["GAME_DATE"] = pd.to_datetime(games["GAME_DATE"])
+
+    games = games.sort_values(
+        ["TEAM", "GAME_DATE", "GAME_ID"]
+    ).reset_index(drop=True)
+
+    grouped = games.groupby("TEAM")
+
+    games["TEAM_PRIOR_GAMES"] = grouped.cumcount()
+
+    metrics = {
+        "PACE": "PACE_EST",
+        "OFF_RATING": "OFF_RATING_EST",
+        "DEF_RATING": "DEF_RATING_EST",
+    }
+
+    for name, column in metrics.items():
+        games[f"{name}_SEASON"] = grouped[column].transform(
+            lambda s: s.shift(1).expanding().mean()
+        )
+
+        for window in windows:
+            games[f"{name}_LAST_{window}"] = grouped[column].transform(
+                lambda s: s.shift(1).rolling(
+                    window=window,
+                    min_periods=1
+                ).mean()
+            )
+
+    return games

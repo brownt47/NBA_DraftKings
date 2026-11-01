@@ -141,3 +141,73 @@ def add_matchup_features(players, team_features):
     )
 
     return players
+
+
+
+def add_historical_matchup_features(players, team_games):
+    """Attach pregame team and opponent features to player-game records."""
+    players = players.copy()
+
+    feature_columns = [
+        col for col in team_games.columns
+        if col == "TEAM_PRIOR_GAMES"
+        or col.endswith("_SEASON")
+        or "_LAST_" in col
+    ]
+
+    team_columns = [
+        "GAME_ID", "TEAM", "OPPONENT", "HOME_AWAY"
+    ] + feature_columns
+
+    # Attach the player's own-team information
+    own_team = team_games[team_columns].rename(
+        columns={
+            "OPPONENT": "OPPONENT",
+            "HOME_AWAY": "HOME_AWAY",
+            **{
+                col: f"TEAM_{col}"
+                for col in feature_columns
+            },
+        }
+    )
+
+    players = players.merge(
+        own_team,
+        on=["GAME_ID", "TEAM"],
+        how="left",
+        validate="many_to_one"
+    )
+
+    # Attach opponent features from the same game
+    opponent = team_games[
+        ["GAME_ID", "TEAM"] + feature_columns
+    ].rename(
+        columns={
+            "TEAM": "OPPONENT",
+            **{
+                col: f"OPP_{col}"
+                for col in feature_columns
+            },
+        }
+    )
+
+    players = players.merge(
+        opponent,
+        on=["GAME_ID", "OPPONENT"],
+        how="left",
+        validate="many_to_one"
+    )
+
+    # Estimated matchup pace
+    players["MATCHUP_PACE_SEASON"] = (
+        players["TEAM_PACE_SEASON"]
+        + players["OPP_PACE_SEASON"]
+    ) / 2
+
+    for window in (3, 5, 7, 10):
+        players[f"MATCHUP_PACE_LAST_{window}"] = (
+            players[f"TEAM_PACE_LAST_{window}"]
+            + players[f"OPP_PACE_LAST_{window}"]
+        ) / 2
+
+    return players

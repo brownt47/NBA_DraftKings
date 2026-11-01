@@ -74,3 +74,51 @@ def calculate_value_per_1000(players):
     )
 
     return players
+
+
+def add_historical_scoring_features(games, windows=(3, 5, 7, 10)):
+    """
+    Calculate pregame scoring features for every historical
+    player-game using only previously completed games.
+    """
+    games = games.copy()
+
+    games["GAME_DATE"] = pd.to_datetime(games["GAME_DATE"])
+
+    games = games.sort_values(
+        ["PLAYER_ID", "GAME_DATE", "GAME_ID"]
+    ).reset_index(drop=True)
+
+    grouped = games.groupby("PLAYER_ID")
+
+    # Number of games played before this game
+    games["PRIOR_GAMES"] = grouped.cumcount()
+
+    # Season-to-date averages
+    for stat in ["DK_POINTS", "PTS", "REB", "AST"]:
+        games[f"{stat}_AVG_SEASON"] = grouped[stat].transform(
+            lambda s: s.shift(1).expanding().mean()
+        )
+
+    # Rolling statistics
+    for window in windows:
+        for stat in ["DK_POINTS", "PTS", "REB", "AST"]:
+            games[f"{stat}_AVG_LAST_{window}"] = (
+                grouped[stat].transform(
+                    lambda s: s.shift(1).rolling(
+                        window=window,
+                        min_periods=1
+                    ).mean()
+                )
+            )
+
+        games[f"DK_STD_LAST_{window}"] = (
+            grouped["DK_POINTS"].transform(
+                lambda s: s.shift(1).rolling(
+                    window=window,
+                    min_periods=2
+                ).std()
+            )
+        )
+
+    return games
