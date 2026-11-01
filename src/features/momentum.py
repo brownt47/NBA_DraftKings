@@ -32,13 +32,16 @@ def calculate_momentum_features(games):
         recent_signs = momentum_sign.tail(6)
         previous_signs = recent_signs.shift(1)
 
+
         whipsaw_5 = int(
             (
                 (recent_signs != 0)
+                & previous_signs.notna()
                 & (previous_signs != 0)
                 & (recent_signs != previous_signs)
             ).sum()
         )
+
         
         record = {
             "ESPN_PLAYER_ID": player_id,
