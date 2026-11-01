@@ -1556,19 +1556,19 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4277813,Herbert Jones,NO,32,16,7,12,0,3,2,3,4,1,3,2,0,0,4,4,27,25.0,0,0,0.0,25.0
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,5144091,Jeremiah Fears,NO,29,22,9,16,3,5,1,3,8,13,3,2,4,1,7,2,3,63.5,1,0,1.5,65.0
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4997538,Karlo Matkovic,NO,28,12,4,7,1,4,3,4,4,1,2,3,1,0,4,2,5,26.0,0,0,0.0,26.0
-401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4397136,Saddiq Bey,NO,24,10,3,6,1,2,3,3,4,3,1,0,0,2,2,0,-8,19.5,0,0,0.0,19.5
+401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4397136,Saddiq Bey,NO,24,10,3,7,1,2,3,3,4,3,1,0,0,2,2,0,-8,19.5,0,0,0.0,19.5
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4431675,Trendon Watford,NO,17,8,2,3,0,1,4,5,1,2,1,3,0,0,1,3,7,17.75,0,0,0.0,17.75
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4397688,Trey Murphy III,NO,32,19,6,12,2,7,5,8,5,3,0,1,0,1,4,2,4,32.75,0,0,0.0,32.75
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4395628,Zion Williamson,NO,31,22,10,12,0,0,2,4,6,2,3,5,1,0,6,0,5,43.0,0,0,0.0,43.0
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4917149,Alex Karaban,SAC,12,6,2,3,2,3,0,0,0,0,3,1,0,0,0,3,-10,7.5,0,0,0.0,7.5
-401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,5142620,Darius Acuff Jr.,SAC,41,34,13,26,3,11,5,5,6,14,6,1,0,1,5,4,3,63.0,1,0,1.5,64.5
+401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,5142620,Darius Acuff Jr.,SAC,41,34,13,26,3,11,5,5,6,14,6,0,0,1,5,4,3,61.0,1,0,1.5,62.5
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4065732,De'Andre Hunter,SAC,37,24,7,13,4,8,6,6,5,1,3,0,0,0,5,1,-9,32.25,0,0,0.0,32.25
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,3155942,Domantas Sabonis,SAC,40,9,4,7,0,0,1,2,15,7,7,2,1,2,13,4,-12,40.75,0,0,0.0,40.75
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,5106058,Emanuel Sharp,SAC,18,0,0,2,0,2,0,0,0,0,0,1,0,0,0,2,13,2.0,0,0,0.0,2.0
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4066262,Malik Monk,SAC,8,2,1,3,0,1,0,0,1,1,2,0,0,0,1,0,-13,3.75,0,0,0.0,3.75
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4702384,Nique Clifford,SAC,4,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,-8,1.5,0,0,0.0,1.5
 401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,4431679,Precious Achiuwa,SAC,41,24,12,17,0,2,0,1,9,2,1,4,0,2,7,5,1,45.75,0,0,0.0,45.75
-401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,3064440,Zach LaVine,SAC,39,21,7,17,3,10,4,6,3,5,3,3,0,2,1,2,-25,38.25,0,0,0.0,38.25
+401909894,2026-10-29,Sacramento Kings at New Orleans Pelicans,3064440,Zach LaVine,SAC,39,21,7,17,3,10,4,6,3,5,3,3,1,2,1,2,-25,40.25,0,0,0.0,40.25
 401909895,2026-10-29,Memphis Grizzlies at Portland Trail Blazers,4433083,Cam Spencer,MEM,23,8,3,6,1,2,1,1,6,8,1,2,0,2,4,4,21,31.5,0,0,0.0,31.5
 401909895,2026-10-29,Memphis Grizzlies at Portland Trail Blazers,5041935,Cameron Boozer,MEM,28,18,6,10,4,5,2,2,12,12,2,0,0,2,10,1,20,52.0,1,1,4.5,56.5
 401909895,2026-10-29,Memphis Grizzlies at Portland Trail Blazers,4903027,Cedric Coward,MEM,27,17,7,14,3,5,0,0,7,4,2,3,0,1,6,5,16,38.25,0,0,0.0,38.25
@@ -1610,15 +1610,15 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4576060,Ryan Kalkbrenner,CHA,15,2,1,1,0,0,0,0,4,0,0,1,0,3,1,1,-11,9.0,0,0,0.0,9.0
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4602025,Sion James,CHA,29,6,2,10,1,8,1,2,5,4,1,2,0,2,3,3,-5,22.25,0,0,0.0,22.25
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5211176,Tidjane Salaun,CHA,9,6,2,2,2,2,0,0,2,0,0,0,0,0,2,1,-3,9.5,0,0,0.0,9.5
-401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5142718,AJ Dybantsa,WSH,30,17,5,11,1,4,6,7,8,1,1,1,0,1,7,2,7,30.5,0,0,0.0,30.5
+401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5142718,AJ Dybantsa,WSH,30,17,5,11,1,4,6,7,7,1,1,1,0,0,7,2,7,29.25,0,0,0.0,29.25
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5160992,Alex Sarr,WSH,29,3,1,5,1,3,0,0,8,0,4,0,0,1,7,0,22,11.5,0,0,0.0,11.5
-401909277,2026-10-30,Charlotte Hornets at Washington Wizards,6583,Anthony Davis,WSH,34,25,8,18,0,1,9,10,13,1,1,1,1,3,10,1,13,46.25,1,0,1.5,47.75
+401909277,2026-10-30,Charlotte Hornets at Washington Wizards,6583,Anthony Davis,WSH,34,25,8,17,0,1,9,10,13,1,1,1,1,3,10,1,13,46.25,1,0,1.5,47.75
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5104155,Bilal Coulibaly,WSH,22,1,0,2,0,1,1,2,5,1,0,0,1,0,5,5,4,10.75,0,0,0.0,10.75
-401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4845374,Bub Carrington,WSH,20,9,3,4,3,3,0,0,4,2,1,0,0,1,3,2,2,18.0,0,0,0.0,18.0
-401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4278129,Deandre Ayton,WSH,17,3,1,4,0,0,1,2,3,1,1,0,0,2,1,1,2,7.75,0,0,0.0,7.75
+401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4845374,Bub Carrington,WSH,20,9,3,4,3,3,0,0,4,2,1,1,0,1,3,2,2,20.0,0,0,0.0,20.0
+401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4278129,Deandre Ayton,WSH,17,3,1,4,0,0,1,2,4,1,1,0,0,2,2,1,2,9.0,0,0,0.0,9.0
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,6609,Khris Middleton,WSH,5,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,3,0.0,0,0,0.0,0.0
-401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5174563,Kyshawn George,WSH,32,12,4,10,4,8,0,0,3,3,2,1,1,0,3,3,14,25.25,0,0,0.0,25.25
-401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4277905,Trae Young,WSH,38,21,4,9,1,5,12,14,7,9,4,3,1,1,6,1,13,49.75,0,0,0.0,49.75
+401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5174563,Kyshawn George,WSH,32,12,4,10,4,8,0,0,3,3,2,0,1,0,3,3,14,23.25,0,0,0.0,23.25
+401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4277905,Trae Young,WSH,38,21,4,9,1,5,12,14,6,9,4,3,1,1,5,1,13,48.5,0,0,0.0,48.5
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5238230,Tre Johnson,WSH,13,4,2,7,0,3,0,0,2,0,0,0,0,0,2,1,4,6.5,0,0,0.0,6.5
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,4432819,Tre Mann,WSH,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,-2,0.0,0,0,0.0,0.0
 401909277,2026-10-30,Charlotte Hornets at Washington Wizards,5144126,Will Riley,WSH,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,-2,0.0,0,0,0.0,0.0
@@ -1655,11 +1655,11 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,5037873,Drake Powell,BKN,6,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,6,2.5,0,0,0.0,2.5
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,4687718,Josh Minott,BKN,3,2,1,2,0,1,0,0,0,0,0,0,0,0,0,2,-13,2.0,0,0,0.0,2.0
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,3064514,Julius Randle,BKN,25,15,4,13,3,6,4,4,8,3,5,0,0,2,6,3,-10,28.5,0,0,0.0,28.5
-401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,4702177,Keon Ellis,BKN,21,6,2,5,2,5,0,0,2,1,1,0,2,1,1,3,-4,14.5,0,0,0.0,14.5
+401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,4702177,Keon Ellis,BKN,21,6,2,5,2,5,0,0,1,1,1,0,2,0,1,3,-4,13.25,0,0,0.0,13.25
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,4278104,Michael Porter Jr.,BKN,26,13,4,9,2,5,3,3,7,1,1,0,1,0,7,2,-25,25.75,0,0,0.0,25.75
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,5101761,Mikel Brown Jr.,BKN,23,10,2,9,0,4,6,8,0,4,2,1,0,0,0,1,-9,17.0,0,0,0.0,17.0
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,3150844,Moritz Wagner,BKN,23,16,7,10,1,2,1,1,8,1,1,1,0,2,6,2,-7,29.5,0,0,0.0,29.5
-401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,4712896,Noah Clowney,BKN,22,3,1,3,0,0,1,2,8,1,3,2,1,1,7,2,-20,19.0,0,0,0.0,19.0
+401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,4712896,Noah Clowney,BKN,22,3,1,3,0,0,1,2,9,1,3,2,1,2,7,2,-20,20.25,0,0,0.0,20.25
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,5279130,Nolan Traore,BKN,26,9,3,11,0,5,3,4,2,2,3,1,2,0,2,3,-7,19.0,0,0,0.0,19.0
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,3907823,Terance Mann,BKN,12,2,1,1,0,0,0,0,0,2,0,1,1,0,0,2,10,9.0,0,0,0.0,9.0
 401909279,2026-10-30,Detroit Pistons at Brooklyn Nets,4684742,Ausar Thompson,DET,26,11,5,9,0,0,1,2,8,6,0,2,0,2,6,2,2,34.0,0,0,0.0,34.0
@@ -1779,7 +1779,7 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,4432247,Jaylen Clark,MIN,17,5,2,3,1,2,0,0,0,2,1,2,1,0,0,3,23,14.0,0,0,0.0,14.0
 401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,5279133,Joan Beringer,MIN,18,4,1,3,0,0,2,2,4,0,0,0,1,3,1,2,8,11.0,0,0,0.0,11.0
 401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,4433247,Jonathan Kuminga,MIN,22,5,2,6,1,3,0,0,1,0,1,0,1,0,1,0,1,8.25,0,0,0.0,8.25
-401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,4432816,LaMelo Ball,MIN,29,24,9,20,6,15,0,0,4,7,2,2,0,1,3,3,16,45.5,0,0,0.0,45.5
+401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,4432816,LaMelo Ball,MIN,29,24,9,19,6,14,0,0,4,7,2,2,0,1,3,3,16,45.5,0,0,0.0,45.5
 401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,3032976,Rudy Gobert,MIN,30,9,4,7,0,0,1,3,13,4,1,1,1,4,9,1,18,34.75,0,0,0.0,34.75
 401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,4432847,Terrence Shannon Jr.,MIN,20,11,3,6,2,4,3,4,3,2,0,0,0,0,3,4,10,18.75,0,0,0.0,18.75
 401909284,2026-10-30,LA Clippers at Minnesota Timberwolves,3136196,Trey Lyles,MIN,17,10,4,7,1,3,1,2,5,0,0,0,0,1,4,1,9,16.75,0,0,0.0,16.75
