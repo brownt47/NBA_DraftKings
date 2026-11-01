@@ -58,3 +58,19 @@ def calculate_rolling_scoring_features(games):
         recent_stats.append(record)
 
     return pd.DataFrame(recent_stats)
+
+
+def calculate_value_per_1000(players):
+    """
+    Calculate average DraftKings fantasy points
+    per $1,000 of player salary.
+    """
+
+    players = players.copy()
+
+    players["VALUE_PER_1000"] = (
+        players["AVG_DK_POINTS"] /
+        (players["Salary"] / 1000)
+    )
+
+    return players

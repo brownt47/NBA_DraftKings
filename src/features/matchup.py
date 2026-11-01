@@ -1,7 +1,6 @@
 
 import pandas as pd
 
-
 DK_TO_ESPN = {
     "SAS": "SA",
     "NOP": "NO",
@@ -10,7 +9,6 @@ DK_TO_ESPN = {
     "UTA": "UTAH",
     "WAS": "WSH",
 }
-
 
 def add_opponent(players):
     """Identify each player's opponent from the DK matchup."""
@@ -33,7 +31,6 @@ def add_opponent(players):
     )
 
     return players
-
 
 def add_team_matchup_features(players, team_features):
     """Attach opponent and own-team performance statistics."""
@@ -98,8 +95,6 @@ def add_team_matchup_features(players, team_features):
 
     return players
 
-
-
 def validate_matchup_features(players):
     """Validate opponent assignments and team feature coverage."""
 
@@ -132,3 +127,17 @@ def validate_matchup_features(players):
 
     if any(count > 0 for count in checks.values()):
         raise ValueError("Matchup feature validation failed.")
+
+def add_matchup_features(players, team_features):
+    """
+    Identify opponents and attach team matchup statistics.
+    """
+
+    players = add_opponent(players)
+
+    players = add_team_matchup_features(
+        players,
+        team_features
+    )
+
+    return players
