@@ -23,8 +23,9 @@ PLAYER_FILE = DATA_DIR / "nba_player_games_2026_27.csv"
 TEAM_FILE = DATA_DIR / "nba_team_games_2026_27.csv"
 
 
+
 def load_player_games(path=PLAYER_FILE):
-    """Load player boxscores in chronological order."""
+    """Load actual player appearances in chronological order."""
     df = pd.read_csv(path)
 
     df["GAME_DATE"] = pd.to_datetime(df["GAME_DATE"])
@@ -32,10 +33,15 @@ def load_player_games(path=PLAYER_FILE):
     if df.duplicated(["GAME_ID", "PLAYER_ID"]).any():
         raise ValueError("Duplicate player-game records detected.")
 
+    # Exclude records with missing or nonnumeric playing time.
+    minutes = pd.to_numeric(df["MIN"], errors="coerce")
+    df = df.loc[minutes.notna()].copy()
+
     return (
         df.sort_values(["PLAYER_ID", "GAME_DATE", "GAME_ID"])
         .reset_index(drop=True)
     )
+
 
 
 def load_team_games(path=TEAM_FILE):
