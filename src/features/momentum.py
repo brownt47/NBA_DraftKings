@@ -53,15 +53,17 @@ def calculate_momentum_features(games):
                 if len(momentum) >= 2
                 else float("nan")
             ),
+            
             "DK_CROSSOVER": (
                 1 if len(momentum) >= 2
-                and momentum.iloc[-2] <= 0
+                and momentum.iloc[-2] < 0
                 and momentum.iloc[-1] > 0
                 else -1 if len(momentum) >= 2
-                and momentum.iloc[-2] >= 0
+                and momentum.iloc[-2] > 0
                 and momentum.iloc[-1] < 0
                 else 0
             ),
+
             "DK_WHIPSAW_5": whipsaw_5,
         }
 

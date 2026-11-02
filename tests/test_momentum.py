@@ -15,7 +15,10 @@ sys.path.insert(
     str(Path(__file__).resolve().parents[1] / "src")
 )
 
-from features.momentum import calculate_momentum_features
+from features.momentum import (
+    calculate_momentum_features,
+    add_historical_momentum_features,
+)
 
 
 # ---------------------------------------------------------
@@ -152,3 +155,46 @@ def test_momentum_whipsaw():
 
     # Final performance produces negative momentum
     assert player["DK_MOMENTUM"] < 0
+
+
+
+def test_historical_matches_upcoming_momentum():
+    """Historical features must match predictions from prior games."""
+
+    scores = [50, 40, 30, 20, 10, 60, 15, 70, 10]
+
+    games = pd.DataFrame({
+        "PLAYER_ID": ["101"] * len(scores),
+        "GAME_ID": [f"G{i}" for i in range(len(scores))],
+        "GAME_DATE": pd.date_range(
+            "2026-10-01", periods=len(scores)
+        ),
+        "DK_POINTS": scores,
+    })
+
+    historical = add_historical_momentum_features(games)
+
+    columns = [
+        "DK_EMA_3",
+        "DK_EMA_10",
+        "DK_MOMENTUM",
+        "DK_MOMENTUM_CHANGE",
+        "DK_CROSSOVER",
+        "DK_WHIPSAW_5",
+    ]
+
+    for i in range(1, len(games)):
+        prior_games = games.iloc[:i]
+        upcoming = calculate_momentum_features(prior_games).iloc[0]
+        actual = historical.iloc[i]
+
+        for column in columns:
+            expected = upcoming[column]
+            observed = actual[column]
+
+            if pd.isna(expected):
+                assert pd.isna(observed), (i, column)
+            else:
+                assert observed == pytest.approx(expected), (
+                    i, column, observed, expected
+                )
