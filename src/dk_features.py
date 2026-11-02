@@ -10,6 +10,7 @@ from src.features.minutes import add_historical_minutes_features
 from src.features.momentum import add_historical_momentum_features
 from src.features.team import add_historical_team_features
 from src.features.matchup import add_historical_matchup_features
+from src.features.team_change import add_historical_team_change_features
 from src.features.schedule import (
     add_historical_schedule_features,
     add_player_workload_features,
@@ -74,6 +75,8 @@ def build_historical_features(windows=(3, 5, 7, 10)):
     players = add_historical_minutes_features(
         players, windows=windows
     )
+    players = add_historical_team_change_features(players)
+    
     teams = add_historical_schedule_features(teams)
     teams = add_historical_travel_features(teams)
 
