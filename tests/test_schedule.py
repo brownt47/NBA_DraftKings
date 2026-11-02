@@ -135,3 +135,45 @@ def test_player_workload_interactions():
     assert pd.isna(result.loc[2, "B2B_MIN_LOAD"])
     assert pd.isna(result.loc[2, "B2B_LAST_GAME_MIN"])
     assert pd.isna(result.loc[2, "B2B_EXCESS_MIN_LOAD"])
+
+
+def test_opponent_schedule_features():
+    import pandas as pd
+    from src.features.schedule import add_opponent_schedule_features
+
+    players = pd.DataFrame({
+        "GAME_ID": ["100", "100", "100"],
+        "TEAM": ["BOS", "BOS", "DET"],
+        "PLAYER_ID": [1, 2, 3],
+    })
+
+    teams = pd.DataFrame({
+        "GAME_ID": ["100", "100"],
+        "TEAM": ["BOS", "DET"],
+        "OPPONENT": ["DET", "BOS"],
+        "DAYS_REST": [2, 0],
+        "IS_BACK_TO_BACK": [0, 1],
+        "TRAVEL_MILES": [0, 700],
+        "TIMEZONE_CHANGE": [0, 1],
+        "TIMEZONES_CROSSED": [0, 1],
+    })
+
+    result = add_opponent_schedule_features(players, teams)
+
+    assert len(result) == 3
+
+    # Boston players receive Detroit's schedule values.
+    boston = result[result["TEAM"] == "BOS"]
+    assert (boston["OPP_DAYS_REST"] == 0).all()
+    assert (boston["OPP_IS_BACK_TO_BACK"] == 1).all()
+    assert (boston["OPP_TRAVEL_MILES"] == 700).all()
+
+    # Detroit player receives Boston's schedule values.
+    detroit = result[result["TEAM"] == "DET"]
+    assert (detroit["OPP_DAYS_REST"] == 2).all()
+    assert (detroit["OPP_IS_BACK_TO_BACK"] == 0).all()
+    assert (detroit["OPP_TRAVEL_MILES"] == 0).all()
+
+    # Verify remaining opponent features.
+    assert (boston["OPP_TIMEZONE_CHANGE"] == 1).all()
+    assert (boston["OPP_TIMEZONES_CROSSED"] == 1).all()

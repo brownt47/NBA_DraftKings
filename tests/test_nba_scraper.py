@@ -69,6 +69,7 @@ def test_discover_games(monkeypatch):
             {
                 "id": "401001",
                 "name": "Atlanta Hawks at Boston Celtics",
+                "date": "2026-10-26T00:00Z",
                 "season": {"type": 2},
                 "status": {"type": {"completed": True}},
             },

@@ -69,7 +69,12 @@ def fetch_team_game(game_id):
 
         team = {
             "GAME_ID": str(game_id),
-            "GAME_DATE": competition["date"][:10],
+            "GAME_DATE": (
+                pd.to_datetime(competition["date"], utc=True)
+                .tz_convert("America/New_York")
+                .date()
+                .isoformat()
+            ),
             "TEAM": team_info["abbreviation"],
             "HOME_AWAY": competitor["homeAway"],
             "PTS": int(competitor["score"]),

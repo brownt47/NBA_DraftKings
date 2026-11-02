@@ -330,3 +330,45 @@ def add_player_recent_minutes(players):
         )
 
     return players
+
+
+def add_opponent_schedule_features(players, teams):
+    """Attach opponent rest and travel features to player games."""
+
+    opponent_columns = {
+        "DAYS_REST": "OPP_DAYS_REST",
+        "IS_BACK_TO_BACK": "OPP_IS_BACK_TO_BACK",
+        "TRAVEL_MILES": "OPP_TRAVEL_MILES",
+        "TIMEZONE_CHANGE": "OPP_TIMEZONE_CHANGE",
+        "TIMEZONES_CROSSED": "OPP_TIMEZONES_CROSSED",
+    }
+
+    # Each team-game row identifies its opponent.
+    matchups = teams[
+        ["GAME_ID", "TEAM", "OPPONENT"]
+    ].copy()
+
+    # Attach the opponent's schedule values.
+    opponent_schedule = teams[
+        ["GAME_ID", "TEAM"] + list(opponent_columns)
+    ].rename(
+        columns={
+            "TEAM": "OPPONENT",
+            **opponent_columns,
+        }
+    )
+
+    matchups = matchups.merge(
+        opponent_schedule,
+        on=["GAME_ID", "OPPONENT"],
+        how="left",
+        validate="many_to_one",
+    )
+
+    # Attach opponent information to each player-game record.
+    return players.merge(
+        matchups.drop(columns="OPPONENT"),
+        on=["GAME_ID", "TEAM"],
+        how="left",
+        validate="many_to_one",
+    )

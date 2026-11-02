@@ -1,6 +1,7 @@
 
 import sys
 from pathlib import Path
+from unittest import result
 from unittest.mock import Mock
 
 import pandas as pd
@@ -213,6 +214,12 @@ def test_fetch_team_game_overtime(monkeypatch):
 
     atl = next(
         team for team in result if team["TEAM"] == "ATL"
+    )
+
+    # ESPN timestamps are UTC, but GAME_DATE must be Eastern.
+    assert all(
+        team["GAME_DATE"] == "2026-10-25"
+        for team in result
     )
 
     # ATL: 95 + .44(30) - 12 + 14 = 110.2

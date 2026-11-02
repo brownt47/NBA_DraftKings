@@ -76,11 +76,28 @@ def discover_games(start_date=START_DATE):
 
             game_id = event["id"]
 
+
+            # Convert ESPN's UTC game timestamp to Eastern calendar date.
+            game_timestamp = event.get("date")
+
+            if not game_timestamp:
+                raise ValueError(
+                    f"Missing ESPN date for game {game_id}"
+                )
+
+            game_date = (
+                pd.to_datetime(game_timestamp, utc=True)
+                .tz_convert("America/New_York")
+                .date()
+                .isoformat()
+            )
+
             games[game_id] = {
                 "GAME_ID": game_id,
-                "GAME_DATE": current_date.isoformat(),
+                "GAME_DATE": game_date,
                 "MATCHUP": event.get("name", ""),
             }
+
 
             count += 1
 

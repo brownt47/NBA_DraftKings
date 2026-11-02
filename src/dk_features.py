@@ -16,6 +16,7 @@ from src.features.schedule import (
     add_player_workload_features,
     add_player_recent_minutes,
     add_historical_travel_features,
+    add_opponent_schedule_features,
 )
 from src.features.rotation import (
     add_historical_rotation_features,
@@ -76,11 +77,6 @@ def build_historical_features(windows=(3, 5, 7, 10)):
     players = add_historical_scoring_features(
         players, windows=windows
     )
-    
-    # Player history
-    players = add_historical_scoring_features(
-        players, windows=windows
-    )
 
     # Offensive usage and fantasy efficiency
     players = add_historical_usage_features(players)
@@ -88,9 +84,7 @@ def build_historical_features(windows=(3, 5, 7, 10)):
     players = add_historical_minutes_features(
         players, windows=windows
     )
-    players = add_historical_minutes_features(
-        players, windows=windows
-    )
+
     players = add_historical_team_change_features(players)
     
     # Rotation and playing-time distribution
@@ -134,6 +128,9 @@ def build_historical_features(windows=(3, 5, 7, 10)):
         how="left",
         validate="many_to_one",
     )
+
+    # Opponent rest and travel conditions
+    players = add_opponent_schedule_features(players, teams)
 
     players = add_player_workload_features(players)
 
