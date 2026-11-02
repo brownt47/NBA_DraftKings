@@ -21,6 +21,7 @@ from src.features.rotation import (
     add_historical_rotation_features,
     add_historical_player_minutes_share,
 )
+from src.features.usage import add_historical_usage_features
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
@@ -75,7 +76,18 @@ def build_historical_features(windows=(3, 5, 7, 10)):
     players = add_historical_scoring_features(
         players, windows=windows
     )
+    
+    # Player history
+    players = add_historical_scoring_features(
+        players, windows=windows
+    )
 
+    # Offensive usage and fantasy efficiency
+    players = add_historical_usage_features(players)
+
+    players = add_historical_minutes_features(
+        players, windows=windows
+    )
     players = add_historical_minutes_features(
         players, windows=windows
     )
