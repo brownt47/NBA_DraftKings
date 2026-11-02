@@ -17,6 +17,10 @@ from src.features.schedule import (
     add_player_recent_minutes,
     add_historical_travel_features,
 )
+from src.features.rotation import (
+    add_historical_rotation_features,
+    add_historical_player_minutes_share,
+)
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
@@ -77,6 +81,10 @@ def build_historical_features(windows=(3, 5, 7, 10)):
     )
     players = add_historical_team_change_features(players)
     
+    # Rotation and playing-time distribution
+    players = add_historical_rotation_features(players, teams)
+    players = add_historical_player_minutes_share(players, teams)
+
     teams = add_historical_schedule_features(teams)
     teams = add_historical_travel_features(teams)
 
