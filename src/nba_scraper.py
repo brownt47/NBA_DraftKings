@@ -1,5 +1,7 @@
-
+import argparse
+from html import parser
 import os
+from sys import argv
 import time
 from datetime import date, timedelta
 from pathlib import Path
@@ -10,7 +12,18 @@ import requests
 from src.dk_scoring import calculate_dk_points
 
 # Configuration
-START_DATE = date(2026, 10, 20)
+SEASONS = {
+    "2025-26": (
+        date(2025, 10, 21),
+        date(2026, 4, 12),
+    ),
+    "2026-27": (
+        date(2026, 10, 20),
+        None,
+    ),
+}
+
+START_DATE, _ = SEASONS["2026-27"]
 END_DATE = date.today()
 
 # Number of recent days to refresh for stat corrections
@@ -50,12 +63,15 @@ def get_json(url, params):
     raise RuntimeError(f"Failed after 3 attempts: {params}")
 
 
-def discover_games(start_date=START_DATE):
-    """Find completed regular-season games from start_date."""
+def discover_games(start_date=START_DATE, end_date=None):
+    """Find completed regular-season games within a date range."""
+    if end_date is None:
+        end_date = END_DATE
+
     games = {}
     current_date = start_date
 
-    while current_date <= END_DATE:
+    while current_date <= end_date:
         date_string = current_date.strftime("%Y%m%d")
 
         data = get_json(
@@ -148,9 +164,17 @@ def parse_boxscore(game):
                 if player.get("didNotPlay", False):
                     continue
 
+                if player["stats"][0] == "--" and not player["athlete"].get("id"):
+                    print(
+                        f"  Skipping incomplete ESPN athlete record: "
+                        f"{player['athlete'].get('shortName', 'Unknown')} "
+                        f"(game {game['GAME_ID']})"
+                    )
+                    continue
+
                 stats = dict(zip(columns, player["stats"]))
                 athlete = player["athlete"]
-
+                
                 fgm, fga = split_shooting(stats["FG"])
                 fg3m, fg3a = split_shooting(stats["3PT"])
                 ftm, fta = split_shooting(stats["FT"])
@@ -189,30 +213,73 @@ def parse_boxscore(game):
     return records
 
 
-def main():
-    print("ESPN NBA 2026-27 Player Game Scraper")
+def main(argv=None):
+    parser = argparse.ArgumentParser(
+        description="Download ESPN NBA player box scores."
+    )
+
+    parser.add_argument(
+        "--season",
+        choices=SEASONS.keys(),
+        default="2026-27",
+    )
+
+    parser.add_argument(
+        "--start-date",
+        type=date.fromisoformat,
+        default=None,
+    )
+
+    parser.add_argument(
+        "--end-date",
+        type=date.fromisoformat,
+        default=None,
+    )
+
+    args = parser.parse_args([] if argv is None else argv)
+
+    season_start, season_end = SEASONS[args.season]
+
+    start_date = args.start_date or season_start
+    end_date = args.end_date or season_end or date.today()
+
+    if start_date > end_date:
+        parser.error("Start date cannot be after end date.")
+
+    output_file = Path(
+        f"data/nba_player_games_{args.season.replace('-', '_')}.csv"
+    )
+
+    if args.season == "2026-27" and argv is None:
+        output_file = OUTPUT_FILE
+
+    print(f"ESPN NBA {args.season} Player Game Scraper")
+    print(f"Date range: {start_date} through {end_date}")
+    print(f"Output: {output_file}")
     print("=" * 40)
 
     # Load existing data if available
-    if OUTPUT_FILE.exists():
+    if output_file.exists():
         existing_df = pd.read_csv(
-            OUTPUT_FILE,
+            output_file,
             dtype={"GAME_ID": str, "PLAYER_ID": str}
         )
 
         if existing_df.empty:
-            refresh_start = START_DATE
+            refresh_start = start_date
             print("\nExisting CSV is empty. Full-season download.")
         else:
             latest_saved_date = date.fromisoformat(
                 existing_df["GAME_DATE"].max()
             )
 
+        if args.season == "2025-26" and args.start_date is not None:
+            refresh_start = start_date
+        else:
             refresh_start = max(
-                START_DATE,
+                start_date,
                 latest_saved_date - timedelta(days=REFRESH_DAYS - 1)
             )
-
             print(
                 f"\nIncremental update: "
                 f"refreshing games from {refresh_start}"
@@ -220,12 +287,16 @@ def main():
 
     else:
         existing_df = pd.DataFrame()
-        refresh_start = START_DATE
+        refresh_start = start_date
 
         print("\nNo existing CSV. Full-season download.")
 
+
+
     print("\nDiscovering completed games...")
-    games = discover_games(refresh_start)
+    print(f"DEBUG: refresh_start = {refresh_start}")
+    print(f"DEBUG: end_date = {end_date}")
+    games = discover_games(refresh_start, end_date)
 
     print(f"\nFound {len(games)} completed games.")
 
@@ -291,15 +362,15 @@ def main():
         ["GAME_DATE", "GAME_ID", "TEAM", "PLAYER_NAME"]
     ).reset_index(drop=True)
 
-    OUTPUT_FILE.parent.mkdir(
+    output_file.parent.mkdir(
         parents=True, exist_ok=True
     )
 
-    temporary_file = OUTPUT_FILE.with_suffix(".tmp")
+    temporary_file = output_file.with_suffix(".tmp")
 
     try:
         df.to_csv(temporary_file, index=False)
-        os.replace(temporary_file, OUTPUT_FILE)
+        os.replace(temporary_file, output_file)
     finally:
         if temporary_file.exists():
             temporary_file.unlink()
@@ -310,8 +381,9 @@ def main():
     print(f"Total games in dataset: {df['GAME_ID'].nunique()}")
     print(f"Player-game records: {len(df):,}")
     print(f"Unique players: {df['PLAYER_ID'].nunique()}")
-    print(f"Saved to: {OUTPUT_FILE}")
+    print(f"Saved to: {output_file}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(sys.argv[1:])

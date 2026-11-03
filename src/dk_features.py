@@ -2,7 +2,7 @@
 """Feature engineering for NBA DraftKings predictions."""
 
 from pathlib import Path
-
+import argparse
 import pandas as pd
 
 from src.features.scoring import add_historical_scoring_features
@@ -67,11 +67,27 @@ def load_team_games(path=TEAM_FILE):
 
 
 
-def build_historical_features(windows=(3, 5, 7, 10)):
+def build_historical_features(
+    windows=(3, 5, 7, 10),
+    season="2026-27",
+):
     """Build the historical NBA player-game feature dataset."""
 
-    players = load_player_games()
-    teams = load_team_games()
+    if season not in ("2025-26", "2026-27"):
+        raise ValueError(f"Unsupported season: {season}")
+
+    player_file = DATA_DIR / f"nba_player_games_{season.replace('-', '_')}.csv"
+    team_file = DATA_DIR / f"nba_team_games_{season.replace('-', '_')}.csv"
+
+    players = load_player_games(player_file)
+    teams = load_team_games(team_file)
+
+    # Exclude exhibition games absent from the official team dataset.
+    if season == "2025-26":
+        valid_game_ids = set(teams["GAME_ID"].astype(str))
+        players = players.loc[
+            players["GAME_ID"].astype(str).isin(valid_game_ids)
+        ].copy()
 
     # Player history
     players = add_historical_scoring_features(
@@ -141,12 +157,22 @@ def build_historical_features(windows=(3, 5, 7, 10)):
 
 
 if __name__ == "__main__":
-    features = build_historical_features()
+    parser = argparse.ArgumentParser(
+        description="Build NBA DraftKings historical features."
+    )
+    parser.add_argument(
+        "--season",
+        choices=["2025-26", "2026-27"],
+        default="2026-27",
+    )
+    args = parser.parse_args()
+
+    features = build_historical_features(season=args.season)
 
     print(f"Player-game records: {len(features):,}")
     print(f"Total columns: {len(features.columns)}")
 
-    output = DATA_DIR / "nba_features_2026_27.csv"
+    output = DATA_DIR / f"nba_features_{args.season.replace('-', '_')}.csv"
     features.to_csv(output, index=False)
 
     print(f"Saved: {output}")

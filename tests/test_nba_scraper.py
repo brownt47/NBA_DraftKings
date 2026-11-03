@@ -353,7 +353,7 @@ def test_incremental_update(tmp_path, monkeypatch):
     monkeypatch.setattr(
         nba_scraper,
         "discover_games",
-        lambda start_date: discovered
+        lambda start_date, end_date=None: discovered
     )
 
     # Simulated updated player records
@@ -468,7 +468,7 @@ def test_duplicate_player_game_protection(tmp_path, monkeypatch):
     monkeypatch.setattr(
         nba_scraper,
         "discover_games",
-        lambda start_date: {"G2": game}
+        lambda start_date, end_date=None: {"G2": game}
     )
 
     # Simulate ESPN returning the same player twice
@@ -563,7 +563,7 @@ def test_boxscore_failure_protection(tmp_path, monkeypatch):
     monkeypatch.setattr(
         nba_scraper,
         "discover_games",
-        lambda start_date: {"G2": game}
+        lambda start_date, end_date=None: {"G2": game}
     )
 
     # Simulate ESPN failing to return the box score
@@ -691,3 +691,63 @@ def test_get_json_retry_exhausted(monkeypatch):
 
     # Delays occur only between attempts
     assert delays == [3, 6]
+
+
+def test_missing_player_id_with_no_minutes(monkeypatch):
+    from src import nba_scraper
+
+    game = {
+        "GAME_ID": "401810150",
+        "GAME_DATE": "2025-11-29",
+        "MATCHUP": "Chicago Bulls at Indiana Pacers",
+    }
+
+    fake_data = {
+        "boxscore": {
+            "players": [
+                {
+                    "team": {"abbreviation": "CHI"},
+                    "statistics": [
+                        {
+                            "names": [
+                                "MIN", "PTS", "FG", "3PT", "FT",
+                                "REB", "AST", "TO", "STL", "BLK",
+                                "OREB", "DREB", "PF", "+/-",
+                            ],
+                            "athletes": [
+                                {
+                                    "didNotPlay": False,
+                                    "athlete": {
+                                        "links": [],
+                                        "shortName": "Olbrich",
+                                    },
+                                    "stats": [
+                                        "--", "0", "0-0", "0-0", "0-0",
+                                        "0", "0", "0", "0", "0",
+                                        "0", "0", "0", "0",
+                                    ],
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "team": {"abbreviation": "IND"},
+                    "statistics": [],
+                },
+            ]
+        }
+    }
+
+    monkeypatch.setattr(
+        nba_scraper,
+        "get_json",
+        lambda url, params: fake_data,
+    )
+
+    # The malformed record is skipped, leaving no valid players.
+    # The scraper should raise its existing empty-box-score error.
+    import pytest
+
+    with pytest.raises(ValueError, match="No player records"):
+        nba_scraper.parse_boxscore(game)

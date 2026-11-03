@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import argparse
 
 import requests
 import pandas as pd
@@ -128,7 +129,7 @@ def fetch_team_game(game_id):
 # Download team statistics for completed NBA games.
 # ---------------------------------------------------------
 
-def main():
+def main(batch_size=None):
 
     # ---------------------------------------------------------
     # LOAD PLAYER GAME DATA
@@ -150,15 +151,16 @@ def main():
     )
 
     latest_date = player_games["GAME_DATE"].max()
-
     refresh_start = latest_date - pd.Timedelta(days=2)
 
-    recent_ids = set(
-        player_games.loc[
-            player_games["GAME_DATE"] >= refresh_start,
-            "GAME_ID"
-        ].dropna()
-    )
+    if PLAYER_FILE.name == "nba_player_games_2025_26.csv":
+        recent_ids = set()
+    else:
+        recent_ids = set(
+            player_games.loc[
+                player_games["GAME_DATE"] >= refresh_start, "GAME_ID"
+            ].dropna()
+        )
 
 
     # ---------------------------------------------------------
@@ -167,6 +169,19 @@ def main():
     # ---------------------------------------------------------
 
     game_ids = player_games["GAME_ID"].dropna().unique()
+
+    # Exclude shortened All-Star tournament games from historical team data.
+    if PLAYER_FILE.name == "nba_player_games_2025_26.csv":
+        all_star_game_ids = {
+            "401838140",
+            "401838141",
+            "401838142",
+            "401838143",
+        }
+        game_ids = [
+            game_id for game_id in game_ids
+            if game_id not in all_star_game_ids
+        ]
 
     print(f"Found {len(game_ids)} unique games.")
 
@@ -201,7 +216,8 @@ def main():
     ]
 
 
-    print(f"Games needing download: {len(game_ids)}")
+    if batch_size is not None:
+       game_ids = game_ids[:batch_size]
 
     records = []
     failed_games = []
@@ -356,4 +372,28 @@ def main():
 # ---------------------------------------------------------
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Download NBA team game statistics."
+    )
+
+    parser.add_argument(
+        "--season",
+        default="2026-27",
+        choices=["2025-26", "2026-27"],
+        help="NBA season to process (default: 2026-27)."
+    )
+
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=None,
+        help="Maximum number of games to download per run."
+    )
+
+    args = parser.parse_args()
+
+    if args.season == "2025-26":
+        PLAYER_FILE = Path("data/nba_player_games_2025_26.csv")
+        OUTPUT_FILE = Path("data/nba_team_games_2025_26.csv")
+
+    main(batch_size=args.batch_size)
