@@ -9,3 +9,12 @@ __pycache__/
 .env
 .venv/
 venv/
+# Temporary NBA data backups and refresh files
+data/*_backup.csv
+data/*_full_refresh.csv
+
+# Generated modeling reports
+reports/
+
+# Temporary review archive
+feature_review.zip
