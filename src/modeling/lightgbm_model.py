@@ -9,7 +9,10 @@ import numpy as np
 import pandas as pd
 
 from src.modeling.features import prepare_model_features
-from src.modeling.splits import monthly_walk_forward_splits
+from src.modeling.splits import (
+    monthly_walk_forward_splits,
+    biweekly_walk_forward_splits,
+)
 
 
 DEFAULT_DATA_PATH = Path("data/nba_features_2025_26.csv")
@@ -31,6 +34,15 @@ MINUTE_LABELS = [
     "35+",
 ]
 
+PREGAME_MINUTES_COLUMN = "MIN_AVG_LAST_5"
+
+PREGAME_ROLE_BINS = [-np.inf, 10, 20, 30, np.inf]
+PREGAME_ROLE_LABELS = [
+    "Under 10",
+    "10-19",
+    "20-29",
+    "30+",
+]
 
 DEFAULT_PARAMS = {
     "objective": "regression",
@@ -151,7 +163,7 @@ def _build_comparison_metrics(predictions, group_columns):
     return pd.DataFrame(results)
 
 
-def run_walk_forward(df, model_params=None):
+def run_walk_forward(df, model_params=None, split="monthly"):
     """
     Train and evaluate LightGBM using chronological monthly folds.
 
@@ -169,6 +181,7 @@ def run_walk_forward(df, model_params=None):
         DATE_COLUMN,
         MINUTES_COLUMN,
         "PLAYER_NAME",
+        PREGAME_MINUTES_COLUMN,
     ]
 
     missing = [
@@ -185,8 +198,15 @@ def run_walk_forward(df, model_params=None):
     predictions_by_fold = []
     importance_by_fold = []
 
+    if split == "monthly":
+        splits = monthly_walk_forward_splits(df)
+    elif split == "biweekly":
+        splits = biweekly_walk_forward_splits(df)
+    else:
+        raise ValueError(f"Unknown split type: {split}")
+
     for fold, (train_idx, validation_idx) in enumerate(
-        monthly_walk_forward_splits(df), start=1
+        splits, start=1
     ):
 
         train_df = df.loc[train_idx].copy()
@@ -254,7 +274,7 @@ def run_walk_forward(df, model_params=None):
 
         results = validation_df.loc[
             valid,
-            ["GAME_DATE", "PLAYER_NAME", "MIN"]
+        ["GAME_DATE", "PLAYER_NAME", "MIN", PREGAME_MINUTES_COLUMN, "GAME_ID","PLAYER_ID", "OPPONENT", "HOME_AWAY"]
         ].copy()
 
         results["FOLD"] = fold
@@ -297,6 +317,100 @@ def run_walk_forward(df, model_params=None):
         right=False,
     )
 
+    predictions["PREGAME_MINUTES"] = pd.to_numeric(
+        predictions[PREGAME_MINUTES_COLUMN],
+        errors="coerce",
+    )
+
+    predictions["PREGAME_ROLE"] = pd.cut(
+        predictions["PREGAME_MINUTES"],
+        bins=PREGAME_ROLE_BINS,
+        labels=PREGAME_ROLE_LABELS,
+        right=False,
+    )
+
+    pregame_role_metrics = _build_comparison_metrics(
+        predictions.dropna(subset=["PREGAME_ROLE"]),
+        ["PREGAME_ROLE"],
+    )
+
+    pregame_role_metrics["LIGHTGBM_WIN_RATE"] = [
+        (
+            predictions.loc[
+                predictions["PREGAME_ROLE"] == role,
+                "ERROR_LIGHTGBM",
+            ].abs()
+            <
+            predictions.loc[
+                predictions["PREGAME_ROLE"] == role,
+                "ERROR_EMA",
+            ].abs()
+        ).mean()
+        for role in pregame_role_metrics["PREGAME_ROLE"]
+    ]
+
+        # Existing pregame role analysis
+    pregame_role_metrics["LIGHTGBM_WIN_RATE"] = [
+        (
+            predictions.loc[
+                predictions["PREGAME_ROLE"] == role,
+                "ERROR_LIGHTGBM",
+            ].abs()
+            <
+            predictions.loc[
+                predictions["PREGAME_ROLE"] == role,
+                "ERROR_EMA",
+            ].abs()
+        ).mean()
+        for role in pregame_role_metrics["PREGAME_ROLE"]
+    ]
+
+    # PASTE THE NEW MINUTES-CHANGE CODE HERE
+
+    
+    # Minutes change relative to pregame five-game average
+    predictions["MINUTES_CHANGE"] = (
+        predictions["MINUTES_NUMERIC"]
+        - predictions["PREGAME_MINUTES"]
+    )
+
+    minutes_change_bins = [-np.inf, -10, -5, 5, 10, np.inf]
+    minutes_change_labels = [
+        "Major decrease",
+        "Moderate decrease",
+        "Stable",
+        "Moderate increase",
+        "Major increase",
+    ]
+
+    predictions["MINUTES_CHANGE_GROUP"] = pd.cut(
+        predictions["MINUTES_CHANGE"],
+        bins=minutes_change_bins,
+        labels=minutes_change_labels,
+        right=False,
+    )
+
+    minutes_change_metrics = _build_comparison_metrics(
+        predictions.dropna(subset=["MINUTES_CHANGE_GROUP"]),
+        ["MINUTES_CHANGE_GROUP"],
+    )
+
+    minutes_change_metrics["LIGHTGBM_WIN_RATE"] = [
+        (
+            predictions.loc[
+                predictions["MINUTES_CHANGE_GROUP"] == group,
+                "ERROR_LIGHTGBM",
+            ].abs()
+            <
+            predictions.loc[
+                predictions["MINUTES_CHANGE_GROUP"] == group,
+                "ERROR_EMA",
+            ].abs()
+        ).mean()
+        for group in minutes_change_metrics["MINUTES_CHANGE_GROUP"]
+    ]
+
+    # Existing monthly evaluation
     monthly_metrics = _build_comparison_metrics(
         predictions, ["MONTH"]
     )
@@ -343,6 +457,8 @@ def run_walk_forward(df, model_params=None):
         "overall_metrics": overall_metrics,
         "importance_details": importance_details,
         "importance_summary": importance_summary,
+        "pregame_role_metrics": pregame_role_metrics,
+        "minutes_change_metrics": minutes_change_metrics
     }
 
 
@@ -360,18 +476,28 @@ def main():
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=DEFAULT_OUTPUT_DIR,
+        default=None,
+    )
+
+    parser.add_argument(
+        "--split",
+        choices=["monthly", "biweekly"],
+        default="monthly",
+        help="Walk-forward validation frequency",
     )
 
     args = parser.parse_args()
-
+    
+    if args.output_dir is None:
+        args.output_dir = DEFAULT_OUTPUT_DIR / args.split
+    
     print(f"Loading: {args.data}")
 
     df = pd.read_csv(args.data)
 
     print(f"Loaded {len(df):,} player-game records")
 
-    results = run_walk_forward(df)
+    results = run_walk_forward(df, split=args.split)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -383,6 +509,8 @@ def main():
         "overall_metrics": "lightgbm_overall_metrics.csv",
         "importance_details": "lightgbm_importance_by_fold.csv",
         "importance_summary": "lightgbm_importance_summary.csv",
+        "pregame_role_metrics": "lightgbm_pregame_role_metrics.csv",
+        "minutes_change_metrics": "lightgbm_minutes_change_metrics.csv"
     }
 
     for key, filename in output_files.items():
