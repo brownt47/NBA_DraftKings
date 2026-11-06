@@ -2419,7 +2419,7 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,3157465,Duncan Robinson,DET,37,27,8,12,7,11,4,6,1,2,0,1,0,0,1,2,4,36.75,0,0,0.0,36.75
 401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,2596112,Javonte Green,DET,15,1,0,1,0,1,1,2,3,1,0,0,0,0,3,3,-4,6.25,0,0,0.0,6.25
 401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,3908845,John Collins,DET,26,16,7,9,0,1,2,2,1,0,0,0,0,0,1,4,-1,17.25,0,0,0.0,17.25
-401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,4066372,Kevin Huerter,DET,20,8,3,8,2,6,0,0,1,0,0,0,2,0,1,1,-4,14.25,0,0,0.0,14.25
+401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,4066372,Kevin Huerter,DET,20,8,3,8,2,6,0,0,0,0,0,0,2,0,0,1,-4,13.0,0,0,0.0,13.0
 401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,4278562,Paul Reed,DET,30,8,4,14,0,1,0,0,7,4,2,1,0,2,5,6,7,23.75,0,0,0.0,23.75
 401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,4683771,Ronald Holland II,DET,12,3,1,1,1,1,0,0,2,0,1,0,1,0,2,2,-21,7.5,0,0,0.0,7.5
 401909922,2026-11-04,Philadelphia 76ers at Detroit Pistons,4397882,Tolu Smith,DET,5,1,0,0,0,0,1,2,1,0,0,0,2,0,1,1,-7,6.25,0,0,0.0,6.25
@@ -2528,8 +2528,8 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909926,2026-11-04,Chicago Bulls at New York Knicks,3934719,OG Anunoby,NY,24,18,3,10,1,6,11,12,5,2,2,3,0,1,4,4,31,32.75,0,0,0.0,32.75
 401909926,2026-11-04,Chicago Bulls at New York Knicks,5211983,Pacome Dadiet,NY,9,4,2,4,0,1,0,0,0,0,0,0,0,0,0,1,-6,4.0,0,0,0.0,4.0
 401909926,2026-11-04,Chicago Bulls at New York Knicks,4433225,Tyler Kolek,NY,11,0,0,0,0,0,0,0,0,5,0,0,0,0,0,1,3,7.5,0,0,0.0,7.5
-401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4396909,Aaron Nesmith,IND,30,16,7,16,2,6,0,1,2,2,1,3,1,0,2,3,0,30.0,0,0,0.0,30.0
-401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4395712,Andrew Nembhard,IND,38,22,8,15,2,7,4,4,2,5,2,1,1,0,2,2,-4,36.0,0,0,0.0,36.0
+401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4396909,Aaron Nesmith,IND,30,16,7,16,2,6,0,1,1,2,1,3,1,0,1,3,0,28.75,0,0,0.0,28.75
+401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4395712,Andrew Nembhard,IND,38,22,8,15,2,7,4,4,2,4,2,1,1,0,2,2,-4,34.5,0,0,0.0,34.5
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,5105854,Braden Smith,IND,24,10,5,9,0,1,0,0,1,5,3,2,2,0,1,4,2,25.25,0,0,0.0,25.25
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4017837,Ivica Zubac,IND,19,1,0,5,0,0,1,2,4,2,2,0,0,2,2,1,-22,8.0,0,0,0.0,8.0
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4398207,Jalen Slawson,IND,6,2,0,2,0,2,2,2,2,1,1,0,1,2,0,1,1,7.5,0,0,0.0,7.5
@@ -2538,19 +2538,19 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4431752,Kobe Brown,IND,7,0,0,2,0,2,0,0,1,0,0,0,0,0,1,0,-2,1.25,0,0,0.0,1.25
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,2580365,Larry Nance Jr.,IND,14,4,2,3,0,1,0,0,4,1,0,0,0,2,2,0,18,10.5,0,0,0.0,10.5
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4278355,Obi Toppin,IND,19,11,3,6,1,2,4,4,5,1,3,0,0,0,5,0,1,17.75,0,0,0.0,17.75
-401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,3149673,Pascal Siakam,IND,30,20,8,13,2,5,2,2,4,2,0,2,1,0,4,3,3,35.0,0,0,0.0,35.0
+401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,3149673,Pascal Siakam,IND,30,20,8,13,2,5,2,2,5,2,0,2,1,0,5,3,3,36.25,0,0,0.0,36.25
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4592829,Quenton Jackson,IND,22,13,4,9,3,5,2,2,7,2,2,2,0,1,6,1,15,29.25,0,0,0.0,29.25
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4433083,Cam Spencer,MEM,24,7,3,4,1,2,0,0,6,9,2,1,0,2,4,1,-5,29.5,0,0,0.0,29.5
-401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,5041935,Cameron Boozer,MEM,33,10,4,14,2,5,0,0,6,4,4,1,0,2,4,0,-4,24.5,0,0,0.0,24.5
+401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,5041935,Cameron Boozer,MEM,33,10,4,14,2,5,0,0,6,4,5,1,0,2,4,0,-4,24.0,0,0,0.0,24.0
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4903027,Cedric Coward,MEM,33,23,8,19,4,12,3,4,9,4,3,4,0,4,5,0,-2,48.75,0,0,0.0,48.75
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,5105550,GG Jackson,MEM,7,1,0,1,0,1,1,2,2,0,1,0,0,0,2,1,-7,3.0,0,0,0.0,3.0
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4432810,Isaiah Stewart,MEM,10,6,3,4,0,0,0,0,1,0,0,0,0,0,1,2,-2,7.25,0,0,0.0,7.25
-401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,5112087,Jaylen Wells,MEM,21,0,0,3,0,3,0,0,1,3,1,0,1,0,1,5,0,7.25,0,0,0.0,7.25
+401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,5112087,Jaylen Wells,MEM,21,0,0,3,0,3,0,0,2,3,1,0,1,0,2,5,0,8.5,0,0,0.0,8.5
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,2991070,Jerami Grant,MEM,24,11,4,10,2,5,1,2,1,2,0,1,0,0,1,2,-11,18.25,0,0,0.0,18.25
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4594326,Kris Murray,MEM,15,5,2,4,1,3,0,0,1,1,1,0,1,1,0,0,-3,9.75,0,0,0.0,9.75
-401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4595400,Olivier-Maxence Prosper,MEM,7,4,2,3,0,1,0,0,3,1,0,0,0,1,2,0,-4,9.25,0,0,0.0,9.25
+401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4595400,Olivier-Maxence Prosper,MEM,7,4,2,3,0,1,0,0,2,1,0,0,0,1,1,0,-4,8.0,0,0,0.0,8.0
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4593016,Quinten Post,MEM,11,2,1,3,0,2,0,0,1,0,1,1,0,0,1,2,-11,4.75,0,0,0.0,4.75
-401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4065733,Ty Jerome,MEM,29,23,10,20,2,10,1,2,4,3,4,0,1,0,4,2,11,33.5,0,0,0.0,33.5
+401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4065733,Ty Jerome,MEM,29,23,10,20,2,10,1,2,4,3,3,0,1,0,4,2,11,34.0,0,0,0.0,34.0
 401909927,2026-11-04,Indiana Pacers at Memphis Grizzlies,4600663,Zach Edey,MEM,25,11,4,6,0,0,3,5,13,1,2,0,2,3,10,3,18,31.75,1,0,1.5,33.25
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4683634,Bennedict Mathurin,NO,15,2,1,6,0,3,0,0,5,1,1,0,0,3,2,2,-10,9.25,0,0,0.0,9.25
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,3907497,Dejounte Murray,NO,45,20,4,7,1,3,11,11,8,4,4,4,0,0,8,2,17,42.5,0,0,0.0,42.5
@@ -2560,7 +2560,7 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4997538,Karlo Matkovic,NO,21,5,2,3,1,1,0,0,4,2,1,0,1,1,3,3,-9,15.0,0,0,0.0,15.0
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4397136,Saddiq Bey,NO,29,22,9,14,2,4,2,3,4,3,1,1,0,1,3,1,0,34.0,0,0,0.0,34.0
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4431675,Trendon Watford,NO,20,7,1,1,0,0,5,6,3,2,3,1,1,0,3,4,7,16.25,0,0,0.0,16.25
-401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4395628,Zion Williamson,NO,38,23,6,14,0,0,11,13,4,2,2,2,2,2,2,4,7,38.0,0,0,0.0,38.0
+401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4395628,Zion Williamson,NO,38,23,6,14,0,0,11,13,4,2,2,1,2,2,2,4,7,36.0,0,0,0.0,36.0
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4873138,Ace Bailey,UTAH,35,15,6,14,1,9,2,3,5,1,3,0,1,1,4,6,0,23.75,0,0,0.0,23.75
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,5105839,Brice Sensabaugh,UTAH,12,6,2,4,1,2,1,2,2,0,2,2,0,0,2,0,-14,12.0,0,0,0.0,12.0
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,5041955,Darryn Peterson,UTAH,30,7,2,8,0,5,3,4,2,7,2,0,0,1,1,1,-12,19.0,0,0,0.0,19.0
@@ -2568,21 +2568,21 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4397077,Jaxson Hayes,UTAH,21,2,1,2,0,0,0,0,7,1,4,0,1,2,5,6,-13,12.25,0,0,0.0,12.25
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4432811,Josh Green,UTAH,23,7,3,7,1,5,0,0,1,0,0,0,0,1,0,2,4,8.75,0,0,0.0,8.75
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4065663,Josh Okogie,UTAH,26,3,1,4,1,2,0,0,6,1,2,0,1,1,5,5,-12,13.5,0,0,0.0,13.5
-401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4433627,Keyonte George,UTAH,44,39,14,26,2,9,9,13,2,9,3,4,1,0,2,3,0,64.5,0,0,0.0,64.5
+401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4433627,Keyonte George,UTAH,44,39,14,27,2,9,9,13,2,9,3,4,1,0,2,3,0,64.5,0,0,0.0,64.5
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4066336,Lauri Markkanen,UTAH,39,21,6,15,5,12,4,6,10,4,3,1,2,2,8,4,-11,46.5,1,0,1.5,48.0
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,4277919,Mo Bamba,UTAH,15,7,3,5,0,0,1,2,10,1,0,0,1,5,5,3,8,23.0,0,0,0.0,23.0
 401909928,2026-11-04,Utah Jazz at New Orleans Pelicans,3133602,Svi Mykhailiuk,UTAH,17,6,3,8,0,3,0,0,3,0,1,1,0,2,1,2,12,11.25,0,0,0.0,11.25
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4701233,Craig Porter Jr.,CLE,14,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,-2,4.25,0,0,0.0,4.25
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,3908809,Donovan Mitchell,CLE,33,27,10,17,5,10,2,2,3,6,2,1,0,0,3,5,1,43.25,0,0,0.0,43.25
-401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4432158,Evan Mobley,CLE,33,16,7,15,1,5,1,2,10,3,2,0,3,3,7,3,-1,38.5,1,0,1.5,40.0
-401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,3992,James Harden,CLE,35,19,5,16,3,8,6,6,9,6,3,0,2,1,8,1,0,43.25,0,0,0.0,43.25
+401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4432158,Evan Mobley,CLE,33,16,7,15,1,5,1,2,10,3,2,0,2,3,7,3,-1,36.5,1,0,1.5,38.0
+401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,3992,James Harden,CLE,35,19,5,16,3,8,6,6,9,6,3,1,2,1,8,1,0,45.25,0,0,0.0,45.25
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4066328,Jarrett Allen,CLE,7,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,-8,1.25,0,0,0.0,1.25
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,2995706,Mario Hezonja,CLE,23,12,5,10,2,6,0,0,8,1,2,0,0,2,6,2,-8,23.5,0,0,0.0,23.5
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,5041951,Meleek Thomas,CLE,18,9,3,9,3,7,0,0,1,0,2,1,0,0,1,6,-9,12.75,0,0,0.0,12.75
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4066757,Sam Merrill,CLE,27,10,3,7,2,4,2,2,7,1,0,1,1,2,5,5,-5,25.25,0,0,0.0,25.25
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,3934723,Thomas Bryant,CLE,13,8,1,4,1,3,5,6,0,0,0,0,0,0,0,2,-5,8.5,0,0,0.0,8.5
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4431734,Tristan Enaruna,CLE,16,4,2,7,0,3,0,0,4,1,0,1,0,1,3,1,-1,12.5,0,0,0.0,12.5
-401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,5023693,Tyrese Proctor,CLE,22,11,4,7,2,3,1,1,1,0,0,1,0,0,1,3,-2,15.25,0,0,0.0,15.25
+401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,5023693,Tyrese Proctor,CLE,22,11,4,7,2,3,1,1,1,0,0,0,0,0,1,3,-2,13.25,0,0,0.0,13.25
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,5174983,Aday Mara,OKC,25,9,4,6,0,0,1,2,5,2,0,0,3,1,4,2,6,24.25,0,0,0.0,24.25
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4900671,Ajay Mitchell,OKC,32,23,9,17,1,3,4,6,7,4,1,1,0,0,7,1,2,39.75,0,0,0.0,39.75
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,2991350,Alex Caruso,OKC,20,7,1,3,1,2,4,4,4,3,1,0,0,1,3,1,16,16.5,0,0,0.0,16.5
@@ -2593,10 +2593,10 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,3133626,Kenrich Williams,OKC,29,13,5,9,3,5,0,0,4,2,1,0,0,0,4,2,-4,22.0,0,0,0.0,22.0
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4432185,Micah Peavy,OKC,26,2,1,6,0,2,0,0,9,1,0,1,0,4,5,5,5,16.75,0,0,0.0,16.75
 401909929,2026-11-04,Cleveland Cavaliers at Oklahoma City Thunder,4278073,Shai Gilgeous-Alexander,OKC,35,42,11,26,5,11,15,19,4,8,4,0,1,1,3,2,5,61.5,0,0,0.0,61.5
-401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,4871144,Alperen Sengun,HOU,39,17,5,15,0,1,7,9,12,10,4,0,3,3,9,3,-7,51.0,1,1,4.5,55.5
+401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,4871144,Alperen Sengun,HOU,39,17,5,15,0,1,7,9,12,10,5,0,3,3,9,3,-7,50.5,1,1,4.5,55.0
 401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,4684740,Amen Thompson,HOU,32,11,3,9,0,2,5,6,8,1,3,0,0,5,3,4,-11,21.0,0,0,0.0,21.0
 401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,3037789,Bogdan Bogdanovic,HOU,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0,0,0.0,0.0
-401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,2991230,Fred VanVleet,HOU,30,18,6,12,4,9,2,2,3,3,4,0,0,1,2,3,-8,26.25,0,0,0.0,26.25
+401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,2991230,Fred VanVleet,HOU,30,18,6,12,4,9,2,2,3,3,3,0,0,1,2,3,-8,26.75,0,0,0.0,26.75
 401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,4432639,Jabari Smith Jr.,HOU,35,11,3,4,2,3,3,4,4,2,1,0,3,1,3,1,-8,25.5,0,0,0.0,25.5
 401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,3202,Kevin Durant,HOU,35,21,7,14,2,5,5,6,5,2,4,1,1,1,4,3,-6,33.25,0,0,0.0,33.25
 401909930,2026-11-04,Minnesota Timberwolves at Houston Rockets,2990992,Marcus Smart,HOU,18,4,1,5,1,4,1,2,1,1,2,0,1,0,1,4,-7,8.25,0,0,0.0,8.25
@@ -2627,7 +2627,7 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4431690,Zeke Nnaji,DEN,4,2,0,0,0,0,2,2,0,0,0,0,0,0,0,1,-7,2.0,0,0,0.0,2.0
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4702656,Alijah Martin,TOR,9,6,2,3,0,0,2,2,1,0,2,0,1,1,0,1,1,8.25,0,0,0.0,8.25
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,5149115,Allen Graves,TOR,14,5,2,4,1,3,0,0,1,1,0,0,0,1,0,2,5,8.25,0,0,0.0,8.25
-401909931,2026-11-04,Toronto Raptors at Denver Nuggets,5093267,Collin Murray-Boyles,TOR,23,13,6,10,1,2,0,0,3,2,2,0,0,2,1,3,-4,19.25,0,0,0.0,19.25
+401909931,2026-11-04,Toronto Raptors at Denver Nuggets,5093267,Collin Murray-Boyles,TOR,23,13,6,10,1,2,0,0,3,2,1,0,0,2,1,3,-4,19.75,0,0,0.0,19.75
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4395724,Immanuel Quickley,TOR,32,13,5,12,2,8,1,1,1,7,1,2,0,0,1,2,-29,29.25,0,0,0.0,29.25
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4684272,Ja'Kobe Walter,TOR,27,8,3,8,1,6,1,2,1,2,2,0,0,1,0,1,-9,11.75,0,0,0.0,11.75
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4432737,Jaden Bradley,TOR,4,2,0,0,0,0,2,2,1,0,0,1,0,0,1,0,7,5.25,0,0,0.0,5.25
@@ -2636,7 +2636,7 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4431893,Jamison Battle,TOR,19,9,3,5,2,4,1,1,1,0,0,0,0,0,1,2,-14,11.25,0,0,0.0,11.25
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,2993874,Kyle Anderson,TOR,4,2,1,2,0,0,0,0,0,1,0,0,0,0,0,1,7,3.5,0,0,0.0,3.5
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4395625,RJ Barrett,TOR,33,22,7,17,3,7,5,8,5,3,0,0,0,2,3,4,-15,34.25,0,0,0.0,34.25
-401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4433134,Scottie Barnes,TOR,32,17,7,15,1,2,2,4,6,6,5,3,0,1,5,1,-23,37.5,0,0,0.0,37.5
+401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4433134,Scottie Barnes,TOR,32,17,7,15,1,2,2,4,6,6,6,3,0,1,5,1,-23,37.0,0,0,0.0,37.0
 401909931,2026-11-04,Toronto Raptors at Denver Nuggets,4431684,Trayce Jackson-Davis,TOR,4,1,0,0,0,0,1,2,0,0,0,3,0,0,0,0,7,7.0,0,0,0.0,7.0
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4278585,Collin Gillespie,PHX,23,2,1,5,0,4,0,0,3,2,2,2,0,1,2,1,-13,11.75,0,0,0.0,11.75
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,3136193,Devin Booker,PHX,34,33,9,19,2,8,13,13,1,2,2,0,0,0,1,6,-7,37.25,0,0,0.0,37.25
@@ -2649,7 +2649,7 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,3913174,Luke Kennard,PHX,14,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,-13,1.0,0,0,0.0,1.0
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4066383,Miles Bridges,PHX,31,18,6,13,4,7,2,3,7,5,0,2,0,0,7,5,-6,40.25,0,0,0.0,40.25
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4601023,Oso Ighodaro,PHX,23,9,4,6,0,0,1,3,7,7,1,0,3,4,3,2,-10,33.75,0,0,0.0,33.75
-401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4592714,Pat Spencer,PHX,3,0,0,1,0,1,0,0,0,2,0,0,0,0,0,0,4,3.0,0,0,0.0,3.0
+401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4592714,Pat Spencer,PHX,3,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,4,1.5,0,0,0.0,1.5
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4888725,Ryan Dunn,PHX,18,2,1,4,0,1,0,0,6,2,0,0,1,5,1,2,5,14.5,0,0,0.0,14.5
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4592435,Branden Carlson,POR,3,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,-4,2.0,0,0,0.0,2.0
 401909932,2026-11-04,Portland Trail Blazers at Phoenix Suns,4706557,Chris Youngblood,POR,4,0,0,0,0,0,0,0,0,1,1,0,0,0,0,2,-7,1.0,0,0,0.0,1.0
@@ -2729,3 +2729,55 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909935,2026-11-04,Miami Heat at LA Clippers,5107157,Ryan Conwell,MIA,17,0,0,3,0,2,0,0,2,2,1,0,0,0,2,3,1,5.0,0,0,0.0,5.0
 401909935,2026-11-04,Miami Heat at LA Clippers,3899664,Simone Fontecchio,MIA,5,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,-19,0.0,0,0,0.0,0.0
 401909935,2026-11-04,Miami Heat at LA Clippers,2528210,Tim Hardaway Jr.,MIA,7,0,0,2,0,2,0,0,0,0,0,0,0,0,0,1,-10,0.0,0,0,0.0,0.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4593034,Alex Morales,ORL,6,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,-1,2.0,0,0,0.0,2.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4712849,Anthony Black,ORL,31,10,3,8,1,3,3,4,7,6,5,1,0,4,3,2,-3,27.75,0,0,0.0,27.75
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4397204,Colin Castleton,ORL,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,4,1.5,0,0,0.0,1.5
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4066320,Desmond Bane,ORL,32,15,5,12,3,9,2,3,6,0,2,0,0,1,5,3,-6,23.0,0,0,0.0,23.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4566434,Franz Wagner,ORL,38,15,7,13,0,1,1,4,8,15,6,4,0,1,7,3,-7,52.5,1,0,1.5,54.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4348700,Goga Bitadze,ORL,8,4,2,2,0,0,0,4,5,0,1,0,0,2,3,1,6,9.75,0,0,0.0,9.75
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4278572,Jamal Cain,ORL,25,5,2,9,1,6,0,1,5,0,2,0,0,1,4,0,-14,10.75,0,0,0.0,10.75
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,5239561,Jase Richardson,ORL,26,10,4,9,2,4,0,0,2,3,3,2,2,1,1,1,-4,24.5,0,0,0.0,24.5
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,3133635,Jevon Carter,ORL,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-8,0.0,0,0,0.0,0.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,6478,Nikola Vucevic,ORL,4,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,-11,0.0,0,0,0.0,0.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4702382,Tristan da Silva,ORL,30,18,6,15,4,12,2,2,2,1,3,0,0,1,1,1,-15,22.5,0,0,0.0,22.5
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4277847,Wendell Carter Jr.,ORL,34,27,10,12,2,2,5,6,13,2,3,1,1,4,9,3,-6,49.75,1,0,1.5,51.25
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4278585,Collin Gillespie,PHX,24,6,2,9,2,5,0,0,2,2,1,3,0,0,2,4,12,18.0,0,0,0.0,18.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,3136193,Devin Booker,PHX,34,30,11,22,4,8,4,4,1,8,3,3,0,1,0,2,16,49.75,0,0,0.0,49.75
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,3155526,Dillon Brooks,PHX,29,24,9,16,4,6,2,2,1,1,1,2,1,0,1,2,12,34.25,0,0,0.0,34.25
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4066268,Duop Reath,PHX,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4,0.0,0,0,0.0,0.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4437244,Jalen Green,PHX,24,6,3,7,0,1,0,0,0,3,2,2,0,0,0,3,1,13.5,0,0,0.0,13.5
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4280245,Jamaree Bouyea,PHX,2,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,-4,-0.5,0,0,0.0,-0.5
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,5203685,Khaman Maluach,PHX,22,8,4,6,0,0,0,0,6,2,1,2,0,1,5,4,13,22.0,0,0,0.0,22.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,5041953,Koa Peat,PHX,2,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,-7,1.25,0,0,0.0,1.25
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,3913174,Luke Kennard,PHX,21,12,4,8,3,6,1,2,1,5,0,0,0,0,1,2,8,22.25,0,0,0.0,22.25
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4066383,Miles Bridges,PHX,31,18,6,10,3,6,3,3,13,5,1,2,0,2,11,0,12,46.75,1,0,1.5,48.25
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4601023,Oso Ighodaro,PHX,24,2,1,2,0,0,0,2,5,1,2,0,1,2,3,5,7,10.75,0,0,0.0,10.75
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4592714,Pat Spencer,PHX,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,-4,-1.0,0,0,0.0,-1.0
+401909936,2026-11-05,Orlando Magic at Phoenix Suns,4888725,Ryan Dunn,PHX,25,11,5,7,1,2,0,0,3,3,0,0,1,0,3,2,3,21.75,0,0,0.0,21.75
+401909937,2026-11-05,Miami Heat at Golden State Warriors,3213,Al Horford,GS,18,8,3,3,2,2,0,0,5,1,0,0,0,1,4,4,21,16.75,0,0,0.0,16.75
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4709138,Brandin Podziemski,GS,32,9,3,8,2,6,1,2,6,3,1,1,1,0,6,3,5,25.5,0,0,0.0,25.5
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4397040,Brandon Williams,GS,21,10,4,7,0,1,2,2,1,4,2,0,2,0,1,1,7,20.25,0,0,0.0,20.25
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4397886,Charles Bassey,GS,14,8,3,4,0,1,2,2,7,0,3,0,3,3,4,5,7,21.25,0,0,0.0,21.25
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4066436,De'Anthony Melton,GS,17,5,1,5,0,4,3,4,6,2,3,3,0,1,5,1,9,20.0,0,0,0.0,20.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,6589,Draymond Green,GS,27,2,1,3,0,2,0,0,5,11,3,1,1,1,4,1,13,27.25,0,0,0.0,27.25
+401909937,2026-11-05,Miami Heat at Golden State Warriors,3134903,Gary Payton II,GS,10,9,3,3,1,1,2,2,0,0,1,1,0,0,0,1,5,11.0,0,0,0.0,11.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,2990969,Georges Niang,GS,22,13,5,8,2,5,1,2,4,3,2,1,0,0,4,0,16,24.5,0,0,0.0,24.5
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4703396,Graham Ike,GS,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,2,1.25,0,0,0.0,1.25
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4433149,LJ Cryer,GS,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0.0,0,0,0.0,0.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4897449,Malevy Leons,GS,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0.0,0,0,0.0,0.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,3975,Stephen Curry,GS,28,29,9,19,6,12,5,5,1,4,0,1,0,0,1,1,17,41.25,0,0,0.0,41.25
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4897262,Will Richard,GS,16,10,4,6,2,4,0,0,0,2,1,0,1,0,0,1,-5,15.5,0,0,0.0,15.5
+401909937,2026-11-05,Miami Heat at Golden State Warriors,5175737,Yaxel Lendeborg,GS,30,17,6,14,1,3,4,6,8,6,2,3,1,1,7,4,-1,43.5,0,0,0.0,43.5
+401909937,2026-11-05,Miami Heat at Golden State Warriors,3059319,Andrew Wiggins,MIA,21,2,1,6,0,2,0,0,6,4,2,0,1,1,5,2,-1,16.5,0,0,0.0,16.5
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4066261,Bam Adebayo,MIA,33,18,7,12,0,2,4,7,10,0,0,1,1,3,7,1,-9,34.5,1,0,1.5,36.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,3064482,Bobby Portis,MIA,14,0,0,3,0,2,0,0,5,0,0,0,0,1,4,2,-5,6.25,0,0,0.0,6.25
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4278053,Davion Mitchell,MIA,38,22,9,18,4,9,0,0,2,8,5,1,0,0,2,4,-16,38.0,0,0,0.0,38.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4066993,Dru Smith,MIA,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,-2,0.0,0,0,0.0,0.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,3032977,Giannis Antetokounmpo,MIA,31,20,7,13,1,5,5,7,14,4,4,0,0,3,11,2,-22,42.0,1,0,1.5,43.5
+401909937,2026-11-05,Miami Heat at Golden State Warriors,6475,Klay Thompson,MIA,23,11,3,10,2,7,3,3,0,3,3,0,2,0,0,3,-9,19.0,0,0,0.0,19.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4431772,Myron Gardner,MIA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0.0,0,0,0.0,0.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4278076,Nick Richards,MIA,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0.0,0,0,0.0,0.0
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4997528,Nikola Jovic,MIA,12,1,0,2,0,2,1,2,0,1,0,0,1,0,0,2,-4,4.5,0,0,0.0,4.5
+401909937,2026-11-05,Miami Heat at Golden State Warriors,4601025,Pelle Larsson,MIA,29,13,4,9,3,5,2,2,1,4,5,3,0,0,1,4,-15,25.25,0,0,0.0,25.25
+401909937,2026-11-05,Miami Heat at Golden State Warriors,5107157,Ryan Conwell,MIA,30,13,4,9,3,6,2,2,1,2,0,3,0,1,0,2,-10,24.75,0,0,0.0,24.75
+401909937,2026-11-05,Miami Heat at Golden State Warriors,2528210,Tim Hardaway Jr.,MIA,4,0,0,3,0,3,0,0,0,1,0,0,0,0,0,0,-3,1.5,0,0,0.0,1.5
