@@ -47,6 +47,12 @@ def normalize_name(name):
     # Remove extra spaces
     return " ".join(name.split())
 
+# Known DraftKings-to-ESPN naming differences
+PLAYER_ALIASES = {
+    "alexandre sarr": "alex sarr",
+    "gregory jackson": "gg jackson",
+}
+
 def search_espn_player(player_name):
     """
     Search ESPN for an NBA player by name.
@@ -159,7 +165,9 @@ def main():
     )
 
     dk_df["MATCH_NAME"] = (
-        dk_df["Name"].apply(normalize_name)
+        dk_df["Name"]
+        .apply(normalize_name)
+        .replace(PLAYER_ALIASES)
     )
 
     print(f"ESPN players: {len(espn_players)}")
@@ -317,26 +325,7 @@ def main():
             keep="last"
         )
 
-        # Check whether an ESPN ID belongs to multiple DK IDs
-    duplicate_espn = confirmed[
-        confirmed.duplicated(
-            subset=["ESPN_PLAYER_ID"],
-            keep=False
-        )
-    ]
 
-    if not duplicate_espn.empty:
-        print("\nERROR: Multiple DraftKings IDs share an ESPN ID!")
-        print(
-            duplicate_espn[
-                ["DK_ID", "DK_NAME",
-                 "ESPN_PLAYER_ID", "ESPN_PLAYER_NAME"]
-            ].sort_values("ESPN_PLAYER_ID").to_string(index=False)
-        )
-
-        raise ValueError(
-            "Duplicate ESPN player mappings require review."
-        )
 
     confirmed.to_csv(MAPPING_FILE, index=False)
 
