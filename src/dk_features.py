@@ -68,27 +68,11 @@ def load_team_games(path=TEAM_FILE):
 
 
 
-def build_historical_features(
-    windows=ROLLING_WINDOWS,
-    season="2026-27",
-):
-    """Build the historical NBA player-game feature dataset."""
+def build_features(players, teams, windows=ROLLING_WINDOWS):
+    """Build pregame features from supplied player and team data."""
 
-    if season not in ("2025-26", "2026-27"):
-        raise ValueError(f"Unsupported season: {season}")
-
-    player_file = DATA_DIR / f"nba_player_games_{season.replace('-', '_')}.csv"
-    team_file = DATA_DIR / f"nba_team_games_{season.replace('-', '_')}.csv"
-
-    players = load_player_games(player_file)
-    teams = load_team_games(team_file)
-
-    # Exclude exhibition games absent from the official team dataset.
-    if season == "2025-26":
-        valid_game_ids = set(teams["GAME_ID"].astype(str))
-        players = players.loc[
-            players["GAME_ID"].astype(str).isin(valid_game_ids)
-        ].copy()
+    players = players.copy()
+    teams = teams.copy()
 
     # Player history
     players = add_historical_scoring_features(
@@ -154,6 +138,32 @@ def build_historical_features(
     players = add_player_recent_minutes(players)
 
     return players
+
+
+
+def build_historical_features(
+    windows=ROLLING_WINDOWS,
+    season="2026-27",
+):
+    """Build the historical NBA player-game feature dataset."""
+
+    if season not in ("2025-26", "2026-27"):
+        raise ValueError(f"Unsupported season: {season}")
+
+    player_file = DATA_DIR / f"nba_player_games_{season.replace('-', '_')}.csv"
+    team_file = DATA_DIR / f"nba_team_games_{season.replace('-', '_')}.csv"
+
+    players = load_player_games(player_file)
+    teams = load_team_games(team_file)
+
+    # Exclude exhibition games absent from the official team dataset.
+    if season == "2025-26":
+        valid_game_ids = set(teams["GAME_ID"].astype(str))
+        players = players.loc[
+            players["GAME_ID"].astype(str).isin(valid_game_ids)
+        ].copy()
+
+    return build_features(players, teams, windows=windows)
 
 
 

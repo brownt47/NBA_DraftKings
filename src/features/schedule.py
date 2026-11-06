@@ -3,6 +3,7 @@
 
 import pandas as pd
 from zoneinfo import ZoneInfo
+from src.features.config import SCHEDULE_WINDOWS_DAYS
 
 # NBA team home locations: latitude, longitude, UTC offset
 # Standard-time offsets; daylight saving will be handled later.
@@ -73,7 +74,12 @@ TEAM_TIMEZONES = {
     "UTAH": "America/Denver",
     "WSH": "America/New_York",
 }
-
+TEAM_TIMEZONES.update({
+    "GSW": TEAM_TIMEZONES["GS"],
+    "NOP": TEAM_TIMEZONES["NO"],
+    "UTA": TEAM_TIMEZONES["UTAH"],
+    "WAS": TEAM_TIMEZONES["WSH"],
+})
 
 # ESPN abbreviation aliases
 TEAM_LOCATIONS.update({
@@ -180,7 +186,7 @@ def add_historical_travel_features(team_games):
 
     # Travel accumulated in calendar-day windows, including
     # the trip to the current game's location.
-    for window in (7, 14):
+    for window in SCHEDULE_WINDOWS_DAYS:
         column = f"TRAVEL_MILES_LAST_{window}_DAYS"
         games[column] = 0.0
 
@@ -226,7 +232,7 @@ def add_historical_schedule_features(team_games):
     games["IS_BACK_TO_BACK"] = (days_between == 1).astype(int)
 
     # Number of previous team games within a calendar-day window.
-    for window in (7, 14):
+    for window in SCHEDULE_WINDOWS_DAYS:
         games[f"GAMES_LAST_{window}_DAYS"] = (
             games.groupby("TEAM")["GAME_DATE"].transform(
                 lambda dates: dates.apply(
@@ -306,7 +312,7 @@ def add_player_recent_minutes(players):
         ["PLAYER_ID", "GAME_DATE", "GAME_ID"]
     ).reset_index(drop=True)
 
-    for window in (7, 14):
+    for window in SCHEDULE_WINDOWS_DAYS:
         column = f"PLAYER_MINUTES_LAST_{window}_DAYS"
 
         def calculate_minutes(group):

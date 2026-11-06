@@ -112,10 +112,13 @@ def add_historical_momentum_features(games, short_span=3, long_span=10):
             (sign == -1) & (sign.shift(1) == 1)
         ] = -1
 
+        previous_sign = sign.shift(1)
+
         reversals = (
             (sign != 0)
-            & (sign.shift(1) != 0)
-            & (sign != sign.shift(1))
+            & previous_sign.notna()
+            & (previous_sign != 0)
+            & (sign != previous_sign)
         ).astype(int)
 
         whipsaw = reversals.rolling(

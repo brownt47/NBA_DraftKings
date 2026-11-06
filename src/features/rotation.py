@@ -23,7 +23,7 @@ def add_historical_rotation_features(players, teams):
 
     concentration = (
         players.groupby(keys, as_index=False)["_SHARE_SQUARED"]
-        .sum()
+        .sum(min_count=1)
         .rename(columns={"_SHARE_SQUARED": "_ACTUAL_ROTATION_HHI"})
     )
 
