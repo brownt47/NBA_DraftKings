@@ -84,6 +84,7 @@ def test_team_matchup_features():
         "PACE_LAST_3": [102.0, 112.0],
         "PACE_LAST_5": [101.0, 111.0],
         "PACE_LAST_7": [100.0, 110.0],
+        "PACE_LAST_10": [99.0, 109.0],
     })
 
     players = add_opponent(players)
@@ -110,7 +111,7 @@ def test_team_matchup_features():
     assert atl["MATCHUP_PACE_LAST_3"] == pytest.approx(107.0)
     assert atl["MATCHUP_PACE_LAST_5"] == pytest.approx(106.0)
     assert atl["MATCHUP_PACE_LAST_7"] == pytest.approx(105.0)
-
+    assert atl["MATCHUP_PACE_LAST_10"] == pytest.approx(104.0)
 
 # ---------------------------------------------------------
 # INVALID MATCHUP VALIDATION TEST

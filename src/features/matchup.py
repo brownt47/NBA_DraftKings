@@ -1,5 +1,6 @@
 
 import pandas as pd
+from src.features.config import ROLLING_WINDOWS
 
 DK_TO_ESPN = {
     "SAS": "SA",
@@ -86,7 +87,7 @@ def add_team_matchup_features(players, team_features):
     ) / 2
 
     # Recent matchup pace estimates
-    for window in (3, 5, 7):
+    for window in ROLLING_WINDOWS:
         players[f"MATCHUP_PACE_LAST_{window}"] = (
             players[f"TEAM_PACE_LAST_{window}"]
             + players[f"OPP_PACE_LAST_{window}"]
@@ -204,7 +205,7 @@ def add_historical_matchup_features(players, team_games):
         + players["OPP_PACE_SEASON"]
     ) / 2
 
-    for window in (3, 5, 7, 10):
+    for window in ROLLING_WINDOWS:
         players[f"MATCHUP_PACE_LAST_{window}"] = (
             players[f"TEAM_PACE_LAST_{window}"]
             + players[f"OPP_PACE_LAST_{window}"]

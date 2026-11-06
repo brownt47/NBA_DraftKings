@@ -23,6 +23,7 @@ from src.features.rotation import (
     add_historical_player_minutes_share,
 )
 from src.features.usage import add_historical_usage_features
+from src.features.config import ROLLING_WINDOWS
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
@@ -68,7 +69,7 @@ def load_team_games(path=TEAM_FILE):
 
 
 def build_historical_features(
-    windows=(3, 5, 7, 10),
+    windows=ROLLING_WINDOWS,
     season="2026-27",
 ):
     """Build the historical NBA player-game feature dataset."""

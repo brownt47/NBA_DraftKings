@@ -1,6 +1,5 @@
-
 import pandas as pd
-
+from src.features.config import ROLLING_WINDOWS
 
 def calculate_team_features(games):
     """Calculate season and recent team performance metrics."""
@@ -27,7 +26,7 @@ def calculate_team_features(games):
         for name, column in metrics.items():
             record[f"{name}_SEASON"] = group[column].mean()
 
-            for window in (3, 5, 7):
+            for window in ROLLING_WINDOWS:
                 record[f"{name}_LAST_{window}"] = (
                     group[column].tail(window).mean()
                 )
@@ -37,7 +36,7 @@ def calculate_team_features(games):
     return pd.DataFrame(records)
 
 
-def add_historical_team_features(games, windows=(3, 5, 7, 10)):
+def add_historical_team_features(games, windows=ROLLING_WINDOWS):
     """Calculate pregame team performance features."""
     games = games.copy()
 

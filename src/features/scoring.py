@@ -1,5 +1,5 @@
 import pandas as pd
-
+from src.features.config import ROLLING_WINDOWS
 
 def calculate_scoring_features(games):
     """
@@ -27,7 +27,7 @@ def calculate_scoring_features(games):
 def calculate_rolling_scoring_features(games):
     """
     Calculate recent DraftKings scoring statistics
-    using the last 3, 5, and 10 games.
+    using the last 3, 5, 7, and 10 games.
     """
 
     recent_stats = []
@@ -39,7 +39,7 @@ def calculate_rolling_scoring_features(games):
 
         record = {"ESPN_PLAYER_ID": player_id}
 
-        for window in [3, 5, 10]:
+        for window in ROLLING_WINDOWS:
             recent = player_games.tail(window)
 
             record[f"DK_N_LAST_{window}"] = (
@@ -76,7 +76,7 @@ def calculate_value_per_1000(players):
     return players
 
 
-def add_historical_scoring_features(games, windows=(3, 5, 7, 10)):
+def add_historical_scoring_features(games, windows=ROLLING_WINDOWS):
     """
     Calculate pregame scoring features for every historical
     player-game using only previously completed games.

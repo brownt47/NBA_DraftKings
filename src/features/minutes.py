@@ -1,5 +1,5 @@
 import pandas as pd
-
+from src.features.config import ROLLING_WINDOWS
 
 def calculate_minutes_features(games):
     """
@@ -32,7 +32,7 @@ def calculate_minutes_features(games):
             "MIN_STD_LAST_5": minutes.tail(5).std(),
         }
 
-        for window in [3, 5, 10]:
+        for window in ROLLING_WINDOWS:
             recent = minutes.tail(window)
             record[f"MIN_AVG_LAST_{window}"] = recent.mean()
             record[f"MIN_N_LAST_{window}"] = recent.count()
@@ -42,7 +42,7 @@ def calculate_minutes_features(games):
     return pd.DataFrame(records)
 
 
-def add_historical_minutes_features(games, windows=(3, 5, 7, 10)):
+def add_historical_minutes_features(games, windows=ROLLING_WINDOWS):
     """Calculate historical pregame minutes and productivity features."""
     games = games.copy()
 
