@@ -2,4 +2,5 @@ pandas==2.3.3
 requests>=2.31,<3
 pytest>=8
 lightgbm==4.7.0
+catboost==1.2.10
 scikit-learn==1.7.2
