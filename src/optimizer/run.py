@@ -6,6 +6,9 @@ import pandas as pd
 
 from src.optimizer.classic import optimize_classic
 
+# Run optimizer for a specific slate date:
+# python -m src.optimizer.run --date 2026-11-07
+
 # ============================================================
 # LINEUP EXPERIMENT SETTINGS
 # ============================================================
@@ -16,7 +19,7 @@ MAX_PLAYER_OVERLAP = 5
 EXCLUDE_QUESTIONABLE = True
 
 EXCLUDED_PLAYERS = [
-    #"Anthony Davis",
+    "Anthony Davis",
     # "Kyrie Irving",
     # "Paul George",
 ]
