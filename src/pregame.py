@@ -1,11 +1,10 @@
 
 """Prepare DraftKings NBA Classic slates for pregame predictions."""
 
+import argparse
 from pathlib import Path
-from unittest import result
 
 import pandas as pd
-from pathlib import Path
 
 from src.slates.salaries import load_dk_salaries
 
@@ -330,11 +329,36 @@ def build_projection_slate(slate, predictions):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Generate DraftKings pregame projections."
+    )
+
+    parser.add_argument(
+        "--date",
+        required=True,
+        help="Slate date in YYYY-MM-DD format.",
+    )
+
+    args = parser.parse_args()
+
+    slate_date = pd.to_datetime(
+        args.date,
+        format="%Y-%m-%d",
+        errors="raise",
+    )
+
+    date_tag = slate_date.strftime("%Y_%m_%d")
+
     salary_file = (
         DATA_DIR
         / "dk_salaries"
-        / "DKSalaries_2026_11_06_Main.csv"
+        / f"DKSalaries_{date_tag}_Main.csv"
     )
+
+    if not salary_file.is_file():
+        parser.error(
+            f"DraftKings salary file not found: {salary_file}"
+        )
 
     slate = load_mapped_slate(salary_file)
 

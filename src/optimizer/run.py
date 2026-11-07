@@ -17,7 +17,7 @@ EXCLUDE_QUESTIONABLE = True
 
 EXCLUDED_PLAYERS = [
     #"Anthony Davis",
-     "Kyrie Irving",
+    # "Kyrie Irving",
     # "Paul George",
 ]
 

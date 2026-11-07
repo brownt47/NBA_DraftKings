@@ -10,7 +10,7 @@ import pandas as pd
 from src.modeling.features import prepare_model_features
 
 
-DEFAULT_MODEL = Path("models/lightgbm_production_2026_11_06.joblib")
+DEFAULT_MODEL = Path("models/lightgbm_production.joblib")
 
 
 def predict_features(features, model_path=DEFAULT_MODEL):

@@ -2,6 +2,148 @@ import argparse
 import re
 import pandas as pd
 
+
+def normalize_player_name(name):
+    """Normalize player names for matching across data sources."""
+    if pd.isna(name):
+        return ""
+
+    name = str(name).casefold().strip()
+
+    # Remove punctuation and spacing differences.
+    name = re.sub(r"[^\w\s]", "", name)
+    name = re.sub(r"\s+", " ", name)
+
+    # Remove common suffixes.
+    name = re.sub(
+        r"\s+(jr|sr|ii|iii|iv)$",
+        "",
+        name,
+    )
+
+    return name
+
+def resolve_player_mapping(dk, directory, mapping):
+    """Resolve ESPN player IDs using names and historical mappings."""
+
+    players = dk.copy()
+    players["NAME_KEY"] = players["Name"].map(normalize_player_name)
+
+    # ESPN directory lookup
+    directory = directory.copy()
+    directory["NAME_KEY"] = directory["PLAYER_NAME"].map(
+        normalize_player_name
+    )
+
+    # Historical DraftKings mapping lookup
+    historical = mapping.copy()
+    historical["NAME_KEY"] = historical["DK_NAME"].map(
+        normalize_player_name
+    )
+
+    # Reject names associated with multiple ESPN player IDs.
+    for source, frame, id_column in (
+        ("ESPN directory", directory, "PLAYER_ID"),
+        ("Historical mapping", historical, "ESPN_PLAYER_ID"),
+    ):
+        # Only validate names appearing on the current slate.
+        relevant = frame[
+            frame["NAME_KEY"].isin(players["NAME_KEY"])
+        ]
+
+        conflicts = (
+            relevant.groupby("NAME_KEY")[id_column]
+            .nunique()
+        )
+
+        if (conflicts > 1).any():
+            raise ValueError(
+                f"Ambiguous player names in {source}: "
+                f"{conflicts[conflicts > 1].index.tolist()}"
+            )
+        
+    directory_lookup = (
+        directory.drop_duplicates("NAME_KEY")
+        [["NAME_KEY", "PLAYER_ID", "PLAYER_NAME", "TEAM"]]
+    )
+
+    historical_lookup = (
+        historical.drop_duplicates("NAME_KEY")
+        [["NAME_KEY", "ESPN_PLAYER_ID"]]
+    )
+
+    players = players.merge(
+        directory_lookup,
+        on="NAME_KEY",
+        how="left",
+        validate="many_to_one",
+    )
+
+    players = players.merge(
+        historical_lookup,
+        on="NAME_KEY",
+        how="left",
+        validate="many_to_one",
+    )
+
+    players["ESPN_PLAYER_ID"] = players["PLAYER_ID"].fillna(
+        players["ESPN_PLAYER_ID"]
+    )
+
+    return players
+
+
+def attach_slate_games(players, scheduled_games):
+    """Attach ESPN game information to mapped DraftKings players."""
+
+    from src.features.matchup import DK_TO_ESPN
+
+    players = players.copy()
+    players["ESPN_TEAM"] = players["TeamAbbrev"].replace(
+        DK_TO_ESPN
+    )
+
+    records = []
+
+    for game in scheduled_games:
+        for team in (game["HOME_TEAM"], game["AWAY_TEAM"]):
+            records.append({
+                "ESPN_TEAM": team,
+                "ESPN_GAME_ID": str(game["GAME_ID"]),
+                "GAME_DATE": game["GAME_DATE"],
+                "MATCHUP": game["MATCHUP"],
+            })
+
+    schedule = pd.DataFrame(records)
+
+    if schedule["ESPN_TEAM"].duplicated().any():
+        raise ValueError(
+            "A team appears in multiple scheduled games."
+        )
+
+    players = players.merge(
+        schedule,
+        on="ESPN_TEAM",
+        how="left",
+        validate="many_to_one",
+    )
+
+    if players["ESPN_GAME_ID"].isna().any():
+        missing = players.loc[
+            players["ESPN_GAME_ID"].isna(),
+            ["Name", "TeamAbbrev"]
+        ]
+        raise ValueError(
+            f"Players without scheduled games:\n{missing}"
+        )
+
+    players["ESPN_PLAYER_NAME"] = players["PLAYER_NAME"].fillna(
+        players["Name"]
+    )
+
+    return players
+
+
 def merge_player_mapping(dk, mapping):
     """
     Connect DraftKings players to ESPN player IDs.

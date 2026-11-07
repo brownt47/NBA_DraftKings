@@ -123,6 +123,44 @@ def discover_games(start_date=START_DATE, end_date=None):
     return games
 
 
+def discover_scheduled_games(game_date):
+    """Retrieve scheduled NBA games, including those not yet completed."""
+    date_string = game_date.strftime("%Y%m%d")
+
+    data = get_json(
+        SCOREBOARD_URL,
+        {"dates": date_string, "limit": 100},
+    )
+
+    games = []
+
+    for event in data.get("events", []):
+        if event.get("season", {}).get("type") != 2:
+            continue
+
+        competition = event["competitions"][0]
+        competitors = competition["competitors"]
+
+        home = next(
+            team for team in competitors
+            if team["homeAway"] == "home"
+        )
+        away = next(
+            team for team in competitors
+            if team["homeAway"] == "away"
+        )
+
+        games.append({
+            "GAME_ID": str(event["id"]),
+            "GAME_DATE": game_date.isoformat(),
+            "MATCHUP": event.get("name", ""),
+            "HOME_TEAM": home["team"]["abbreviation"],
+            "AWAY_TEAM": away["team"]["abbreviation"],
+        })
+
+    return games
+
+
 def split_shooting(value):
     """Convert a shooting stat such as '8-18' to (8, 18)."""
     made, attempted = str(value).split("-")
