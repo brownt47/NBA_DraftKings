@@ -37,6 +37,7 @@ def optimize_classic(
     locked_players=None,
     previous_lineups=None,
     max_player_overlap=6,
+    min_salary=3000,
 ):
     """Return the highest-projected valid NBA Classic lineup."""
 
@@ -71,6 +72,23 @@ def optimize_classic(
 
     if len(locked_players) > 8:
         raise ValueError("Cannot lock more than 8 players.")
+
+    if min_salary < 0:
+        raise ValueError("Minimum salary cannot be negative.")
+
+    # Apply salary floor before validating locked players.
+    projection_slate = projection_slate.copy()
+
+    projection_slate["OPTIMIZER_ELIGIBLE"] = (
+        projection_slate["OPTIMIZER_ELIGIBLE"].eq(True)
+        & (
+            pd.to_numeric(
+                projection_slate["SALARY"],
+                errors="coerce",
+            ) >= min_salary
+        )
+    )
+
 
     if locked_players:
         available = set(

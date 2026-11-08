@@ -7,7 +7,7 @@ import pandas as pd
 from src.optimizer.classic import optimize_classic
 
 # Run optimizer for a specific slate date:
-# python -m src.optimizer.run --date 2026-11-07
+# python -m src.optimizer.run --projections data/dk_projections/projections_2026_11_07_Main.pkl
 
 # ============================================================
 # LINEUP EXPERIMENT SETTINGS
@@ -15,17 +15,20 @@ from src.optimizer.classic import optimize_classic
 
 NUM_LINEUPS = 3
 MAX_PLAYER_OVERLAP = 5
+MIN_PLAYER_SALARY = 4500
 
 EXCLUDE_QUESTIONABLE = True
 
 EXCLUDED_PLAYERS = [
-    "Anthony Davis",
+    #"Anthony Davis",
+    #"Dalton Knecht",
     # "Kyrie Irving",
     # "Paul George",
 ]
 
 
 LOCKED_PLAYERS = [
+    #"Yaxel Lendeborg",
     # "Kyrie Irving",
     # "Myles Turner",
 ]
@@ -60,6 +63,7 @@ DISPLAY_COLUMNS = [
     "ROSTER_SLOT",
     "DK_NAME",
     "TEAM",
+    "OPPONENT",
     "SALARY",
     "DK_AVG_POINTS",
     "PROJECTED_DK_POINTS",
@@ -138,6 +142,15 @@ def main():
                 & ~slate["DK_NAME"].isin(excluded_players)
             )
 
+    # Exclude players below the minimum salary.
+    slate["OPTIMIZER_ELIGIBLE"] = (
+        slate["OPTIMIZER_ELIGIBLE"]
+        & (slate["SALARY"] >= MIN_PLAYER_SALARY)
+    )
+
+    print(f"Minimum player salary: ${MIN_PLAYER_SALARY:,}")
+
+
     # Calculate strategy-adjusted optimization scores
     if LINEUP_STRATEGY not in STRATEGY_WEIGHTS:
         raise ValueError(
@@ -163,6 +176,7 @@ def main():
                 locked_players=LOCKED_PLAYERS,
                 previous_lineups=previous_lineups,
                 max_player_overlap=MAX_PLAYER_OVERLAP,
+                min_salary=MIN_PLAYER_SALARY,
             )
         except RuntimeError as exc:
             print(
@@ -190,8 +204,18 @@ def main():
         lineup_details.append(export_lineup)
 
         print(f"\nLINEUP {lineup_number}")
-        print(lineup[DISPLAY_COLUMNS].to_string(index=False))
-        print(f"\nTotal salary: ${result['total_salary']:,}")
+        print(
+            lineup[DISPLAY_COLUMNS].to_string(
+                index=False,
+                formatters={
+                    "DK_AVG_POINTS": "{:.2f}".format,
+                    "PROJECTED_DK_POINTS": "{:.2f}".format,
+                    "PROJECTION_VS_DK_AVG": "{:+.2f}".format,
+                    "VALUE_PER_1000": "{:.2f}".format,
+                },
+            )
+        )
+        print(f"Total salary: ${result['total_salary']:,}")
         print(f"Remaining salary: ${result['remaining_salary']:,}")
         print(
             f"Projected DK points: "
@@ -205,6 +229,7 @@ def main():
         lineup_summaries.append({
             "Lineup": lineup_number,
             "Strategy": STRATEGY_NAMES[LINEUP_STRATEGY],
+            "Min Salary": MIN_PLAYER_SALARY,
             "Salary": result["total_salary"],
             "Projected Points": round(result["projected_points"], 2),
             "Avg Player STD": round(avg_player_volatility, 2),
@@ -236,7 +261,10 @@ def main():
             slate["GAME_DATE"].iloc[0]
         ).strftime("%Y_%m_%d")
 
-        strategy_name = STRATEGY_NAMES[LINEUP_STRATEGY]
+        strategy_name = (
+            f"{STRATEGY_NAMES[LINEUP_STRATEGY]}"
+            f"_min{MIN_PLAYER_SALARY}"
+        )
 
         details_file = (
             output_dir
@@ -254,6 +282,7 @@ def main():
             "DK_ID",
             "DK_NAME",
             "TEAM",
+            "OPPONENT",
             "SALARY",
             "DK_AVG_POINTS",
             "PROJECTED_DK_POINTS",
