@@ -2981,3 +2981,155 @@ GAME_ID,GAME_DATE,MATCHUP,PLAYER_ID,PLAYER_NAME,TEAM,MIN,PTS,FGM,FGA,FG3M,FG3A,F
 401909295,2026-11-06,San Antonio Spurs at Sacramento Kings,4702384,Nique Clifford,SAC,5,5,2,2,1,1,0,0,2,2,1,0,0,0,2,0,5,10.5,0,0,0.0,10.5
 401909295,2026-11-06,San Antonio Spurs at Sacramento Kings,4431679,Precious Achiuwa,SAC,22,9,4,10,1,2,0,0,4,0,0,0,2,2,2,0,-13,18.5,0,0,0.0,18.5
 401909295,2026-11-06,San Antonio Spurs at Sacramento Kings,3064440,Zach LaVine,SAC,35,14,4,12,1,6,5,5,4,3,0,1,0,0,4,2,-26,26.0,0,0,0.0,26.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3064290,Aaron Gordon,DEN,27,12,5,13,0,6,2,4,5,0,0,0,0,0,5,1,1,18.25,0,0,0.0,18.25
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4565698,Bryce Hopkins,DEN,3,3,1,2,0,0,1,1,1,0,0,0,0,0,1,1,2,4.25,0,0,0.0,4.25
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3138196,Cameron Johnson,DEN,29,18,8,12,2,5,0,0,4,1,1,1,0,0,4,2,5,27.0,0,0,0.0,27.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4431767,Christian Braun,DEN,29,6,2,8,0,4,2,2,4,1,0,1,0,0,4,4,4,14.5,0,0,0.0,14.5
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3978,DeMar DeRozan,DEN,22,11,5,9,0,2,1,2,1,5,0,0,0,0,1,0,11,19.75,0,0,0.0,19.75
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3936299,Jamal Murray,DEN,34,16,6,13,2,6,2,2,6,8,1,0,0,0,6,1,5,36.0,0,0,0.0,36.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4277848,Marvin Bagley III,DEN,12,10,3,6,0,1,4,4,3,0,0,0,0,1,2,0,8,13.75,0,0,0.0,13.75
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3112335,Nikola Jokic,DEN,36,19,7,20,1,3,4,4,13,8,1,1,1,6,7,1,4,51.25,1,0,1.5,52.75
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4592427,Spencer Jones,DEN,21,13,5,6,3,3,0,0,6,0,0,0,1,0,6,1,14,24.0,0,0,0.0,24.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4698719,Trevon Brazile,DEN,14,3,1,3,1,2,0,0,4,2,0,0,0,1,3,2,-1,11.5,0,0,0.0,11.5
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3135046,Tyus Jones,DEN,13,3,1,4,1,3,0,0,4,4,0,1,0,1,3,0,7,16.5,0,0,0.0,16.5
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4396909,Aaron Nesmith,IND,27,8,3,11,2,7,0,0,5,1,2,0,0,0,5,5,-10,15.75,0,0,0.0,15.75
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4395712,Andrew Nembhard,IND,31,9,3,9,3,6,0,1,1,8,1,0,0,0,1,2,-8,23.25,0,0,0.0,23.25
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,5105854,Braden Smith,IND,12,0,0,4,0,1,0,0,0,2,0,1,0,0,0,0,-12,5.0,0,0,0.0,5.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4017837,Ivica Zubac,IND,19,10,4,5,0,0,2,2,12,5,2,0,0,4,8,4,-6,31.5,1,0,1.5,33.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4398207,Jalen Slawson,IND,12,4,2,3,0,1,0,0,1,2,0,1,0,0,1,1,13,10.25,0,0,0.0,10.25
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,5106060,Jarace Walker,IND,20,9,3,7,1,5,2,2,5,2,0,0,2,0,5,0,-2,22.75,0,0,0.0,22.75
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4065731,Jay Huff,IND,10,0,0,3,0,2,0,0,3,0,0,0,0,0,3,1,-10,3.75,0,0,0.0,3.75
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3133603,Kelly Oubre Jr.,IND,16,2,1,5,0,3,0,0,1,0,0,0,2,0,1,1,-9,7.25,0,0,0.0,7.25
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,2580365,Larry Nance Jr.,IND,13,15,5,7,5,7,0,0,2,1,1,0,0,0,2,0,1,21.0,0,0,0.0,21.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4278355,Obi Toppin,IND,22,10,4,11,2,8,0,0,7,2,1,0,0,1,6,1,-10,22.25,0,0,0.0,22.25
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,3149673,Pascal Siakam,IND,32,23,10,18,2,7,1,2,2,5,0,0,0,0,2,3,0,34.0,0,0,0.0,34.0
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,4592829,Quenton Jackson,IND,17,6,3,4,0,1,0,0,4,1,2,0,0,1,3,2,3,11.5,0,0,0.0,11.5
+401909938,2026-11-07,Denver Nuggets at Indiana Pacers,2530530,T.J. McConnell,IND,9,6,3,5,0,0,0,0,2,1,1,0,1,0,2,1,-10,11.5,0,0,0.0,11.5
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4397183,Aaron Wiggins,ATL,26,20,7,19,5,13,1,2,4,6,0,1,0,2,2,1,12,38.5,0,0,0.0,38.5
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,2490149,CJ McCollum,ATL,21,9,4,14,1,6,0,0,4,3,3,2,2,1,3,0,12,25.5,0,0,0.0,25.5
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4869342,Dyson Daniels,ATL,31,9,4,9,0,0,1,2,10,7,2,6,1,4,6,1,3,45.0,0,0,0.0,45.0
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4701230,Jalen Johnson,ATL,36,30,11,17,0,5,8,10,7,6,3,1,0,1,6,2,-2,48.25,0,0,0.0,48.25
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,5149077,Kingston Flemings,ATL,27,10,5,8,0,2,0,0,2,1,1,0,2,1,1,1,-4,17.5,0,0,0.0,17.5
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4397020,Luguentz Dort,ATL,20,3,1,6,1,3,0,0,2,1,1,1,0,1,1,5,-3,9.0,0,0,0.0,9.0
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4278039,Nickeil Alexander-Walker,ATL,31,20,7,17,2,9,4,5,3,1,1,0,0,1,2,3,-3,25.75,0,0,0.0,25.75
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4431680,Onyeka Okongwu,ATL,30,16,5,10,2,6,4,6,2,5,0,0,4,1,1,4,15,35.0,0,0,0.0,35.0
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,5106262,Zuby Ejiofor,ATL,18,7,3,5,1,2,0,0,6,0,1,0,1,3,3,1,-15,16.5,0,0,0.0,16.5
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,5174655,Chaney Johnson,BKN,8,5,2,3,1,1,0,0,2,1,1,0,0,2,0,0,0,9.0,0,0,0.0,9.0
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,5107173,Danny Wolf,BKN,31,11,4,10,2,7,1,4,9,1,3,0,0,2,7,3,2,23.25,0,0,0.0,23.25
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4432194,Day'Ron Sharpe,BKN,32,12,4,8,0,2,4,4,10,13,4,0,1,3,7,4,3,44.0,1,1,4.5,48.5
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,3064514,Julius Randle,BKN,34,19,8,14,1,2,2,2,7,8,6,2,0,4,3,4,1,41.25,0,0,0.0,41.25
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4278104,Michael Porter Jr.,BKN,36,25,8,17,3,11,6,8,9,1,3,1,0,0,9,3,9,39.75,0,0,0.0,39.75
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,5101761,Mikel Brown Jr.,BKN,25,18,5,13,3,8,5,7,1,3,2,1,0,0,1,4,-12,26.25,0,0,0.0,26.25
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,3150844,Moritz Wagner,BKN,16,9,3,7,1,2,2,2,2,0,0,2,0,1,1,2,-6,16.0,0,0,0.0,16.0
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,4712896,Noah Clowney,BKN,21,3,1,5,1,3,0,0,10,0,1,0,0,1,9,1,-14,15.5,0,0,0.0,15.5
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,5279130,Nolan Traore,BKN,23,19,8,10,2,4,1,2,1,2,1,4,0,1,0,1,9,31.75,0,0,0.0,31.75
+401909939,2026-11-07,Brooklyn Nets at Atlanta Hawks,3907823,Terance Mann,BKN,13,0,0,2,0,2,0,0,2,0,1,0,0,1,1,2,-7,2.0,0,0,0.0,2.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,4701233,Craig Porter Jr.,CLE,15,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,1,2.75,0,0,0.0,2.75
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3908809,Donovan Mitchell,CLE,37,37,13,22,5,13,6,11,4,4,5,2,1,0,4,4,-3,54.0,0,0,0.0,54.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,4432158,Evan Mobley,CLE,33,12,5,11,1,5,1,2,9,5,3,0,0,3,6,3,7,29.75,0,0,0.0,29.75
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3992,James Harden,CLE,34,7,2,9,1,4,2,2,2,5,2,0,2,0,2,1,-15,20.5,0,0,0.0,20.5
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,2995706,Mario Hezonja,CLE,19,0,0,6,0,5,0,0,5,1,0,0,0,0,5,1,-1,7.75,0,0,0.0,7.75
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,5041951,Meleek Thomas,CLE,24,9,3,10,3,8,0,0,4,0,1,0,0,1,3,0,-11,15.0,0,0,0.0,15.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,4576087,Peyton Watson,CLE,29,12,5,11,1,5,1,2,6,3,0,1,2,2,4,2,-11,30.5,0,0,0.0,30.5
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,5177362,Riley Minix,CLE,10,8,3,4,2,3,0,0,3,0,0,0,0,1,2,0,8,12.75,0,0,0.0,12.75
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3934723,Thomas Bryant,CLE,15,5,2,4,1,3,0,0,3,1,0,0,0,2,1,5,-19,10.75,0,0,0.0,10.75
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,5023693,Tyrese Proctor,CLE,23,7,2,5,2,4,1,2,3,3,0,0,0,0,3,1,-16,16.25,0,0,0.0,16.25
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,6585,Andre Drummond,NY,14,0,0,1,0,0,0,0,8,0,1,2,1,2,6,0,10,15.5,0,0,0.0,15.5
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,4897943,Dalton Knecht,NY,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,-5,0.0,0,0,0.0,0.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3934672,Jalen Brunson,NY,34,31,12,25,3,7,4,5,6,9,1,0,0,2,4,0,13,53.0,0,0,0.0,53.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,2528426,Jordan Clarkson,NY,15,9,4,5,1,1,0,0,2,0,0,0,0,2,0,2,4,12.0,0,0,0.0,12.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3136195,Karl-Anthony Towns,NY,34,29,11,21,2,4,5,5,13,3,0,2,0,5,8,2,2,54.75,1,0,1.5,56.25
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3914044,Landry Shamet,NY,29,9,3,8,3,8,0,0,1,1,1,1,0,0,1,3,6,14.75,0,0,0.0,14.75
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3147657,Mikal Bridges,NY,31,9,4,13,1,7,0,0,6,4,0,0,2,3,3,0,5,27.0,0,0,0.0,27.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,4431823,Miles McBride,NY,16,5,2,4,1,3,0,0,0,0,0,0,0,0,0,0,14,5.5,0,0,0.0,5.5
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,5289900,Mohamed Diawara,NY,14,2,1,4,0,3,0,0,3,3,0,0,0,0,3,2,16,10.25,0,0,0.0,10.25
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,3934719,OG Anunoby,NY,34,15,4,13,3,9,4,4,6,2,2,1,1,1,5,3,-4,30.0,0,0,0.0,30.0
+401909940,2026-11-07,New York Knicks at Cleveland Cavaliers,4433225,Tyler Kolek,NY,14,0,0,2,0,2,0,0,4,5,2,1,0,1,3,4,-1,13.5,0,0,0.0,13.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5174983,Aday Mara,OKC,27,18,8,10,1,1,1,2,8,3,1,0,3,2,6,2,17,38.5,0,0,0.0,38.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4900671,Ajay Mitchell,OKC,22,12,5,14,0,2,2,3,4,0,1,1,0,1,3,2,12,18.5,0,0,0.0,18.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,2991350,Alex Caruso,OKC,13,0,0,2,0,2,0,0,3,3,0,1,0,0,3,1,18,10.25,0,0,0.0,10.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5241364,Bennett Stirtz,OKC,29,11,3,12,2,8,3,3,5,3,0,0,1,1,4,1,23,24.75,0,0,0.0,24.75
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4684208,Brooks Barnhizer,OKC,8,2,1,2,0,0,0,0,4,3,2,0,1,1,3,1,5,12.5,0,0,0.0,12.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4433159,Dalen Terry,OKC,6,2,1,1,0,0,0,0,2,0,2,1,0,0,2,0,3,5.5,0,0,0.0,5.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4222252,Isaiah Hartenstein,OKC,18,2,1,5,0,0,0,0,14,6,0,2,0,3,11,1,25,32.5,0,0,0.0,32.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4683778,Jared McCain,OKC,23,19,8,10,2,4,1,1,5,2,2,1,1,1,4,0,22,32.25,0,0,0.0,32.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5105800,Josh Dix,OKC,21,2,1,3,0,1,0,0,1,2,0,0,0,0,1,1,17,6.25,0,0,0.0,6.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,3133626,Kenrich Williams,OKC,23,9,3,7,1,2,2,3,4,2,0,0,0,1,3,0,12,17.5,0,0,0.0,17.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4432185,Micah Peavy,OKC,23,7,3,6,1,3,0,0,3,0,0,3,0,0,3,1,20,17.25,0,0,0.0,17.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4278073,Shai Gilgeous-Alexander,OKC,29,30,11,20,3,5,5,6,2,9,2,0,1,0,2,1,21,48.5,0,0,0.0,48.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5142718,AJ Dybantsa,WSH,31,19,7,15,1,5,4,6,6,3,3,0,0,2,4,2,-24,30.0,0,0,0.0,30.0
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5160992,Alex Sarr,WSH,28,15,7,17,1,9,0,0,14,1,0,0,0,5,9,1,-21,34.5,1,0,1.5,36.0
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,2581184,Anthony Gill,WSH,9,1,0,4,0,1,1,2,1,0,0,0,0,1,0,0,-5,2.25,0,0,0.0,2.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5104155,Bilal Coulibaly,WSH,20,0,0,8,0,4,0,0,5,0,2,0,0,1,4,1,-19,5.25,0,0,0.0,5.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4845374,Bub Carrington,WSH,21,9,3,5,3,3,0,0,6,1,1,2,1,2,4,0,-22,25.0,0,0,0.0,25.0
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4278129,Deandre Ayton,WSH,7,2,1,2,0,0,0,0,1,0,1,0,0,0,1,2,-6,2.75,0,0,0.0,2.75
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5174563,Kyshawn George,WSH,30,14,5,16,2,8,2,2,7,6,1,0,3,2,5,4,-19,38.25,0,0,0.0,38.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4277905,Trae Young,WSH,28,4,1,6,0,1,2,3,5,3,1,1,0,1,4,2,-21,16.25,0,0,0.0,16.25
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5238230,Tre Johnson,WSH,28,4,2,15,0,7,0,0,0,3,1,1,0,0,0,2,-20,10.0,0,0,0.0,10.0
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,4432819,Tre Mann,WSH,18,2,1,5,0,2,0,0,0,2,1,2,2,0,0,0,-17,12.5,0,0,0.0,12.5
+401909941,2026-11-07,Washington Wizards at Oklahoma City Thunder,5144126,Will Riley,WSH,20,5,2,5,0,3,1,2,2,1,0,0,0,1,1,2,-21,9.0,0,0,0.0,9.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,3213,Al Horford,GS,13,2,1,4,0,2,0,0,5,4,0,0,2,0,5,0,-5,18.25,0,0,0.0,18.25
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4709138,Brandin Podziemski,GS,39,15,5,7,4,5,1,2,7,1,0,2,1,1,6,3,6,33.25,0,0,0.0,33.25
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4397040,Brandon Williams,GS,17,9,3,7,0,2,3,3,0,2,2,2,0,0,0,3,-2,15.0,0,0,0.0,15.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4397886,Charles Bassey,GS,11,8,2,4,0,0,4,4,4,0,0,0,1,1,3,1,-3,15.0,0,0,0.0,15.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4066436,De'Anthony Melton,GS,17,4,1,5,1,3,1,2,1,1,0,0,1,0,1,2,1,9.25,0,0,0.0,9.25
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,6589,Draymond Green,GS,34,2,1,5,0,1,0,2,6,13,4,2,2,0,6,2,11,35.0,0,0,0.0,35.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,3134903,Gary Payton II,GS,13,4,2,5,0,1,0,0,0,0,1,2,0,0,0,2,0,7.5,0,0,0.0,7.5
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,2990969,Georges Niang,GS,25,11,4,6,3,3,0,0,2,1,0,1,0,0,2,3,13,18.5,0,0,0.0,18.5
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4997536,Gui Santos,GS,12,3,1,2,0,1,1,2,1,0,2,1,0,0,1,1,-4,5.25,0,0,0.0,5.25
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,3975,Stephen Curry,GS,36,41,13,19,5,10,10,10,6,6,3,0,0,0,6,3,11,58.5,0,0,0.0,58.5
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4897262,Will Richard,GS,12,4,1,1,0,0,2,2,2,1,0,0,0,0,2,0,1,8.0,0,0,0.0,8.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,5175737,Yaxel Lendeborg,GS,37,23,9,15,2,4,3,4,8,3,6,0,3,1,7,5,6,41.5,0,0,0.0,41.5
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4593034,Alex Morales,ORL,15,0,0,0,0,0,0,0,2,1,0,0,0,0,2,3,8,4.0,0,0,0.0,4.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4712849,Anthony Black,ORL,38,18,7,19,2,6,2,3,8,6,2,4,3,3,5,4,-7,51.0,0,0,0.0,51.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4566434,Franz Wagner,ORL,40,30,11,22,3,7,5,5,6,11,6,2,0,1,5,4,-2,56.5,1,0,1.5,58.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4348700,Goga Bitadze,ORL,7,4,2,3,0,0,0,0,5,2,0,0,0,0,5,1,7,13.25,0,0,0.0,13.25
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4278572,Jamal Cain,ORL,36,18,6,14,2,8,4,4,12,1,2,1,1,4,8,3,-15,38.5,1,0,1.5,40.0
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,5239561,Jase Richardson,ORL,30,2,1,13,0,6,0,0,4,4,1,0,0,3,1,2,5,12.5,0,0,0.0,12.5
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,3133635,Jevon Carter,ORL,15,9,3,7,3,7,0,0,1,0,0,1,0,1,0,0,-8,13.75,0,0,0.0,13.75
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,6478,Nikola Vucevic,ORL,6,0,0,2,0,1,0,0,1,2,0,0,0,1,0,1,-5,4.25,0,0,0.0,4.25
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4702382,Tristan da Silva,ORL,39,19,7,21,5,16,0,0,7,2,1,1,0,5,2,0,-9,34.75,0,0,0.0,34.75
+401909942,2026-11-07,Orlando Magic at Golden State Warriors,4277847,Wendell Carter Jr.,ORL,40,19,6,12,3,3,4,9,11,0,2,0,2,6,5,6,-9,37.25,1,0,1.5,38.75
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4871144,Alperen Sengun,HOU,32,15,5,16,1,2,4,4,6,5,2,0,1,1,5,2,-16,31.5,0,0,0.0,31.5
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4684740,Amen Thompson,HOU,39,17,7,14,0,0,3,4,7,0,1,1,4,5,2,0,1,35.25,0,0,0.0,35.25
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,3037789,Bogdan Bogdanovic,HOU,2,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,-6,1.25,0,0,0.0,1.25
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,2991230,Fred VanVleet,HOU,31,16,6,12,4,9,0,0,3,4,2,0,1,0,3,4,11,28.75,0,0,0.0,28.75
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4432639,Jabari Smith Jr.,HOU,39,15,7,12,1,4,0,0,9,2,1,3,1,3,6,3,9,37.25,0,0,0.0,37.25
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,3202,Kevin Durant,HOU,38,21,5,14,1,7,10,11,10,3,2,1,0,0,10,0,8,39.5,1,0,1.5,41.0
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,2990992,Marcus Smart,HOU,20,5,2,7,1,4,0,0,2,0,1,0,0,0,2,4,-10,7.5,0,0,0.0,7.5
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4432827,Oscar Tshiebwe,HOU,3,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,-5,2.0,0,0,0.0,2.0
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4711272,Reed Sheppard,HOU,13,6,2,8,2,6,0,0,0,0,1,1,0,0,0,0,-14,8.5,0,0,0.0,8.5
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4433192,Tari Eason,HOU,23,2,1,8,0,2,0,0,7,2,4,1,1,5,2,3,7,15.75,0,0,0.0,15.75
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4278585,Collin Gillespie,PHX,20,7,3,6,1,3,0,0,3,4,0,0,0,0,3,0,10,17.25,0,0,0.0,17.25
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,3136193,Devin Booker,PHX,39,24,10,24,2,9,2,2,2,3,4,3,0,0,2,3,-7,36.0,0,0,0.0,36.0
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,3155526,Dillon Brooks,PHX,37,11,4,10,3,7,0,0,4,1,1,0,0,1,3,4,-11,18.5,0,0,0.0,18.5
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4437244,Jalen Green,PHX,34,16,7,14,0,1,2,4,3,6,4,1,0,0,3,1,-12,28.75,0,0,0.0,28.75
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,5203685,Khaman Maluach,PHX,18,8,3,4,0,1,2,3,10,0,2,1,2,4,6,4,11,25.5,0,0,0.0,25.5
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,3913174,Luke Kennard,PHX,14,11,4,7,3,6,0,0,1,2,1,0,0,0,1,0,4,16.25,0,0,0.0,16.25
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4066383,Miles Bridges,PHX,31,13,5,12,1,5,2,2,10,7,0,0,1,1,9,1,4,38.5,1,0,1.5,40.0
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4601023,Oso Ighodaro,PHX,23,4,2,3,0,0,0,0,6,3,3,0,0,1,5,3,-9,14.5,0,0,0.0,14.5
+401909943,2026-11-07,Houston Rockets at Phoenix Suns,4888725,Ryan Dunn,PHX,23,8,3,5,2,2,0,0,5,3,0,3,0,2,3,2,25,25.75,0,0,0.0,25.75
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4592435,Branden Carlson,POR,12,4,2,3,0,1,0,0,2,0,0,0,0,0,2,0,11,6.5,0,0,0.0,6.5
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4706557,Chris Youngblood,POR,30,11,3,8,2,6,3,4,4,4,3,1,1,1,3,2,-4,25.5,0,0,0.0,25.5
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,6606,Damian Lillard,POR,20,12,4,8,2,3,2,3,0,7,3,0,0,0,0,1,-15,22.0,0,0,0.0,22.0
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4683021,Deni Avdija,POR,24,15,5,13,2,3,3,4,4,1,3,1,0,0,4,2,-19,23.0,0,0,0.0,23.0
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,5105565,Donovan Clingan,POR,22,6,3,6,0,2,0,0,5,0,0,0,0,1,4,3,-18,12.25,0,0,0.0,12.25
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4703889,Jayson Kent,POR,12,4,2,6,0,2,0,0,1,1,1,2,0,1,0,1,11,10.25,0,0,0.0,10.25
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,3995,Jrue Holiday,POR,20,11,3,8,1,3,4,4,0,0,3,1,0,0,0,1,-15,12.0,0,0,0.0,12.0
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4066399,Micah Potter,POR,14,7,3,5,1,2,0,0,3,1,0,1,1,0,3,0,8,16.75,0,0,0.0,16.75
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4683678,Scoot Henderson,POR,24,13,4,10,0,5,5,6,2,1,1,1,1,0,2,2,-23,20.5,0,0,0.0,20.5
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,5081727,Sidy Cissoko,POR,16,4,1,3,0,2,2,3,3,1,0,1,0,1,2,3,-14,11.25,0,0,0.0,11.25
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4431736,Toumani Camara,POR,21,4,2,7,0,3,0,0,4,0,1,0,0,2,2,4,-28,8.5,0,0,0.0,8.5
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,5217746,Yang Hansen,POR,26,12,3,7,1,3,5,6,10,1,2,1,0,2,8,1,-4,27.5,1,0,1.5,29.0
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,5061568,Carter Bryant,SA,17,6,2,6,2,5,0,0,4,1,2,0,1,1,3,5,-9,14.5,0,0,0.0,14.5
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4066259,De'Aaron Fox,SA,22,8,1,3,1,2,5,6,3,6,1,1,1,1,2,1,23,24.75,0,0,0.0,24.75
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4395630,Devin Vassell,SA,21,15,4,8,2,4,5,5,2,3,0,2,0,1,1,3,26,27.0,0,0,0.0,27.0
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,5037871,Dylan Harper,SA,28,13,6,13,1,5,0,0,7,3,1,0,1,1,6,5,29,28.25,0,0,0.0,28.25
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,6578,Harrison Barnes,SA,19,5,2,8,1,5,0,0,3,0,0,0,1,1,2,1,-8,11.25,0,0,0.0,11.25
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,3134916,Jordan McLaughlin,SA,12,3,1,2,1,2,0,0,0,0,1,1,0,0,0,0,-11,5.0,0,0,0.0,5.0
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4592479,Julian Champagnie,SA,21,14,4,7,4,7,2,2,4,0,0,0,0,0,4,1,15,21.0,0,0,0.0,21.0
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4395723,Keldon Johnson,SA,27,10,3,10,0,3,4,4,7,4,4,2,0,2,5,4,4,26.75,0,0,0.0,26.75
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,3064560,Luke Kornet,SA,15,6,2,5,0,0,2,2,4,2,1,0,1,2,2,1,9,15.5,0,0,0.0,15.5
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,4845367,Stephon Castle,SA,24,14,5,12,2,5,2,2,7,5,2,0,1,3,4,2,19,32.25,0,0,0.0,32.25
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,5105809,Tarris Reed Jr.,SA,9,2,1,3,0,0,0,0,3,1,2,0,0,1,2,4,-10,6.25,0,0,0.0,6.25
+401909944,2026-11-07,San Antonio Spurs at Portland Trail Blazers,5104157,Victor Wembanyama,SA,24,29,9,13,3,6,8,9,7,3,2,1,1,1,6,3,23,46.75,0,0,0.0,46.75
