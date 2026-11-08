@@ -15,7 +15,7 @@ from src.optimizer.classic import optimize_classic
 
 NUM_LINEUPS = 3
 MAX_PLAYER_OVERLAP = 5
-MIN_PLAYER_SALARY = 4500
+MIN_PLAYER_SALARY = 4000
 
 EXCLUDE_QUESTIONABLE = True
 
@@ -93,7 +93,17 @@ def main():
         metavar="PLAYER",
         help="Exclude players by exact DK_NAME.",
     )
+    
+    parser.add_argument(
+    "--min-salary",
+    type=int,
+    default=MIN_PLAYER_SALARY,
+    help="Minimum player salary (default: %(default)s).",
+    )
     args = parser.parse_args()
+
+    if args.min_salary < 0:
+        parser.error("--min-salary cannot be negative.")
 
     slate = pd.read_pickle(args.projections)
 
@@ -142,13 +152,7 @@ def main():
                 & ~slate["DK_NAME"].isin(excluded_players)
             )
 
-    # Exclude players below the minimum salary.
-    slate["OPTIMIZER_ELIGIBLE"] = (
-        slate["OPTIMIZER_ELIGIBLE"]
-        & (slate["SALARY"] >= MIN_PLAYER_SALARY)
-    )
-
-    print(f"Minimum player salary: ${MIN_PLAYER_SALARY:,}")
+    print(f"Minimum player salary: ${args.min_salary:,}")
 
 
     # Calculate strategy-adjusted optimization scores
@@ -176,7 +180,7 @@ def main():
                 locked_players=LOCKED_PLAYERS,
                 previous_lineups=previous_lineups,
                 max_player_overlap=MAX_PLAYER_OVERLAP,
-                min_salary=MIN_PLAYER_SALARY,
+                min_salary=args.min_salary,
             )
         except RuntimeError as exc:
             print(
@@ -229,7 +233,7 @@ def main():
         lineup_summaries.append({
             "Lineup": lineup_number,
             "Strategy": STRATEGY_NAMES[LINEUP_STRATEGY],
-            "Min Salary": MIN_PLAYER_SALARY,
+            "Min Salary": args.min_salary,
             "Salary": result["total_salary"],
             "Projected Points": round(result["projected_points"], 2),
             "Avg Player STD": round(avg_player_volatility, 2),
@@ -263,7 +267,7 @@ def main():
 
         strategy_name = (
             f"{STRATEGY_NAMES[LINEUP_STRATEGY]}"
-            f"_min{MIN_PLAYER_SALARY}"
+            f"_min{args.min_salary}"
         )
 
         details_file = (
