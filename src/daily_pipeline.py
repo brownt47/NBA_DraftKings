@@ -1,4 +1,8 @@
 
+# git pull
+# python -m src.daily_pipeline --date 2026-11-08
+
+
 """Run the complete NBA DraftKings daily production pipeline."""
 
 import argparse
