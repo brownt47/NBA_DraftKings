@@ -28,6 +28,8 @@ EXCLUDED_PLAYERS = [
 
 
 LOCKED_PLAYERS = [
+    "Dyson Daniels",
+    "Luka Doncic",
     #"Yaxel Lendeborg",
     # "Kyrie Irving",
     # "Myles Turner",

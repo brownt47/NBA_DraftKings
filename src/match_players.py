@@ -51,6 +51,7 @@ def normalize_name(name):
 PLAYER_ALIASES = {
     "alexandre sarr": "alex sarr",
     "gregory jackson": "gg jackson",
+    "ej harkless": "elijah harkless",
 }
 
 def search_espn_player(player_name):
