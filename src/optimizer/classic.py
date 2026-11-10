@@ -174,6 +174,9 @@ def optimize_classic(
     lower = np.zeros(rows)
     upper = np.ones(rows)
 
+    # Require every roster slot to be filled exactly once.
+    lower[:len(ROSTER_SLOTS)] = 1
+
     salary_row = len(ROSTER_SLOTS) + len(players)
     lower[salary_row] = 0
     upper[salary_row] = salary_cap
@@ -239,7 +242,13 @@ def optimize_classic(
             selected.append(row)
 
     if len(selected) != 8:
-        raise RuntimeError("Optimizer returned an invalid roster size.")
+        raise RuntimeError(
+            f"Optimizer returned {len(selected)} assignments instead of 8. "
+            f"Solver status={result.status}, "
+            f"message={result.message}, "
+            f"selected_slots={[row['ROSTER_SLOT'] for row in selected]}, "
+            f"variable_sum={np.sum(result.x):.6f}"
+        )
 
     lineup = pd.DataFrame(selected)
 

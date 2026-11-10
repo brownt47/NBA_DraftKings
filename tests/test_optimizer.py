@@ -63,3 +63,26 @@ def test_default_salary_floor_allows_3000_player():
     result = optimize_classic(slate)
 
     assert "Player 9" in set(result["lineup"]["DK_NAME"])
+
+
+def test_optimizer_requires_all_eight_roster_slots():
+    """An unaffordable center must make the slate infeasible."""
+
+    slate = make_slate()
+
+    # Make the only center too expensive to fit
+    # alongside the other seven required players.
+    slate.loc[
+        slate["DK_NAME"] == "Player 5",
+        "SALARY",
+    ] = 15000
+
+    with pytest.raises(
+        RuntimeError,
+        match="Optimizer did not confirm an optimal lineup",
+    ):
+        optimize_classic(
+            slate,
+            min_salary=4000,
+            salary_cap=50000,
+        )
