@@ -25,3 +25,9 @@ data/dk_projections/
 
 # Trained model artifacts
 models/
+# Generated hindsight optimizer results
+data/dk_hindsight/
+
+# Local backup files
+*.bak
+src/espn_rosters - Copy.py
