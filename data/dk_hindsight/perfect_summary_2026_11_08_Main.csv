@@ -1,0 +1,2 @@
+date,salary_players,mapped_players,players_with_results,players_without_results,games_with_results,validation_status,validated_games,total_salary,remaining_salary,actual_dk_points,certified_complete
+2026-11-08,176,176,123,53,7,PASS,5,49100,900,345.25,False
