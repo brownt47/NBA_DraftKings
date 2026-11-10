@@ -7,7 +7,7 @@ import pandas as pd
 from src.optimizer.classic import optimize_classic
 
 # Run optimizer for a specific slate date:
-# python -m src.optimizer.run --projections data/dk_projections/projections_2026_11_07_Main.pkl
+# python -m src.optimizer.run --projections data/dk_projections/projections_2026_11_10_Main.pkl
 
 # ============================================================
 # LINEUP EXPERIMENT SETTINGS
@@ -28,8 +28,8 @@ EXCLUDED_PLAYERS = [
 
 
 LOCKED_PLAYERS = [
-    "Dyson Daniels",
-    "Luka Doncic",
+   # "Dyson Daniels",
+   # "Luka Doncic",
     #"Yaxel Lendeborg",
     # "Kyrie Irving",
     # "Myles Turner",
