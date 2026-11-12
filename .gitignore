@@ -20,7 +20,6 @@ reports/
 feature_review.zip
 
 # Generated DraftKings outputs
-data/dk_lineups/
 data/dk_projections/
 
 # Trained model artifacts
