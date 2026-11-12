@@ -1,0 +1,7 @@
+DATE,WEIGHT,STATUS,COMPLETE,SALARY,PROJECTED_POINTS,ACTUAL_POINTS,PROJECTION_ERROR,MISSING_RESULTS,DNP_COUNT,LINEUP_STD_PROXY,MISSING_STD,PLAYERS
+2026-11-09,0.0,OK,True,49900,269.88,331.5,-61.62,0,0,30.37,0,"Daniss Jenkins, Duncan Robinson, Kevin Huerter, Alperen Sengun, Naz Reid, Quenton Jackson, Ausar Thompson, Cooper Flagg"
+2026-11-09,-0.1,OK,True,49900,269.88,331.5,-61.62,0,0,30.37,0,"Daniss Jenkins, Kevin Huerter, Cooper Flagg, Naz Reid, Alperen Sengun, Duncan Robinson, Ausar Thompson, Quenton Jackson"
+2026-11-09,-0.25,OK,True,49900,269.88,331.5,-61.62,0,0,30.37,0,"Daniss Jenkins, Quenton Jackson, Kevin Huerter, Alperen Sengun, Naz Reid, Duncan Robinson, Ausar Thompson, Cooper Flagg"
+2026-11-09,-0.5,OK,True,50000,264.34,293.25,-28.91,0,0,25.26,0,"Daniss Jenkins, Aaron Nesmith, Ausar Thompson, Obi Toppin, Alperen Sengun, Duncan Robinson, Cooper Flagg, Fred VanVleet"
+2026-11-09,-0.75,OK,True,50000,258.61,243.5,15.11,0,0,22.0,0,"Fred VanVleet, Aaron Nesmith, Ausar Thompson, Obi Toppin, Alperen Sengun, Duncan Robinson, Dylan Harper, Kyrie Irving"
+2026-11-09,-1.0,OK,True,50000,250.91,247.25,3.66,0,0,19.33,0,"Dylan Harper, Ziaire Williams, Ausar Thompson, Obi Toppin, Evan Mobley, Aaron Nesmith, Cooper Flagg, Duncan Robinson"

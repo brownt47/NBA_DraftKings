@@ -1,0 +1,7 @@
+DATE,WEIGHT,STATUS,COMPLETE,SALARY,PROJECTED_POINTS,ACTUAL_POINTS,PROJECTION_ERROR,MISSING_RESULTS,DNP_COUNT,LINEUP_STD_PROXY,MISSING_STD,PLAYERS
+2026-11-08,0.0,OK,True,49600,283.07,251.5,31.57,0,0,29.11,0,"Darius Acuff Jr., Ayo Dosunmu, Paul George, Jaden McDaniels, Brook Lopez, Tyler Herro, Max Strus, Day'Ron Sharpe"
+2026-11-08,-0.1,OK,True,49600,283.07,251.5,31.57,0,0,29.11,0,"Tyler Herro, Ayo Dosunmu, Paul George, Jaden McDaniels, Day'Ron Sharpe, Darius Acuff Jr., Max Strus, Brook Lopez"
+2026-11-08,-0.25,OK,True,49700,280.63,242.0,38.63,0,0,25.11,0,"Davion Mitchell, Darius Acuff Jr., Jaden McDaniels, Naji Marshall, Brook Lopez, Tyler Herro, Paul George, Max Strus"
+2026-11-08,-0.5,OK,True,49900,278.53,228.75,49.78,0,0,23.08,0,"Darius Acuff Jr., Tyler Herro, Max Strus, Julius Randle, Brook Lopez, Davion Mitchell, Naji Marshall, Jaden McDaniels"
+2026-11-08,-0.75,OK,True,49900,278.53,228.75,49.78,0,0,23.08,0,"Darius Acuff Jr., Tyler Herro, Naji Marshall, Max Strus, Brook Lopez, Davion Mitchell, Julius Randle, Jaden McDaniels"
+2026-11-08,-1.0,OK,True,49900,278.53,228.75,49.78,0,0,23.08,0,"Darius Acuff Jr., Tyler Herro, Naji Marshall, Max Strus, Brook Lopez, Davion Mitchell, Julius Randle, Jaden McDaniels"

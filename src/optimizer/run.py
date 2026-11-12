@@ -15,7 +15,7 @@ from src.optimizer.classic import optimize_classic
 
 NUM_LINEUPS = 3
 MAX_PLAYER_OVERLAP = 5
-MIN_PLAYER_SALARY = 4000
+MIN_PLAYER_SALARY = 6000
 
 EXCLUDE_QUESTIONABLE = True
 
@@ -23,13 +23,16 @@ EXCLUDED_PLAYERS = [
     #"Anthony Davis",
     #"Dalton Knecht",
     # "Kyrie Irving",
-    # "Paul George",
+    "Paul George",
+    "Quenton Jackson",
+    "Obi Toppin"
 ]
 
 
 LOCKED_PLAYERS = [
    # "Dyson Daniels",
-   # "Luka Doncic",
+    #"Luka Doncic",
+    #"Victor Wembanyama",
     #"Yaxel Lendeborg",
     # "Kyrie Irving",
     # "Myles Turner",

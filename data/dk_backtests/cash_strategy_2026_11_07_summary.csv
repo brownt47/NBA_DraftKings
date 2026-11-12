@@ -1,0 +1,7 @@
+DATE,WEIGHT,STATUS,COMPLETE,SALARY,PROJECTED_POINTS,ACTUAL_POINTS,PROJECTION_ERROR,MISSING_RESULTS,DNP_COUNT,LINEUP_STD_PROXY,MISSING_STD,PLAYERS
+2026-11-07,0.0,OK,True,50000,273.89,307.75,-33.86,0,0,29.66,0,"Stephen Curry, Aaron Wiggins, Michael Porter Jr., Julius Randle, Alexandre Sarr, Anthony Black, Mario Hezonja, Kyshawn George"
+2026-11-07,-0.1,OK,True,50000,273.89,307.75,-33.86,0,0,29.66,0,"Stephen Curry, Kyshawn George, Michael Porter Jr., Mario Hezonja, Alexandre Sarr, Anthony Black, Aaron Wiggins, Julius Randle"
+2026-11-07,-0.25,OK,True,50000,272.08,300.75,-28.67,0,0,27.08,0,"Stephen Curry, Anthony Black, Mario Hezonja, Karl-Anthony Towns, Alexandre Sarr, Meleek Thomas, Julius Randle, Kyshawn George"
+2026-11-07,-0.5,OK,True,50000,272.08,300.75,-28.67,0,0,27.08,0,"Anthony Black, Kyshawn George, Mario Hezonja, Karl-Anthony Towns, Alexandre Sarr, Stephen Curry, Meleek Thomas, Julius Randle"
+2026-11-07,-0.75,OK,True,50000,272.08,300.75,-28.67,0,0,27.08,0,"Stephen Curry, Kyshawn George, Mario Hezonja, Julius Randle, Alexandre Sarr, Meleek Thomas, Karl-Anthony Towns, Anthony Black"
+2026-11-07,-1.0,OK,True,50000,262.34,215.75,46.59,0,0,22.33,0,"Ajay Mitchell, Aaron Wiggins, Alex Caruso, Karl-Anthony Towns, Alperen Sengun, Meleek Thomas, Julius Randle, Mario Hezonja"

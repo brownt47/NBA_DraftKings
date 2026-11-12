@@ -140,7 +140,11 @@ def load_mapped_slate(salary_file, mapping_file=MAPPING_FILE):
 
     if missing.any():
         names = slate.loc[missing, "DK_NAME"].tolist()
-        raise ValueError(f"Unmapped DraftKings players: {names}")
+        print(f"WARNING: Skipping unmapped DraftKings players: {names}")
+        slate = slate.loc[~missing].copy()
+
+    if slate.empty:
+        raise ValueError("No mapped DraftKings players remain.")
 
     if slate["ESPN_PLAYER_ID"].duplicated().any():
         raise ValueError("Multiple DraftKings players map to one ESPN ID.")
