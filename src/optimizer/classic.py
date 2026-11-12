@@ -38,6 +38,9 @@ def optimize_classic(
     previous_lineups=None,
     max_player_overlap=6,
     min_salary=3000,
+    min_minutes=0,
+    min_dk_per_minute=0,
+    max_minutes_std=None,
 ):
     """Return the highest-projected valid NBA Classic lineup."""
 
@@ -76,6 +79,18 @@ def optimize_classic(
     if min_salary < 0:
         raise ValueError("Minimum salary cannot be negative.")
 
+    if not np.isfinite(min_minutes) or min_minutes < 0:
+        raise ValueError(
+            "Minimum minutes must be a finite, nonnegative number."
+        )
+
+    if min_minutes > 0 and "MIN_AVG_LAST_5" not in projection_slate.columns:
+        raise ValueError(
+            "MIN_AVG_LAST_5 is required when min_minutes > 0."
+        )
+
+
+
     # Apply salary floor before validating locked players.
     projection_slate = projection_slate.copy()
 
@@ -88,6 +103,71 @@ def optimize_classic(
             ) >= min_salary
         )
     )
+
+    # Apply a pregame minutes-history cutoff when requested.
+    if min_minutes > 0:
+        minutes = pd.to_numeric(
+            projection_slate["MIN_AVG_LAST_5"],
+            errors="coerce",
+        )
+
+        projection_slate["OPTIMIZER_ELIGIBLE"] = (
+            projection_slate["OPTIMIZER_ELIGIBLE"]
+            & minutes.ge(min_minutes)
+        )
+
+        # Apply a projected fantasy-points-per-minute cutoff.
+    if not np.isfinite(min_dk_per_minute) or min_dk_per_minute < 0:
+        raise ValueError(
+            "Minimum DK points per minute must be finite and nonnegative."
+        )
+
+    # Optional maximum historical minutes volatility.
+    if max_minutes_std is not None:
+        if not np.isfinite(max_minutes_std) or max_minutes_std < 0:
+            raise ValueError(
+                "Maximum minutes STD must be finite and nonnegative."
+            )
+
+        if "MIN_STD_LAST_10" not in projection_slate.columns:
+            raise ValueError(
+                "MIN_STD_LAST_10 is required for the volatility filter."
+            )
+
+        minutes_std = pd.to_numeric(
+            projection_slate["MIN_STD_LAST_10"],
+            errors="coerce",
+        )
+
+        projection_slate["OPTIMIZER_ELIGIBLE"] = (
+            projection_slate["OPTIMIZER_ELIGIBLE"]
+            & minutes_std.le(max_minutes_std)
+        )
+
+    if min_dk_per_minute > 0:
+        if "MIN_AVG_LAST_5" not in projection_slate.columns:
+            raise ValueError(
+                "MIN_AVG_LAST_5 is required for the DK/min filter."
+            )
+
+        minutes = pd.to_numeric(
+            projection_slate["MIN_AVG_LAST_5"],
+            errors="coerce",
+        )
+
+        projected = pd.to_numeric(
+            projection_slate["PROJECTED_DK_POINTS"],
+            errors="coerce",
+        )
+
+        dk_per_minute = projected.div(
+            minutes.where(minutes > 0)
+        )
+
+        projection_slate["OPTIMIZER_ELIGIBLE"] = (
+            projection_slate["OPTIMIZER_ELIGIBLE"]
+            & dk_per_minute.ge(min_dk_per_minute)
+        )
 
 
     if locked_players:

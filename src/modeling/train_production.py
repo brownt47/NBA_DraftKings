@@ -1,26 +1,47 @@
 
-"""Train and save a LightGBM model for upcoming NBA games."""
+"""Train and save a production NBA DraftKings prediction model."""
 
 import argparse
 from pathlib import Path
 
 import joblib
-import lightgbm as lgb
 import pandas as pd
 
-from src.modeling.features import prepare_model_features
-from src.modeling.lightgbm_model import DEFAULT_PARAMS
+from src.modeling.model_registry import (
+    DEFAULT_MODEL_TYPE,
+    get_model_adapter,
+)
 
 
 DEFAULT_DATA = [
     Path("data/nba_features_2025_26.csv"),
     Path("data/nba_features_2026_27.csv"),
 ]
-DEFAULT_MODEL = Path("models/lightgbm_production.joblib")
+
+ARTIFACT_VERSION = 2
 
 
-def train_production_model(data_path, model_path, cutoff_date):
+def default_model_path(model_type):
+    """Use a separate artifact file for each model."""
+    return Path(f"models/{model_type}_production.joblib")
+
+
+def train_production_model(
+    data_path,
+    model_path=None,
+    cutoff_date=None,
+    model_type=DEFAULT_MODEL_TYPE,
+):
     """Train using completed games strictly before cutoff_date."""
+
+    if cutoff_date is None:
+        raise ValueError("A cutoff date is required.")
+
+    model_type = model_type.lower()
+    adapter = get_model_adapter(model_type)
+
+    if model_path is None:
+        model_path = default_model_path(model_type)
 
     data_paths = (
         [data_path]
@@ -35,7 +56,6 @@ def train_production_model(data_path, model_path, cutoff_date):
         df_season = pd.read_csv(path)
 
         print(f"Loaded {len(df_season):,} rows from {path}")
-
         frames.append(df_season)
 
     df = pd.concat(frames, ignore_index=True)
@@ -55,7 +75,7 @@ def train_production_model(data_path, model_path, cutoff_date):
     if df.empty:
         raise ValueError("No eligible historical games found.")
 
-    # Prevent accidentally training on duplicate player-games.
+    # Prevent training on duplicate player-games.
     if {"GAME_ID", "PLAYER_ID"}.issubset(df.columns):
         duplicates = df.duplicated(
             subset=["GAME_ID", "PLAYER_ID"]
@@ -66,33 +86,45 @@ def train_production_model(data_path, model_path, cutoff_date):
                 f"Found {duplicates.sum()} duplicate player-game rows."
             )
 
-
-    X = prepare_model_features(df)
+    X, preprocessing = adapter.prepare_training_features(df)
     y = pd.to_numeric(df["DK_POINTS"], errors="coerce")
 
     valid = y.notna()
     X = X.loc[valid]
     y = y.loc[valid]
 
-    model = lgb.LGBMRegressor(**DEFAULT_PARAMS)
-    model.fit(X, y)
+    model = adapter.create_model()
+
+    if model_type == "catboost":
+        model.fit(
+            X,
+            y,
+            cat_features=preprocessing["categories"],
+        )
+    else:
+        model.fit(X, y)
 
     model_path = Path(model_path)
     model_path.parent.mkdir(parents=True, exist_ok=True)
 
     artifact = {
+        "artifact_version": ARTIFACT_VERSION,
+        "model_type": model_type,
         "model": model,
         "features": list(X.columns),
-        "categories": {
-            column: list(X[column].cat.categories)
-            for column in ["OPPONENT", "HOME_AWAY"]
-        },
+        "preprocessing": preprocessing,
         "cutoff_date": str(cutoff.date()),
         "training_rows": len(X),
     }
 
+    # Preserve compatibility with the existing LightGBM
+    # artifact metadata convention.
+    if model_type == "lightgbm":
+        artifact["categories"] = preprocessing["categories"]
+
     joblib.dump(artifact, model_path)
 
+    print(f"Model type: {model_type}")
     print(f"Training records: {len(X):,}")
     print(f"Predictors: {len(X.columns)}")
     print(f"Cutoff date: {cutoff.date()}")
@@ -111,12 +143,30 @@ def main():
         default=DEFAULT_DATA,
         help="One or more historical feature CSV files.",
     )
-    parser.add_argument("--model", type=Path, default=DEFAULT_MODEL)
+
+    parser.add_argument(
+        "--model-type",
+        choices=["catboost", "lightgbm"],
+        default=DEFAULT_MODEL_TYPE,
+    )
+
+    parser.add_argument(
+        "--model",
+        type=Path,
+        default=None,
+        help="Optional output path for the trained model.",
+    )
+
     parser.add_argument("--cutoff", required=True)
 
     args = parser.parse_args()
 
-    train_production_model(args.data, args.model, args.cutoff)
+    train_production_model(
+        data_path=args.data,
+        model_path=args.model,
+        cutoff_date=args.cutoff,
+        model_type=args.model_type,
+    )
 
 
 if __name__ == "__main__":

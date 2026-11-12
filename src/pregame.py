@@ -261,6 +261,7 @@ def build_projection_slate(slate, predictions):
         "DK_POINTS_AVG_SEASON",
         "DK_STD_LAST_5",
         "DK_STD_LAST_10",
+        "MIN_AVG_LAST_5",
         "MIN_STD_LAST_10",
         "PLAYER_MINUTES_SHARE_STD_5",
     ]
@@ -341,6 +342,13 @@ if __name__ == "__main__":
         "--date",
         required=True,
         help="Slate date in YYYY-MM-DD format.",
+    )
+
+    parser.add_argument(
+        "--model",
+        type=Path,
+        default=Path("models/catboost_production.joblib"),
+        help="Path to the trained production model.",
     )
 
     args = parser.parse_args()
@@ -498,9 +506,12 @@ if __name__ == "__main__":
 
     from src.modeling.predict import predict_features
 
-    projected = predict_features(pregame_features)
+    projected = predict_features(
+        pregame_features,
+        model_path=args.model,
+    )
 
-    print("\nLightGBM prediction diagnostic:")
+    print(f"\nPrediction diagnostic ({args.model.name}):")
     print(f"Predicted players: {len(projected)}")
     print(
         "Missing predictions:",

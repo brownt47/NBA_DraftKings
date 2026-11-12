@@ -46,6 +46,13 @@ def main():
         help="Slate date in YYYY-MM-DD format.",
     )
 
+    parser.add_argument(
+        "--model-type",
+        choices=["catboost", "lightgbm"],
+        default="catboost",
+        help="Production prediction model (default: catboost).",
+    )
+
     args = parser.parse_args()
 
     from datetime import datetime
@@ -53,6 +60,9 @@ def main():
     slate_date = datetime.strptime(
         args.date, "%Y-%m-%d"
     ).date()
+
+    model_type = args.model_type
+    model_path = ROOT / "models" / f"{model_type}_production.joblib"
 
     date_tag = slate_date.strftime("%Y_%m_%d")
 
@@ -72,6 +82,7 @@ def main():
         parser.error(f"Salary file not found: {salary_file}")
 
     print(f"NBA DRAFTKINGS PIPELINE: {slate_date}")
+    print(f"Model: {model_type}")
     print(f"Salary file: {salary_file.name}")
 
     stages = [
@@ -91,9 +102,11 @@ def main():
             ],
         ),
         (
-            "Train production LightGBM model",
+            f"Train production {model_type} model",
             [
                 "-m", "src.modeling.train_production",
+                "--model-type", model_type,
+                "--model", str(model_path),
                 "--cutoff", str(slate_date),
             ],
         ),
@@ -102,6 +115,7 @@ def main():
             [
                 "-m", "src.pregame",
                 "--date", str(slate_date),
+                "--model", str(model_path),
             ],
         ),
         (
@@ -120,6 +134,7 @@ def main():
 
     print(f"\n{'=' * 60}")
     print("DAILY PIPELINE COMPLETE")
+    print(f"Model: {model_type}")
     print(f"Total runtime: {time.time() - pipeline_start:.1f}s")
     print(f"Projections: {projection_file}")
     print("Lineups: data/dk_lineups/")

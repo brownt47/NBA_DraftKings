@@ -13,19 +13,27 @@ from src.optimizer.classic import optimize_classic
 # LINEUP EXPERIMENT SETTINGS
 # ============================================================
 
+SLATE_DATE = "2026_11_12"
+
+PROJECTIONS_FILE = (
+    f"data/dk_projections/projections_{SLATE_DATE}_Main.pkl"
+)
+
 NUM_LINEUPS = 3
 MAX_PLAYER_OVERLAP = 5
-MIN_PLAYER_SALARY = 6000
+MIN_PLAYER_SALARY = 3500
+MIN_PLAYER_MINUTES = 22
 
 EXCLUDE_QUESTIONABLE = True
 
 EXCLUDED_PLAYERS = [
+    "Ryan Dunn",
     #"Anthony Davis",
     #"Dalton Knecht",
     # "Kyrie Irving",
-    "Paul George",
-    "Quenton Jackson",
-    "Obi Toppin"
+    #"Paul George",
+    #"Quenton Jackson",
+    #"Obi Toppin"
 ]
 
 
@@ -60,9 +68,7 @@ STRATEGY_NAMES = {
 
 
 
-DEFAULT_PROJECTIONS = Path(
-    "data/dk_projections/projections_2026_11_06_Main.pkl"
-)
+DEFAULT_PROJECTIONS = Path(PROJECTIONS_FILE)
 
 DISPLAY_COLUMNS = [
     "ROSTER_SLOT",
@@ -105,10 +111,21 @@ def main():
     default=MIN_PLAYER_SALARY,
     help="Minimum player salary (default: %(default)s).",
     )
+
+    parser.add_argument(
+        "--min-minutes",
+        type=float,
+        default=MIN_PLAYER_MINUTES,
+        help="Minimum average minutes over last 5 games (default: %(default)s).",
+    )
+
     args = parser.parse_args()
 
     if args.min_salary < 0:
         parser.error("--min-salary cannot be negative.")
+
+    if not 0 <= args.min_minutes <= 48:
+        parser.error("--min-minutes must be between 0 and 48.")
 
     slate = pd.read_pickle(args.projections)
 
@@ -159,6 +176,36 @@ def main():
 
     print(f"Minimum player salary: ${args.min_salary:,}")
 
+    print(f"Minimum average minutes: {args.min_minutes:g}")
+
+    if args.min_minutes > 0:
+        minutes = pd.to_numeric(
+            slate["MIN_AVG_LAST_5"],
+            errors="coerce",
+        )
+
+        eligible = slate["OPTIMIZER_ELIGIBLE"].eq(True)
+        salary_ok = pd.to_numeric(
+            slate["SALARY"], errors="coerce"
+        ).ge(args.min_salary)
+
+        candidate_pool = eligible & salary_ok
+
+        excluded_by_minutes = (
+            candidate_pool & ~minutes.ge(args.min_minutes)
+        )
+
+        print(
+            f"Players excluded by minutes cutoff: "
+            f"{excluded_by_minutes.sum()}"
+        )
+        print(
+            f"Eligible players remaining: "
+            f"{(candidate_pool & ~excluded_by_minutes).sum()}"
+        )
+
+
+
 
     # Calculate strategy-adjusted optimization scores
     if LINEUP_STRATEGY not in STRATEGY_WEIGHTS:
@@ -186,6 +233,7 @@ def main():
                 previous_lineups=previous_lineups,
                 max_player_overlap=MAX_PLAYER_OVERLAP,
                 min_salary=args.min_salary,
+                min_minutes=args.min_minutes,
             )
         except RuntimeError as exc:
             print(
@@ -244,6 +292,10 @@ def main():
             "Avg Player STD": round(avg_player_volatility, 2),
             "Lineup STD Proxy": round(lineup_volatility, 2),
             "Players": ", ".join(lineup["DK_NAME"]),
+            "Min Minutes": args.min_minutes,
+            "Avg Lineup Minutes": round(
+                lineup["MIN_AVG_LAST_5"].mean(), 2
+            ),
         })
     
     if lineup_summaries:
@@ -273,6 +325,7 @@ def main():
         strategy_name = (
             f"{STRATEGY_NAMES[LINEUP_STRATEGY]}"
             f"_min{args.min_salary}"
+            f"_minutes{args.min_minutes:g}"
         )
 
         details_file = (
@@ -294,6 +347,7 @@ def main():
             "OPPONENT",
             "SALARY",
             "DK_AVG_POINTS",
+            "MIN_AVG_LAST_5",
             "PROJECTED_DK_POINTS",
             "PROJECTION_VS_DK_AVG",
             "VALUE_PER_1000",

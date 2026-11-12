@@ -148,3 +148,27 @@ def prepare_model_features(df):
         features[column] = features[column].astype("category")
 
     return features
+
+CATEGORICAL_FEATURES = [
+    "OPPONENT",
+    "HOME_AWAY",
+]
+
+NUMERIC_FEATURES = [
+    feature for feature in PREGAME_FEATURES
+    if feature not in CATEGORICAL_FEATURES
+]
+
+# Experimental ceiling-aware minutes features.
+# Keep these separate until walk-forward validation is complete.
+
+MINUTES_CEILING_FEATURES = [
+    "MIN_TREND_RECENT_3",
+    "MIN_P90_LAST_10",
+    "MIN_HEADROOM_LAST_10",
+    "MIN_CEILING_RATIO_LAST_10",
+]
+
+PREGAME_FEATURES_CEILING = (
+    PREGAME_FEATURES + MINUTES_CEILING_FEATURES
+)

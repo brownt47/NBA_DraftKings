@@ -1,47 +1,70 @@
 
-"""Generate DraftKings point predictions from a saved model."""
+"""Generate DraftKings point predictions from a saved production model."""
 
 from pathlib import Path
 
 import joblib
 import numpy as np
-import pandas as pd
 
-from src.modeling.features import prepare_model_features
+from src.modeling.model_registry import (
+    DEFAULT_MODEL_TYPE,
+    get_model_adapter,
+)
 
 
-DEFAULT_MODEL = Path("models/lightgbm_production.joblib")
+DEFAULT_MODEL = Path(
+    f"models/{DEFAULT_MODEL_TYPE}_production.joblib"
+)
 
 
 def predict_features(features, model_path=DEFAULT_MODEL):
-    """Predict DK points from pregame feature rows."""
+    """Predict DK points using the model's saved feature schema."""
 
     artifact = joblib.load(model_path)
 
     model = artifact["model"]
     expected_features = artifact["features"]
 
-    X = prepare_model_features(features)
+    # Older production artifacts were LightGBM-only.
+    model_type = artifact.get("model_type", "lightgbm")
+    adapter = get_model_adapter(model_type)
 
-    # Match the exact training feature order.
-    X = X[expected_features].copy()
+    # Support both version 1 and version 2 artifacts.
+    if "preprocessing" in artifact:
+        preprocessing = artifact["preprocessing"]
+    else:
+        preprocessing = {
+            "categories": artifact["categories"]
+        }
 
-    # Match categorical levels used during training.
-    for column, categories in artifact["categories"].items():
-        X[column] = X[column].cat.set_categories(categories)
+    # Check for missing predictors before attempting prediction.
+    missing = [
+        column
+        for column in expected_features
+        if column not in features.columns
+    ]
 
-    # Ensure numeric columns are numeric.
-    for column in X.columns:
-        if column not in artifact["categories"]:
-            X[column] = pd.to_numeric(
-                X[column], errors="coerce"
-            )
+    if missing:
+        raise ValueError(
+            f"Missing {len(missing)} required prediction features: "
+            f"{missing}"
+        )
+
+    # The adapter applies the original training preprocessing
+    # and preserves the exact feature order.
+    X = adapter.prepare_prediction_features(
+        features,
+        expected_features,
+        preprocessing,
+    )
 
     predictions = model.predict(X)
 
     result = features.copy()
+
     result["PROJECTED_DK_POINTS"] = np.maximum(
-        predictions, 0
+        np.asarray(predictions).reshape(-1),
+        0,
     )
 
     return result
