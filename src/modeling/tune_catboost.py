@@ -97,17 +97,17 @@ def make_objective(folds, categories):
 
         params.update({
             "iterations": trial.suggest_int(
-                "iterations", 400, 2000, step=100
+                "iterations", 400, 900, step=100
             ),
-            "depth": trial.suggest_int("depth", 4, 10),
+            "depth": trial.suggest_int("depth", 5, 8),
             "learning_rate": trial.suggest_float(
-                "learning_rate", 0.02, 0.12, log=True
+                "learning_rate", 0.015, 0.06, log=True
             ),
             "l2_leaf_reg": trial.suggest_float(
-                "l2_leaf_reg", 1.0, 15.0
+                "l2_leaf_reg", 3.0, 20.0
             ),
             "random_strength": trial.suggest_float(
-                "random_strength", 0.0, 3.0
+                "random_strength", 0.5, 1.5
             ),
         })
 
@@ -191,7 +191,9 @@ def main():
     else:
         print("CatBoost training mode: CPU")
 
-    output_dir = OUTPUT_DIR / ("gpu" if args.gpu else "cpu")
+    output_dir = OUTPUT_DIR / (
+      "gpu_focused" if args.gpu else "cpu"
+    )
     output_dir.mkdir(parents=True, exist_ok=True)
 
     df, X, categories, folds = load_data()
@@ -207,7 +209,7 @@ def main():
     print(f"Walk-forward folds: {len(folds)}")
 
     study_name = (
-        "catboost_2025_26_gpu_screen_v1"
+        "catboost_2025_26_gpu_focused_v1"
         if args.gpu
         else STUDY_NAME
     )
