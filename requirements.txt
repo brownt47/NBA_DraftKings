@@ -5,3 +5,4 @@ lightgbm==4.7.0
 catboost==1.2.10
 scikit-learn==1.7.2
 xgboost==3.2.0
+Optuna==5.0.0
