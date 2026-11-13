@@ -123,13 +123,76 @@ def make_objective(folds, categories):
 
     return objective
 
+def validate_best(folds, categories, study, output_dir):
+    baseline = BASELINE_PARAMS.copy()
+
+    tuned = BASELINE_PARAMS.copy()
+    tuned.update(study.best_trial.params)
+
+    results = []
+
+    for name, params in [
+        ("baseline", baseline),
+        ("tuned", tuned),
+    ]:
+        print(f"\nValidating {name.upper()} across all folds", flush=True)
+
+        metrics, fold_results = evaluate_folds(
+            params, folds, categories
+        )
+
+        print(
+            f"{name}: MAE={metrics['MAE']:.4f}, "
+            f"RMSE={metrics['RMSE']:.4f}, "
+            f"BIAS={metrics['BIAS']:+.4f}"
+        )
+
+        results.append({
+            "MODEL": name,
+            **metrics,
+        })
+
+        pd.DataFrame(fold_results).to_csv(
+            output_dir / f"validation_{name}_folds.csv",
+            index=False,
+        )
+
+    pd.DataFrame(results).to_csv(
+        output_dir / "validation_comparison.csv",
+        index=False,
+    )
+
+    print("\nValidation comparison:")
+    print(pd.DataFrame(results).to_string(index=False))
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--trials", type=int, default=5)
+    parser.add_argument(
+       "--validate-best",
+        action="store_true",
+        help="Compare baseline and best tuned parameters across all seven folds",
+    )
+    parser.add_argument(
+        "--gpu",
+        action="store_true",
+        help="Use NVIDIA GPU for CatBoost training",
+    )   
     args = parser.parse_args()
 
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    if args.gpu:
+        BASELINE_PARAMS.update({
+            "task_type": "GPU",
+            "devices": "0",
+            "thread_count": -1,
+        })
+        print("CatBoost training mode: GPU")
+    else:
+        print("CatBoost training mode: CPU")
+
+    output_dir = OUTPUT_DIR / ("gpu" if args.gpu else "cpu")
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     df, X, categories, folds = load_data()
 
@@ -143,17 +206,27 @@ def main():
     print(f"Categorical: {categories}")
     print(f"Walk-forward folds: {len(folds)}")
 
+    study_name = (
+        "catboost_2025_26_gpu_screen_v1"
+        if args.gpu
+        else STUDY_NAME
+    )
+
     storage = (
         f"sqlite:///{(OUTPUT_DIR / 'study.db').as_posix()}"
     )
 
     study = optuna.create_study(
-        study_name=STUDY_NAME,
+        study_name=study_name,
         storage=storage,
         direction="minimize",
         load_if_exists=True,
         sampler=optuna.samplers.TPESampler(seed=42),
     )
+
+    if args.validate_best:
+        validate_best(folds, categories, study, output_dir)
+        return
 
     # Include original configuration once.
     if len(study.trials) == 0:
@@ -166,13 +239,13 @@ def main():
         })
 
     study.optimize(
-        make_objective(folds, categories),
+        make_objective(screening_folds, categories),
         n_trials=args.trials,
         gc_after_trial=True,
     )
 
     trials = study.trials_dataframe()
-    trials.to_csv(OUTPUT_DIR / "trials.csv", index=False)
+    trials.to_csv(output_dir / "trials.csv", index=False)
 
     best = study.best_trial
 
@@ -183,10 +256,10 @@ def main():
     print(f"BIAS: {best.user_attrs['BIAS']:.4f}")
     print(json.dumps(best.params, indent=2))
 
-    with open(OUTPUT_DIR / "best_params.json", "w") as f:
+    with open(output_dir / "best_params.json", "w") as f:
         json.dump(best.params, f, indent=2)
 
-    print(f"\nSaved results to {OUTPUT_DIR}")
+    print(f"\nSaved results to {output_dir}")
 
 
 if __name__ == "__main__":

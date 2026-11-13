@@ -29,3 +29,6 @@ models/
 # Local backup files
 *.bak
 src/espn_rosters - Copy.py
+
+# CatBoost training logs
+catboost_info/
