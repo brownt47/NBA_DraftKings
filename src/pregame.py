@@ -238,7 +238,33 @@ def build_pregame_features(slate, historical_players, historical_teams):
     print(pregame_players["PLAYER_ID"].head(5).tolist())
 
 
-    features = build_features(players, teams)
+    # Load participation history for the current season.
+    participation_file = (
+        DATA_DIR / "nba_player_participation_2026_27.csv"
+    )
+
+    participation = None
+
+    if participation_file.exists():
+        participation = pd.read_csv(participation_file)
+        participation["GAME_DATE"] = pd.to_datetime(
+            participation["GAME_DATE"]
+        )
+
+        # Strict pregame cutoff: never use current or future games.
+        slate_date = pd.to_datetime(slate["GAME_DATE"]).min()
+
+        participation = participation.loc[
+            participation["GAME_DATE"] < slate_date
+        ].copy()
+
+    features = build_features(
+        players,
+        teams,
+        participation=participation,
+    )
+
+  
 
     # Retain only the upcoming-game rows.
     result = features.loc[features["IS_PREGAME"]].copy()
