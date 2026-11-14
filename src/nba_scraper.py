@@ -40,6 +40,9 @@ SUMMARY_URL = (
 )
 
 OUTPUT_FILE = Path("data/nba_player_games_2026_27.csv")
+PARTICIPATION_OUTPUT_FILE = Path(
+    "data/nba_player_participation_2026_27.csv"
+)
 
 session = requests.Session()
 
@@ -176,8 +179,8 @@ def parse_plus_minus(value):
 
     return int(value)
 
-def parse_boxscore(game):
-    """Convert one ESPN box score into player records."""
+def parse_boxscore(game, include_participation=False):
+    """Convert one ESPN box score into player and participation records."""
     data = get_json(
         SUMMARY_URL,
         {"event": game["GAME_ID"]}
@@ -191,6 +194,7 @@ def parse_boxscore(game):
         )
 
     records = []
+    participation_records = []
 
     for team_data in teams:
         team = team_data["team"]["abbreviation"]
@@ -199,7 +203,32 @@ def parse_boxscore(game):
             columns = stat_group["names"]
 
             for player in stat_group["athletes"]:
-                if player.get("didNotPlay", False):
+                athlete = player["athlete"]
+
+                did_not_play = bool(player.get("didNotPlay", False))
+
+                if include_participation and athlete.get("id"):
+                    participation_records.append({
+                        "GAME_ID": str(game["GAME_ID"]),
+                        "GAME_DATE": game["GAME_DATE"],
+                        "PLAYER_ID": str(athlete["id"]),
+                        "PLAYER_NAME": athlete["displayName"],
+                        "TEAM": team,
+                        "PLAYED": not did_not_play,
+                        "DID_NOT_PLAY": did_not_play,
+                        "DNP_REASON": (
+                            player.get("reason") if did_not_play else None
+                        ),
+                        "ACTIVE": player.get("active"),
+                        "STARTER": player.get("starter"),
+                        "MIN": (
+                            player.get("stats", [None])[0]
+                            if player.get("stats")
+                            else None
+                        ),
+                    })
+
+                if did_not_play:
                     continue
 
                 if player["stats"][0] == "--" and not player["athlete"].get("id"):
@@ -248,6 +277,9 @@ def parse_boxscore(game):
             f"No player records: {game['GAME_ID']}"
         )
 
+    if include_participation:
+        return records, participation_records
+
     return records
 
 
@@ -274,6 +306,12 @@ def main(argv=None):
         default=None,
     )
 
+    parser.add_argument(
+        "--participation",
+        action="store_true",
+        help="Collect ESPN player participation and DNP records.",
+    )
+
     args = parser.parse_args([] if argv is None else argv)
 
     season_start, season_end = SEASONS[args.season]
@@ -288,12 +326,20 @@ def main(argv=None):
         f"data/nba_player_games_{args.season.replace('-', '_')}.csv"
     )
 
-    if args.season == "2026-27" and argv is None:
+    if args.season == "2026-27":
         output_file = OUTPUT_FILE
+
+    participation_file = Path(
+        f"data/nba_player_participation_{args.season.replace('-', '_')}.csv"
+    )
+
+    if args.season == "2026-27":
+        participation_file = PARTICIPATION_OUTPUT_FILE
 
     print(f"ESPN NBA {args.season} Player Game Scraper")
     print(f"Date range: {start_date} through {end_date}")
     print(f"Output: {output_file}")
+    print(f"Participation Output: {participation_file}")
     print("=" * 40)
 
     # Load existing data if available
@@ -306,18 +352,20 @@ def main(argv=None):
         if existing_df.empty:
             refresh_start = start_date
             print("\nExisting CSV is empty. Full-season download.")
+
+        elif args.season == "2025-26" and args.start_date is not None:
+            refresh_start = start_date
+
         else:
             latest_saved_date = date.fromisoformat(
                 existing_df["GAME_DATE"].max()
             )
 
-        if args.season == "2025-26" and args.start_date is not None:
-            refresh_start = start_date
-        else:
             refresh_start = max(
                 start_date,
                 latest_saved_date - timedelta(days=REFRESH_DAYS - 1)
             )
+
             print(
                 f"\nIncremental update: "
                 f"refreshing games from {refresh_start}"
@@ -328,6 +376,44 @@ def main(argv=None):
         refresh_start = start_date
 
         print("\nNo existing CSV. Full-season download.")
+
+    refresh_start_stats = refresh_start
+
+    if args.participation:
+        if participation_file.exists():
+            participation_df = pd.read_csv(
+                participation_file,
+                dtype={"GAME_ID": str, "PLAYER_ID": str},
+            )
+
+            if participation_df.empty:
+                participation_refresh_start = start_date
+                print("\nParticipation CSV is empty. Full backfill.")
+            else:
+                latest_participation_date = date.fromisoformat(
+                    participation_df["GAME_DATE"].max()
+                )
+
+                participation_refresh_start = max(
+                    start_date,
+                    latest_participation_date
+                    - timedelta(days=REFRESH_DAYS - 1),
+                )
+
+                print(
+                    "\nParticipation incremental update: "
+                    f"refreshing from {participation_refresh_start}"
+                )
+        else:
+            participation_df = pd.DataFrame()
+            participation_refresh_start = start_date
+            print("\nNo participation CSV. Full backfill.")
+
+        refresh_start = min(
+            refresh_start,
+            participation_refresh_start,
+        )
+
 
 
 
@@ -343,12 +429,29 @@ def main(argv=None):
         return
 
     all_records = []
+    all_participation_records = []
 
     print("\nDownloading player box scores...")
 
     for index, game in enumerate(games.values(), start=1):
-        records = parse_boxscore(game)
-        all_records.extend(records)
+
+        if args.participation:
+            records, participation_records = parse_boxscore(
+                game,
+                include_participation=True,
+            )
+            all_participation_records.extend(participation_records)
+        else:
+            records = parse_boxscore(game)
+
+        # During a historical participation backfill, preserve
+        # older player-statistics records already in the CSV.
+        if (
+            not args.participation
+            or date.fromisoformat(str(game["GAME_DATE"]))
+            >= refresh_start_stats
+        ):
+            all_records.extend(records)
 
         print(
             f"{index}/{len(games)}: "
@@ -357,15 +460,25 @@ def main(argv=None):
             f"({len(records)} players)"
         )
 
-        time.sleep(0.1) # Be polite to ESPN's servers
+        time.sleep(0.1)
 
     
     # Build DataFrame from newly downloaded games
     new_df = pd.DataFrame(all_records)
 
-    # Remove old records for games being refreshed
+    # Remove only statistics records we actually refreshed.
+    # Historical games downloaded solely for participation
+    # must retain their existing player statistics.
     if not existing_df.empty:
-        refreshed_game_ids = set(games.keys())
+        refreshed_game_ids = {
+            str(game["GAME_ID"])
+            for game in games.values()
+            if (
+                not args.participation
+                or date.fromisoformat(str(game["GAME_DATE"]))
+                >= refresh_start_stats
+            )
+        }
 
         existing_df = existing_df[
             ~existing_df["GAME_ID"].isin(refreshed_game_ids)
@@ -412,6 +525,80 @@ def main(argv=None):
     finally:
         if temporary_file.exists():
             temporary_file.unlink()
+
+
+    # Save player participation records separately from statistics.
+    if args.participation:
+        new_participation_df = pd.DataFrame(
+            all_participation_records
+        )
+
+        if not participation_df.empty:
+            refreshed_participation_game_ids = {
+                str(game["GAME_ID"])
+                for game in games.values()
+            }
+
+            participation_df = participation_df[
+                ~participation_df["GAME_ID"].isin(
+                    refreshed_participation_game_ids
+                )
+            ]
+
+            combined_participation_df = pd.concat(
+                [participation_df, new_participation_df],
+                ignore_index=True,
+            )
+        else:
+            combined_participation_df = new_participation_df
+
+        if combined_participation_df.empty:
+            raise RuntimeError(
+                "No participation records. CSV unchanged."
+            )
+
+        duplicates = combined_participation_df.duplicated(
+            subset=["GAME_ID", "PLAYER_ID"]
+        )
+
+        if duplicates.any():
+            raise RuntimeError(
+                "Duplicate participation records detected."
+            )
+
+        combined_participation_df = (
+            combined_participation_df.sort_values(
+                ["GAME_DATE", "GAME_ID", "TEAM", "PLAYER_NAME"]
+            ).reset_index(drop=True)
+        )
+
+        participation_file.parent.mkdir(
+            parents=True, exist_ok=True
+        )
+
+        temporary_participation_file = (
+            participation_file.with_suffix(".tmp")
+        )
+
+        try:
+            combined_participation_df.to_csv(
+                temporary_participation_file,
+                index=False,
+            )
+            os.replace(
+                temporary_participation_file,
+                participation_file,
+            )
+        finally:
+            if temporary_participation_file.exists():
+                temporary_participation_file.unlink()
+
+        print(
+            "Participation records saved: "
+            f"{len(combined_participation_df):,}"
+        )
+        print(f"Participation saved to: {participation_file}")
+
 
     print("\n" + "=" * 40)
     print("SCRAPE COMPLETE")

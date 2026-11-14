@@ -6,6 +6,7 @@ import lightgbm as lgb
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
+import argparse
 
 from src.modeling.lightgbm_model import (
     DEFAULT_PARAMS,
@@ -29,6 +30,20 @@ def metrics(df, column):
 
 
 def run():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--holdout-april",
+        action="store_true",
+        help="Evaluate April 2026 using only pre-April training data",
+    )
+    args = parser.parse_args()
+
+    output_dir = (
+        Path("reports/modeling/boosting_comparison/april_holdout")
+        if args.holdout_april
+        else OUTPUT_DIR
+    )
+
     df = pd.read_csv(
         DATA_PATH,
         dtype={"GAME_ID": str, "PLAYER_ID": str},
@@ -37,8 +52,18 @@ def run():
 
     predictions = []
 
+    if args.holdout_april:
+        split_iterator = biweekly_walk_forward_splits(
+            df,
+            start_date="2026-04-01",
+            end_date="2026-05-01",
+            window_days=30,
+        )
+    else:
+        split_iterator = biweekly_walk_forward_splits(df)
+
     for fold, (train_idx, val_idx) in enumerate(
-        biweekly_walk_forward_splits(df), start=1
+        split_iterator, start=1
     ):
         train = df.loc[train_idx].dropna(
             subset=["DK_POINTS"]
@@ -122,16 +147,16 @@ def run():
                 **metrics(group, name),
             })
 
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     combined.to_csv(
-        OUTPUT_DIR / "predictions.csv", index=False
+        output_dir / "predictions.csv", index=False
     )
     overall.to_csv(
-        OUTPUT_DIR / "overall_metrics.csv"
+        output_dir / "overall_metrics.csv"
     )
     pd.DataFrame(fold_results).to_csv(
-        OUTPUT_DIR / "fold_metrics.csv", index=False
+        output_dir / "fold_metrics.csv", index=False
     )
 
     print("\nOVERALL RESULTS")
