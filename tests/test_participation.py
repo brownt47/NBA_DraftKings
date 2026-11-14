@@ -546,3 +546,78 @@ def test_team_games_since_last_appearance():
         modified_result.loc["6", days_col]
         == result.loc["6", days_col]
     )
+
+def test_minutes_per_team_game():
+    import pandas as pd
+    import pytest
+    from src.features.rotation import add_participation_reliability_features
+
+    teams = pd.DataFrame([
+        {
+            "GAME_ID": str(i),
+            "GAME_DATE": f"2026-11-{i:02d}",
+            "TEAM": "DEN",
+        }
+        for i in range(1, 13)
+    ])
+
+    players = teams.copy()
+    players["PLAYER_ID"] = "100"
+
+    # Game 4: confirmed DNP, counted as zero.
+    # Game 7: unknown participation, excluded.
+    # Game 12: current game, excluded from its own features.
+    minutes = {
+        1: 30, 2: 28, 3: 32,
+        4: None,
+        5: 20, 6: 24,
+        8: 36, 9: 30, 10: 34, 11: 26,
+        12: 40,
+    }
+
+    participation = pd.DataFrame([
+        {
+            "GAME_ID": str(i),
+            "GAME_DATE": f"2026-11-{i:02d}",
+            "TEAM": "DEN",
+            "PLAYER_ID": "100",
+            "PLAYED": i != 4,
+            "DID_NOT_PLAY": i == 4,
+            "DNP_REASON": "COACH'S DECISION" if i == 4 else None,
+            "MIN": value,
+        }
+        for i, value in minutes.items()
+    ])
+
+    result = add_participation_reliability_features(
+        players, teams, participation
+    ).set_index("GAME_ID")
+
+    # Before game 5: 30, 28, 32, 0.
+    assert result.loc["5", "MIN_PER_TEAM_GAME_LAST_5"] == pytest.approx(22.5)
+    assert result.loc["5", "MINUTES_KNOWN_LAST_5"] == 4
+
+    # Before game 8: games 3-7 = 32, 0, 20, 24, unknown.
+    assert result.loc["8", "MIN_PER_TEAM_GAME_LAST_5"] == pytest.approx(19)
+    assert result.loc["8", "MINUTES_KNOWN_LAST_5"] == 4
+
+    # Before game 12: games 7-11 = unknown, 36, 30, 34, 26.
+    assert result.loc["12", "MIN_PER_TEAM_GAME_LAST_5"] == pytest.approx(31.5)
+    assert result.loc["12", "MINUTES_KNOWN_LAST_5"] == 4
+
+    # Before game 12: games 2-11, nine known minutes records.
+    assert result.loc["12", "MIN_PER_TEAM_GAME_LAST_10"] == pytest.approx(230 / 9)
+    assert result.loc["12", "MINUTES_KNOWN_LAST_10"] == 9
+
+    # Current-game minutes must not affect current-game features.
+    modified = participation.copy()
+    modified.loc[modified["GAME_ID"] == "12", "MIN"] = 5
+
+    modified_result = add_participation_reliability_features(
+        players, teams, modified
+    ).set_index("GAME_ID")
+
+    for w in (5, 10):
+        for prefix in ("MIN_PER_TEAM_GAME", "MINUTES_KNOWN"):
+            col = f"{prefix}_LAST_{w}"
+            assert modified_result.loc["12", col] == result.loc["12", col]

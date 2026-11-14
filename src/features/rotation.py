@@ -163,6 +163,26 @@ def add_participation_reliability_features(players, teams, participation, window
         .eq("COACH'S DECISION")
     )
 
+
+    # Convert minutes to numeric values.
+    # Confirmed DNPs count as zero minutes.
+    # Missing or invalid minutes for players marked played
+    # remain unknown rather than becoming zero.
+    # Synthetic tests or older datasets may lack MIN.
+    # Missing minutes remain unknown unless a DNP is confirmed.
+    if "MIN" in participation.columns:
+        participation["_MINUTES_KNOWN"] = pd.to_numeric(
+            participation["MIN"], errors="coerce"
+        )
+    else:
+        participation["_MINUTES_KNOWN"] = float("nan")
+
+    participation.loc[
+        participation["DID_NOT_PLAY"],
+        "_MINUTES_KNOWN",
+    ] = 0.0
+
+
     # Build a complete team-game timeline for each observed player-team pair.
     player_teams = pd.concat(
         [
@@ -206,7 +226,14 @@ def add_participation_reliability_features(players, teams, participation, window
 
     timeline = timeline.merge(
         participation[
-            ["GAME_ID", "TEAM", "PLAYER_ID", "PLAYED", "_COACH_DNP"]
+            [
+                "GAME_ID",
+                "TEAM",
+                "PLAYER_ID",
+                "PLAYED",
+                "_COACH_DNP",
+                "_MINUTES_KNOWN",
+            ]
         ],
         on=["GAME_ID", "TEAM", "PLAYER_ID"],
         how="left",
@@ -286,6 +313,31 @@ def add_participation_reliability_features(players, teams, participation, window
         "TEAM_GAMES_SINCE_LAST_APPEARANCE",
         "DAYS_SINCE_LAST_APPEARANCE",
     ]
+
+
+    # Rolling minutes use only prior team games.
+    # Confirmed DNPs contribute zero; unknown minutes are excluded.
+    for w in (5, 10):
+        minutes_col = f"MIN_PER_TEAM_GAME_LAST_{w}"
+        count_col = f"MINUTES_KNOWN_LAST_{w}"
+
+        timeline[minutes_col] = grouped["_MINUTES_KNOWN"].transform(
+            lambda s: s.shift(1).rolling(
+                w, min_periods=1
+            ).mean()
+        )
+
+        timeline[count_col] = grouped["_MINUTES_KNOWN"].transform(
+            lambda s: s.shift(1).rolling(
+                w, min_periods=1
+            ).count()
+        )
+
+        feature_columns.extend([
+            minutes_col,
+            count_col,
+        ])
+
 
     for w in (5, 10):
         known_col = f"PARTICIPATION_KNOWN_LAST_{w}"
