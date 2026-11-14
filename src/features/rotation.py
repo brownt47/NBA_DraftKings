@@ -231,33 +231,54 @@ def add_participation_reliability_features(players, teams, participation, window
 
     grouped = timeline.groupby(["PLAYER_ID", "TEAM"])
 
-    for source, target in [
-        ("_KNOWN", "PARTICIPATION_KNOWN_LAST_5"),
-        ("_PLAYED", "_PARTICIPATION_PLAYED_LAST_5"),
-        ("_COACH_DNP", "COACH_DNP_LAST_5"),
-    ]:
-        timeline[target] = grouped[source].transform(
-            lambda s: s.shift(1).rolling(window, min_periods=1).sum()
-        )
 
-    timeline["APPEARANCE_RATE_LAST_5"] = (
-        timeline["_PARTICIPATION_PLAYED_LAST_5"]
-        / timeline["PARTICIPATION_KNOWN_LAST_5"].replace(0, float("nan"))
-    )
-
-    timeline["PARTICIPATION_COVERAGE_LAST_5"] = (
-        timeline["PARTICIPATION_KNOWN_LAST_5"] / window
-    )
-
+    # Count prior eligible team games, excluding the current game.
+    # Early-season players may have fewer than five prior games.
+    
     feature_columns = [
         "GAME_ID",
         "TEAM",
         "PLAYER_ID",
-        "APPEARANCE_RATE_LAST_5",
-        "PARTICIPATION_KNOWN_LAST_5",
-        "COACH_DNP_LAST_5",
-        "PARTICIPATION_COVERAGE_LAST_5",
     ]
+
+    for w in (5, 10):
+        known_col = f"PARTICIPATION_KNOWN_LAST_{w}"
+        played_col = f"_PARTICIPATION_PLAYED_LAST_{w}"
+        dnp_col = f"COACH_DNP_LAST_{w}"
+        rate_col = f"APPEARANCE_RATE_LAST_{w}"
+        coverage_col = f"PARTICIPATION_COVERAGE_LAST_{w}"
+
+        for source, target in [
+            ("_KNOWN", known_col),
+            ("_PLAYED", played_col),
+            ("_COACH_DNP", dnp_col),
+        ]:
+            timeline[target] = grouped[source].transform(
+                lambda s: s.shift(1).rolling(
+                    w, min_periods=1
+                ).sum()
+            )
+
+        timeline[rate_col] = (
+            timeline[played_col]
+            / timeline[known_col].replace(0, float("nan"))
+        )
+
+        # Number of observable prior team games since first seen.
+        prior_games = grouped.cumcount()
+        eligible_games = prior_games.clip(upper=w)
+
+        timeline[coverage_col] = (
+            timeline[known_col]
+            / eligible_games.replace(0, float("nan"))
+        )
+
+        feature_columns.extend([
+            rate_col,
+            known_col,
+            dnp_col,
+            coverage_col,
+        ])
 
     return players.merge(
         timeline[feature_columns],

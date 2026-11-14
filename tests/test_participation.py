@@ -329,3 +329,130 @@ def test_incremental_participation_refresh(tmp_path, monkeypatch):
     assert bool(recent["PLAYED"])
     assert not bool(recent["DID_NOT_PLAY"])
     assert recent["MIN"] == 30    
+
+def test_participation_rolling_windows():
+    import pandas as pd
+    import pytest
+    from src.features.rotation import add_participation_reliability_features
+
+    # Twelve consecutive team games for one player.
+    # Game 4 is a confirmed coach DNP.
+    # Game 7 has unknown participation.
+    # Game 12 is played, but must not affect its own features.
+    records = []
+
+    for game_number in range(1, 13):
+        played = game_number not in (4, 7)
+
+        if game_number == 7:
+            continue
+
+        records.append({
+            "GAME_ID": str(game_number),
+            "GAME_DATE": (
+                pd.Timestamp("2026-10-20")
+                + pd.Timedelta(days=game_number - 1)
+            ),
+            "TEAM": "DEN",
+            "PLAYER_ID": "100",
+            "PLAYED": played,
+            "DID_NOT_PLAY": not played,
+            "DNP_REASON": (
+                "COACH'S DECISION"
+                if game_number == 4 else None
+            ),
+        })
+
+    participation = pd.DataFrame(records)
+
+    teams = pd.DataFrame([
+        {
+            "GAME_ID": str(i),
+            "GAME_DATE": (
+                pd.Timestamp("2026-10-20")
+                + pd.Timedelta(days=i - 1)
+            ),
+            "TEAM": "DEN",
+        }
+        for i in range(1, 13)
+    ])
+
+    players = teams.copy()
+    players["PLAYER_ID"] = "100"
+
+    result = add_participation_reliability_features(
+        players, teams, participation
+    )
+
+    assert len(result) == 12
+    assert not result.duplicated(
+        ["GAME_ID", "PLAYER_ID"]
+    ).any()
+
+    result = result.set_index("GAME_ID")
+
+    # Game 1 has no previous team games.
+    assert pd.isna(
+        result.loc["1", "APPEARANCE_RATE_LAST_5"]
+    )
+
+    # Before game 3, both previous games were played.
+    assert result.loc["3", "PARTICIPATION_KNOWN_LAST_5"] == 2
+    assert result.loc["3", "APPEARANCE_RATE_LAST_5"] == 1
+    assert result.loc["3", "PARTICIPATION_COVERAGE_LAST_5"] == 1
+
+    # Before game 5, game 4 is a confirmed coach DNP.
+    assert result.loc["5", "COACH_DNP_LAST_5"] == 1
+    assert result.loc["5", "APPEARANCE_RATE_LAST_5"] == 0.75
+
+    # Before game 8, game 7 is unknown, not a confirmed DNP.
+    assert result.loc["8", "PARTICIPATION_KNOWN_LAST_5"] == 4
+    assert result.loc["8", "PARTICIPATION_COVERAGE_LAST_5"] == pytest.approx(0.8)
+    assert result.loc["8", "COACH_DNP_LAST_5"] == 1
+
+    # Before game 12:
+    # Last 5 games: 7-11, four known and four played.
+    # Last 10 games: 2-11, nine known, eight played,
+    # and one confirmed coach DNP.
+    assert result.loc["12", "PARTICIPATION_KNOWN_LAST_5"] == 4
+    assert result.loc["12", "APPEARANCE_RATE_LAST_5"] == 1
+    assert result.loc["12", "PARTICIPATION_COVERAGE_LAST_5"] == pytest.approx(0.8)
+    assert result.loc["12", "COACH_DNP_LAST_5"] == 0
+
+    assert result.loc["12", "PARTICIPATION_KNOWN_LAST_10"] == 9
+    assert result.loc["12", "APPEARANCE_RATE_LAST_10"] == pytest.approx(8 / 9)
+    assert result.loc["12", "PARTICIPATION_COVERAGE_LAST_10"] == pytest.approx(0.9)
+    assert result.loc["12", "COACH_DNP_LAST_10"] == 1
+
+    # Changing current-game participation must not change
+    # current-game features.
+    modified = participation.copy()
+    modified.loc[
+        modified["GAME_ID"] == "12", "PLAYED"
+    ] = False
+    modified.loc[
+        modified["GAME_ID"] == "12", "DID_NOT_PLAY"
+    ] = True
+    modified.loc[
+        modified["GAME_ID"] == "12", "DNP_REASON"
+    ] = "COACH'S DECISION"
+
+    modified_result = add_participation_reliability_features(
+        players, teams, modified
+    ).set_index("GAME_ID")
+
+    feature_cols = [
+        f"{prefix}_LAST_{w}"
+        for w in (5, 10)
+        for prefix in (
+            "APPEARANCE_RATE",
+            "PARTICIPATION_KNOWN",
+            "COACH_DNP",
+            "PARTICIPATION_COVERAGE",
+        )
+    ]
+
+    pd.testing.assert_series_equal(
+        result.loc["12", feature_cols],
+        modified_result.loc["12", feature_cols],
+    )
