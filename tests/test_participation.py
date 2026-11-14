@@ -456,3 +456,93 @@ def test_participation_rolling_windows():
         result.loc["12", feature_cols],
         modified_result.loc["12", feature_cols],
     )
+
+def test_team_games_since_last_appearance():
+    import pandas as pd
+    from src.features.rotation import add_participation_reliability_features
+
+    teams = pd.DataFrame([
+        {
+            "GAME_ID": str(i),
+            "GAME_DATE": f"2026-11-{i:02d}",
+            "TEAM": "DEN",
+        }
+        for i in range(1, 7)
+    ])
+
+    players = teams.copy()
+    players["PLAYER_ID"] = "100"
+
+    # Game 1: played
+    # Game 2: confirmed DNP
+    # Game 3: unknown
+    # Game 4: played
+    # Game 5: confirmed DNP
+    # Game 6: played
+    participation = pd.DataFrame([
+        {
+            "GAME_ID": str(i),
+            "GAME_DATE": f"2026-11-{i:02d}",
+            "TEAM": "DEN",
+            "PLAYER_ID": "100",
+            "PLAYED": played,
+            "DID_NOT_PLAY": not played,
+            "DNP_REASON": (
+                "COACH'S DECISION" if not played else None
+            ),
+        }
+        for i, played in [
+            (1, True),
+            (2, False),
+            (4, True),
+            (5, False),
+            (6, True),
+        ]
+    ])
+
+    result = add_participation_reliability_features(
+        players, teams, participation
+    ).set_index("GAME_ID")
+
+    col = "TEAM_GAMES_SINCE_LAST_APPEARANCE"
+
+    assert pd.isna(result.loc["1", col])
+    assert result.loc["2", col] == 0
+    assert result.loc["3", col] == 1
+    assert result.loc["4", col] == 2
+    assert result.loc["5", col] == 0
+    assert result.loc["6", col] == 1
+
+    # Calendar days since the last confirmed appearance.
+    days_col = "DAYS_SINCE_LAST_APPEARANCE"
+
+    assert pd.isna(result.loc["1", days_col])
+    assert result.loc["2", days_col] == 1
+    assert result.loc["3", days_col] == 2
+    assert result.loc["4", days_col] == 3
+    assert result.loc["5", days_col] == 1
+    assert result.loc["6", days_col] == 2
+
+
+
+    # Changing game 6 must not affect its own pregame gap.
+    modified = participation.copy()
+    modified.loc[
+        modified["GAME_ID"] == "6", "PLAYED"
+    ] = False
+    modified.loc[
+        modified["GAME_ID"] == "6", "DID_NOT_PLAY"
+    ] = True
+
+    modified_result = add_participation_reliability_features(
+        players, teams, modified
+    ).set_index("GAME_ID")
+
+    assert modified_result.loc["6", col] == result.loc["6", col]
+
+    # Current-game participation must not affect
+    # current-game calendar-day features.
+    assert (
+        modified_result.loc["6", days_col]
+        == result.loc["6", days_col]
+    )

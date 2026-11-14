@@ -232,6 +232,50 @@ def add_participation_reliability_features(players, teams, participation, window
     grouped = timeline.groupby(["PLAYER_ID", "TEAM"])
 
 
+    # Most recent confirmed appearance before the current game.
+    # A DNP or unknown participation does not reset the counter.
+    timeline["_LAST_APPEARANCE_GAME"] = (
+        timeline["_TEAM_GAME_NUMBER"]
+        .where(timeline["_PLAYED"].eq(1))
+    )
+
+    timeline["_LAST_APPEARANCE_GAME"] = (
+        timeline.groupby(["PLAYER_ID", "TEAM"])[
+            "_LAST_APPEARANCE_GAME"
+        ].transform(
+            lambda s: s.shift(1).ffill()
+        )
+    )
+
+    # Count intervening team games since the last appearance.
+    # Zero means the player appeared in the previous team game.
+    timeline["TEAM_GAMES_SINCE_LAST_APPEARANCE"] = (
+        timeline["_TEAM_GAME_NUMBER"]
+        - timeline["_LAST_APPEARANCE_GAME"]
+        - 1
+    )
+
+    # Last confirmed appearance date before the current game.
+    # Exclude the current game to prevent data leakage.
+    timeline["_LAST_APPEARANCE_DATE"] = (
+        timeline["GAME_DATE"]
+        .where(timeline["_PLAYED"].eq(1))
+    )
+
+    timeline["_LAST_APPEARANCE_DATE"] = (
+        timeline.groupby(["PLAYER_ID", "TEAM"])[
+            "_LAST_APPEARANCE_DATE"
+        ].transform(
+            lambda s: s.shift(1).ffill()
+        )
+    )
+
+    timeline["DAYS_SINCE_LAST_APPEARANCE"] = (
+        timeline["GAME_DATE"]
+        - timeline["_LAST_APPEARANCE_DATE"]
+    ).dt.days
+
+
     # Count prior eligible team games, excluding the current game.
     # Early-season players may have fewer than five prior games.
     
@@ -239,6 +283,8 @@ def add_participation_reliability_features(players, teams, participation, window
         "GAME_ID",
         "TEAM",
         "PLAYER_ID",
+        "TEAM_GAMES_SINCE_LAST_APPEARANCE",
+        "DAYS_SINCE_LAST_APPEARANCE",
     ]
 
     for w in (5, 10):
