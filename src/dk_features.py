@@ -21,6 +21,7 @@ from src.features.schedule import (
 from src.features.rotation import (
     add_historical_rotation_features,
     add_historical_player_minutes_share,
+    add_participation_reliability_features,
 )
 from src.features.usage import add_historical_usage_features
 from src.features.config import ROLLING_WINDOWS
@@ -68,11 +69,20 @@ def load_team_games(path=TEAM_FILE):
 
 
 
-def build_features(players, teams, windows=ROLLING_WINDOWS):
+def build_features(
+    players,
+    teams,
+    windows=ROLLING_WINDOWS,
+    participation=None,
+):
     """Build pregame features from supplied player and team data."""
 
     players = players.copy()
     teams = teams.copy()
+
+    # Keep game identifiers consistent across feature merges.
+    players["GAME_ID"] = players["GAME_ID"].astype(str)
+    teams["GAME_ID"] = teams["GAME_ID"].astype(str)
 
     # Player history
     players = add_historical_scoring_features(
@@ -104,6 +114,14 @@ def build_features(players, teams, windows=ROLLING_WINDOWS):
 
     # Matchup history
     players = add_historical_matchup_features(players, teams)
+
+    if participation is not None:
+        players = add_participation_reliability_features(
+            players,
+            teams,
+            participation,
+        )
+
 
     # Attach schedule features using the player's team and game.
     schedule_columns = [
@@ -163,7 +181,26 @@ def build_historical_features(
             players["GAME_ID"].astype(str).isin(valid_game_ids)
         ].copy()
 
-    return build_features(players, teams, windows=windows)
+    # Load participation records when available.
+    participation_file = (
+        DATA_DIR
+        / f"nba_player_participation_{season.replace('-', '_')}.csv"
+    )
+
+    participation = None
+
+    if participation_file.exists():
+        participation = pd.read_csv(participation_file)
+        participation["GAME_DATE"] = pd.to_datetime(
+            participation["GAME_DATE"]
+        )
+
+    return build_features(
+        players,
+        teams,
+        windows=windows,
+        participation=participation,
+    )
 
 
 
