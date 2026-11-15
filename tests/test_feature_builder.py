@@ -15,7 +15,20 @@ def test_shared_builder_matches_historical_wrapper():
     players = load_player_games(PLAYER_FILE)
     teams = load_team_games(TEAM_FILE)
 
-    direct = build_features(players, teams)
+    participation_file = PLAYER_FILE.parent / "nba_player_participation_2026_27.csv"
+    participation = None
+
+    if participation_file.exists():
+        participation = pd.read_csv(participation_file)
+        participation["GAME_DATE"] = pd.to_datetime(
+            participation["GAME_DATE"]
+        )
+
+    direct = build_features(
+        players,
+        teams,
+        participation=participation,
+    )
     wrapped = build_historical_features(season="2026-27")
 
     assert_frame_equal(
