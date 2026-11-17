@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,4,50000,263.56,9.99,28.95,"Anthony Black, Cedric Coward, Jerami Grant, Paul George, Alperen Sengun, Norman Powell, Patrick Williams, Jarrett Allen",22,28.15
+2,balanced,3100,4,49900,263.52,11.17,32.41,"Davion Mitchell, Cedric Coward, Patrick Williams, Alperen Sengun, Jarrett Allen, Ryan Conwell, Yaxel Lendeborg, Jalen Smith",22,28.7
+3,balanced,3100,4,50000,262.12,9.85,28.51,"Davion Mitchell, Cedric Coward, Tari Eason, Alperen Sengun, Jarrett Allen, Norman Powell, Jerami Grant, Jalen Smith",22,28.15

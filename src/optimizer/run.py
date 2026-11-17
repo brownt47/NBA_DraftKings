@@ -7,13 +7,13 @@ import pandas as pd
 from src.optimizer.classic import optimize_classic
 
 # Run optimizer for a specific slate date:
-# python -m src.optimizer.run --projections data/dk_projections/projections_2026_11_10_Main.pkl
+# python -m src.optimizer.run --projections data/dk_projections/projections_2026_11_16_Main.pkl
 
 # ============================================================
 # LINEUP EXPERIMENT SETTINGS
 # ============================================================
 
-SLATE_DATE = "2026_11_12"
+SLATE_DATE = "2026_11_16"
 
 PROJECTIONS_FILE = (
     f"data/dk_projections/projections_{SLATE_DATE}_Main.pkl"
@@ -21,13 +21,19 @@ PROJECTIONS_FILE = (
 
 NUM_LINEUPS = 3
 MAX_PLAYER_OVERLAP = 5
-MIN_PLAYER_SALARY = 3500
-MIN_PLAYER_MINUTES = 22
+MAX_PLAYERS_PER_TEAM = 5
+MIN_PLAYER_SALARY = 3100
+MIN_PLAYER_MINUTES = 0
 
-EXCLUDE_QUESTIONABLE = True
+EXCLUDE_QUESTIONABLE = False
 
 EXCLUDED_PLAYERS = [
-    "Ryan Dunn",
+    "Ryan Conwell",
+    #"Ryan Rollins",
+    #"Tre Johnson",
+    #"Patrick Williams",
+    "Anthony Black",
+    #"Ryan Dunn",
     #"Anthony Davis",
     #"Dalton Knecht",
     # "Kyrie Irving",
@@ -38,7 +44,8 @@ EXCLUDED_PLAYERS = [
 
 
 LOCKED_PLAYERS = [
-   # "Dyson Daniels",
+    #"Cade Cunningham",
+    #"Dyson Daniels",
     #"Luka Doncic",
     #"Victor Wembanyama",
     #"Yaxel Lendeborg",
@@ -119,6 +126,13 @@ def main():
         help="Minimum average minutes over last 5 games (default: %(default)s).",
     )
 
+    parser.add_argument(
+        "--max-players-per-team",
+        type=int,
+        default=MAX_PLAYERS_PER_TEAM,
+        help="Maximum players from one team (0 disables; default: %(default)s).",
+    )
+
     args = parser.parse_args()
 
     if args.min_salary < 0:
@@ -126,6 +140,14 @@ def main():
 
     if not 0 <= args.min_minutes <= 48:
         parser.error("--min-minutes must be between 0 and 48.")
+
+    if not 0 <= args.max_players_per_team <= 8:
+        parser.error("--max-players-per-team must be between 0 and 8.")
+
+    team_cap = (
+        None if args.max_players_per_team == 0
+        else args.max_players_per_team
+    )
 
     slate = pd.read_pickle(args.projections)
 
@@ -174,6 +196,7 @@ def main():
                 & ~slate["DK_NAME"].isin(excluded_players)
             )
 
+    print(f"Maximum players per team: {team_cap or 'Disabled'}")
     print(f"Minimum player salary: ${args.min_salary:,}")
 
     print(f"Minimum average minutes: {args.min_minutes:g}")
@@ -232,6 +255,7 @@ def main():
                 locked_players=LOCKED_PLAYERS,
                 previous_lineups=previous_lineups,
                 max_player_overlap=MAX_PLAYER_OVERLAP,
+                max_players_per_team=team_cap,
                 min_salary=args.min_salary,
                 min_minutes=args.min_minutes,
             )
@@ -287,6 +311,7 @@ def main():
             "Lineup": lineup_number,
             "Strategy": STRATEGY_NAMES[LINEUP_STRATEGY],
             "Min Salary": args.min_salary,
+            "Max Players Per Team": team_cap or 0,
             "Salary": result["total_salary"],
             "Projected Points": round(result["projected_points"], 2),
             "Avg Player STD": round(avg_player_volatility, 2),
@@ -326,6 +351,7 @@ def main():
             f"{STRATEGY_NAMES[LINEUP_STRATEGY]}"
             f"_min{args.min_salary}"
             f"_minutes{args.min_minutes:g}"
+            f"_teamcap{team_cap or 0}"
         )
 
         details_file = (

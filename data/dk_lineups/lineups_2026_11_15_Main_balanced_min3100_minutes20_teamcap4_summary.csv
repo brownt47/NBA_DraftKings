@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,4,50000,266.61,9.62,27.77,"CJ McCollum, Aaron Wiggins, Jaime Jaquez Jr., Alperen Sengun, Myles Turner, Ryan Rollins, Paul George, Isaiah Hartenstein",20,27.62
+2,balanced,3100,4,49900,265.72,9.98,28.88,"Ryan Rollins, CJ McCollum, Aaron Wiggins, Kyle Kuzma, Myles Turner, Tyler Herro, Alperen Sengun, Trae Young",20,29.52
+3,balanced,3100,4,50000,264.64,10.31,29.74,"Trae Young, Ryan Rollins, Caleb Martin, Paul George, Myles Turner, Tyler Herro, Alperen Sengun, Neemias Queta",20,28.72

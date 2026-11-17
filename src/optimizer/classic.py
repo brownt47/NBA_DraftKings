@@ -41,6 +41,7 @@ def optimize_classic(
     min_minutes=0,
     min_dk_per_minute=0,
     max_minutes_std=None,
+    max_players_per_team=3,
 ):
     """Return the highest-projected valid NBA Classic lineup."""
 
@@ -60,6 +61,19 @@ def optimize_classic(
 
     if missing:
         raise ValueError(f"Missing optimizer columns: {missing}")
+
+    if max_players_per_team is not None:
+        if (
+            isinstance(max_players_per_team, (bool, np.bool_))
+            or not isinstance(max_players_per_team, (int, np.integer))
+            or not 1 <= max_players_per_team <= 8
+        ):
+            raise ValueError(
+                "max_players_per_team must be an integer from 1 to 8, or None."
+            )
+
+        if "TEAM" not in projection_slate.columns:
+            raise ValueError("TEAM is required when the team cap is enabled.")
 
     locked_players = set(locked_players or [])
 
@@ -216,6 +230,15 @@ def optimize_classic(
         ]
     ).reset_index(drop=True)
 
+    if max_players_per_team is not None:
+        if (
+            players["TEAM"].isna().any()
+            or players["TEAM"].astype(str).str.strip().eq("").any()
+        ):
+            raise ValueError("Eligible players have missing TEAM values.")
+
+        players["TEAM"] = players["TEAM"].astype(str).str.strip()
+
     if players["DK_ID"].duplicated().any():
         raise ValueError("Duplicate DraftKings player IDs.")
 
@@ -239,6 +262,12 @@ def optimize_classic(
     if n == 0:
         raise ValueError("No eligible player-position assignments.")
 
+    teams = (
+        sorted(players["TEAM"].unique())
+        if max_players_per_team is not None
+        else []
+    )
+
     # Constraints:
     # 8 roster slots filled exactly once.
     # Each player selected at most once.
@@ -248,6 +277,7 @@ def optimize_classic(
         + len(players)
         + 1
         + len(previous_lineups)
+        + len(teams)
     )
     matrix = lil_matrix((rows, n), dtype=float)
 
@@ -294,6 +324,19 @@ def optimize_classic(
 
         lower[overlap_row] = 0
         upper[overlap_row] = max_player_overlap
+
+    # Hard cap on players selected from each NBA team.
+    team_row_start = salary_row + 1 + len(previous_lineups)
+
+    for team_idx, team in enumerate(teams):
+        team_row = team_row_start + team_idx
+
+        for j, (player_idx, slot) in enumerate(assignments):
+            if players.at[player_idx, "TEAM"] == team:
+                matrix[team_row, j] = 1
+
+        lower[team_row] = 0
+        upper[team_row] = max_players_per_team
 
     result = milp(
         c=costs,
@@ -349,6 +392,11 @@ def optimize_classic(
 
     if lineup["DK_ID"].duplicated().any():
         raise RuntimeError("Duplicate player in lineup.")
+
+    if max_players_per_team is not None:
+        team_counts = lineup["TEAM"].value_counts()
+        if (team_counts > max_players_per_team).any():
+            raise RuntimeError("Team player cap exceeded.")
 
     missing_locks = locked_players - set(lineup["DK_NAME"])
 

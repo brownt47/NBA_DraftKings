@@ -33,7 +33,7 @@ def make_slate():
 def test_salary_floor_excludes_cheap_players():
     slate = make_slate()
 
-    result = optimize_classic(slate, min_salary=4000)
+    result = optimize_classic(slate, min_salary=4000, max_players_per_team=None)
 
     assert len(result["lineup"]) == 8
     assert result["lineup"]["SALARY"].min() >= 4000
@@ -48,6 +48,7 @@ def test_locked_player_below_floor_is_rejected():
             slate,
             min_salary=4000,
             locked_players=["Player 9"],
+            max_players_per_team=None,
         )
 
 
@@ -60,7 +61,7 @@ def test_default_salary_floor_allows_3000_player():
         "PROJECTED_DK_POINTS",
     ] = 50.0
 
-    result = optimize_classic(slate)
+    result = optimize_classic(slate, max_players_per_team=None)
 
     assert "Player 9" in set(result["lineup"]["DK_NAME"])
 
@@ -85,4 +86,5 @@ def test_optimizer_requires_all_eight_roster_slots():
             slate,
             min_salary=4000,
             salary_cap=50000,
+            max_players_per_team=None,
         )

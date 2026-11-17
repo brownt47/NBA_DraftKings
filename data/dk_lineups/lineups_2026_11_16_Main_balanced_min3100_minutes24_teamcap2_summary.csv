@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,2,49800,261.13,10.64,31.14,"Davion Mitchell, Cedric Coward, Dean Wade, Patrick Williams, Jalen Smith, Meleek Thomas, Yaxel Lendeborg, Alperen Sengun",24,28.92
+2,balanced,3100,2,49900,259.53,9.42,26.87,"Davion Mitchell, Cedric Coward, Patrick Williams, Dean Wade, Danny Wolf, Norman Powell, Paul George, Alperen Sengun",24,29.42
+3,balanced,3100,2,50000,259.18,10.33,29.58,"Fred VanVleet, Cedric Coward, Patrick Williams, Paul George, Jalen Smith, Jeremiah Fears, Dean Wade, Alperen Sengun",24,28.48
