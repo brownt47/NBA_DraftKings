@@ -1,6 +1,48 @@
 import pandas as pd
 from src.features.config import ROLLING_WINDOWS
 
+def minutes_stability_features(minutes):
+    """Calculate stability metrics from completed player-games."""
+
+    s = pd.to_numeric(minutes, errors="coerce")
+
+    avg5 = s.tail(5).mean()
+    avg7 = s.tail(7).mean()
+    avg10 = s.tail(10).mean()
+
+    last5 = s.tail(5)
+    changes = last5.diff().dropna()
+
+    return {
+        "MIN_RATIO_5_10": (
+            avg5 / avg10 if avg10 > 0 else float("nan")
+        ),
+        "MIN_RATIO_5_7": (
+            avg5 / avg7 if avg7 > 0 else float("nan")
+        ),
+        "MIN_WHIPSAW_5": (
+            changes.abs().mean()
+            if len(last5) == 5 and last5.notna().all() else float("nan")
+        ),
+        "MIN_DIRECTION_CHANGES_5": (
+            int(
+                (
+                    (changes * changes.shift(1)) < 0
+                ).sum()
+            )
+            if len(last5) == 5 and last5.notna().all() else float("nan")
+        ),
+        "MIN_MIN_LAST_5": (
+            last5.min() if len(last5) == 5 and last5.notna().all() else float("nan")
+        ),
+    }
+
+
+def count_minutes_direction_changes(values):
+    changes = pd.Series(values).diff().dropna()
+    return int(((changes * changes.shift(1)) < 0).sum())
+
+
 def calculate_minutes_features(games):
     """
     Calculate playing-time and per-minute production features.
@@ -31,6 +73,8 @@ def calculate_minutes_features(games):
             ),
             "MIN_STD_LAST_5": minutes.tail(5).std(),
         }
+
+        record.update(minutes_stability_features(minutes))
 
         previous_three = minutes.iloc[-6:-3]
         recent_three = minutes.tail(3)
@@ -156,5 +200,49 @@ def add_historical_minutes_features(games, windows=ROLLING_WINDOWS):
         games.groupby("PLAYER_ID")["MIN"].shift(1)
     )
 
+    # Pregame minutes stability features.
+    # Each rolling window excludes the current game.
+
+    for window in (5, 7, 10):
+        if f"MIN_AVG_LAST_{window}" not in games.columns:
+            games[f"MIN_AVG_LAST_{window}"] = grouped["MIN"].transform(
+                lambda s: s.shift(1).rolling(
+                    window, min_periods=1
+                ).mean()
+            )
+
+    games["MIN_RATIO_5_10"] = (
+        games["MIN_AVG_LAST_5"]
+        / games["MIN_AVG_LAST_10"].replace(0, float("nan"))
+    )
+
+    games["MIN_RATIO_5_7"] = (
+        games["MIN_AVG_LAST_5"]
+        / games["MIN_AVG_LAST_7"].replace(0, float("nan"))
+    )
+
+    games["MIN_MIN_LAST_5"] = grouped["MIN"].transform(
+        lambda s: s.shift(1).rolling(
+            5, min_periods=5
+        ).min()
+    )
+
+    games["MIN_WHIPSAW_5"] = grouped["MIN"].transform(
+        lambda s: s.shift(1).rolling(
+            5, min_periods=5
+        ).apply(
+            lambda x: abs(pd.Series(x).diff()).iloc[1:].mean(),
+            raw=False,
+        )
+    )
+
+    games["MIN_DIRECTION_CHANGES_5"] = grouped["MIN"].transform(
+        lambda s: s.shift(1).rolling(
+            5, min_periods=5
+        ).apply(
+            count_minutes_direction_changes,
+            raw=False,
+        )
+    )
 
     return games
