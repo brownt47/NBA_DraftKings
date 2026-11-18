@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3500,3,49800,242.94,10.56,30.86,"Scottie Barnes, Kevin Huerter, Ausar Thompson, Naz Reid, Brook Lopez, Immanuel Quickley, Sion James, Moussa Diabate",24.0,30.7
+2,balanced,3500,3,50000,242.01,10.63,31.21,"Scottie Barnes, Sidy Cissoko, Kevin Huerter, Ausar Thompson, Donovan Clingan, Sion James, Deni Avdija, Brook Lopez",24.0,29.68
+3,balanced,3500,3,49900,241.66,10.57,31.14,"Daniss Jenkins, Sion James, Kevin Huerter, Ausar Thompson, Donovan Clingan, Immanuel Quickley, Karl-Anthony Towns, Brook Lopez",24.0,30.45

@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3500,3,50000,249.96,10.22,30.2,"Scottie Barnes, Terrence Shannon Jr., Max Strus, Ausar Thompson, Karl-Anthony Towns, Immanuel Quickley, Kevin Huerter, Brook Lopez",18.0,29.5
+2,balanced,3500,3,50000,249.28,9.35,27.79,"Immanuel Quickley, Keaton Wagler, Terrence Shannon Jr., Max Strus, Donovan Clingan, Scottie Barnes, Deni Avdija, Brook Lopez",18.0,27.48
+3,balanced,3500,3,50000,248.24,10.49,30.73,"Keyonte George, Keaton Wagler, Scottie Barnes, Ausar Thompson, Brook Lopez, Immanuel Quickley, Terrence Shannon Jr., Moussa Diabate",18.0,28.88

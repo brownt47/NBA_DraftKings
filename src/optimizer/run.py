@@ -13,7 +13,7 @@ from src.optimizer.classic import optimize_classic
 # LINEUP EXPERIMENT SETTINGS
 # ============================================================
 
-SLATE_DATE = "2026_11_16"
+SLATE_DATE = "2026_11_17"
 
 PROJECTIONS_FILE = (
     f"data/dk_projections/projections_{SLATE_DATE}_Main.pkl"
@@ -21,18 +21,19 @@ PROJECTIONS_FILE = (
 
 NUM_LINEUPS = 3
 MAX_PLAYER_OVERLAP = 5
-MAX_PLAYERS_PER_TEAM = 5
-MIN_PLAYER_SALARY = 3100
-MIN_PLAYER_MINUTES = 0
+MAX_PLAYERS_PER_TEAM = 3
+MIN_PLAYER_SALARY = 3500
+MIN_PLAYER_MINUTES = 22
 
-EXCLUDE_QUESTIONABLE = False
+EXCLUDE_QUESTIONABLE = True
 
 EXCLUDED_PLAYERS = [
-    "Ryan Conwell",
+    #"Terrence Shannon Jr.",
+    #"Ryan Conwell",
     #"Ryan Rollins",
     #"Tre Johnson",
     #"Patrick Williams",
-    "Anthony Black",
+    #"Anthony Black",
     #"Ryan Dunn",
     #"Anthony Davis",
     #"Dalton Knecht",
@@ -44,6 +45,7 @@ EXCLUDED_PLAYERS = [
 
 
 LOCKED_PLAYERS = [
+    #"Darryn Peterson",
     #"Cade Cunningham",
     #"Dyson Daniels",
     #"Luka Doncic",

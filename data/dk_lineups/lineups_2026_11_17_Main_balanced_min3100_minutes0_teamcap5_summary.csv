@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,5,50000,250.33,9.17,27.85,"Scottie Barnes, Terrence Shannon Jr., Ausar Thompson, Grant Williams, Brook Lopez, Immanuel Quickley, Karl-Anthony Towns, Moussa Diabate",0,28.68
+2,balanced,3100,5,50000,249.52,8.88,27.62,"Keaton Wagler, Terrence Shannon Jr., Scottie Barnes, Max Strus, Donovan Clingan, Luka Doncic, Grant Williams, Brook Lopez",0,26.18
+3,balanced,3100,5,50000,249.24,11.1,32.29,"Deni Avdija, Keaton Wagler, Scottie Barnes, Ausar Thompson, Donovan Clingan, Terrence Shannon Jr., Kevin Huerter, Brook Lopez",0,28.0
