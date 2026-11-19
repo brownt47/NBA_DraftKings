@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,4000,3,50000,273.05,9.97,28.85,"Davion Mitchell, Nolan Traore, Jaime Jaquez Jr., Ausar Thompson, Jalen Smith, Michael Porter Jr., Norman Powell, Day'Ron Sharpe",22,28.7
+2,balanced,4000,3,49900,271.59,10.48,30.42,"Davion Mitchell, Norman Powell, Michael Porter Jr., Ausar Thompson, Jalen Smith, Kevin Huerter, Isaac Okoro, Julius Randle",22,31.08
+3,balanced,4000,3,50000,271.2,9.47,27.44,"Davion Mitchell, Nolan Traore, Isaac Okoro, Ausar Thompson, Alperen Sengun, Mikel Brown Jr., Norman Powell, Michael Porter Jr.",22,29.75

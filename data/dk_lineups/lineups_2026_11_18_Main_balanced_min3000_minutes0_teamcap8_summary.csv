@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3000,8,49900,277.26,10.82,31.12,"Tre Jones, Anthony Black, Norman Powell, Alperen Sengun, Jalen Smith, Davion Mitchell, Ausar Thompson, Noah Clowney",0,28.85
+2,balanced,3000,8,50000,276.47,10.61,30.66,"Davion Mitchell, Anthony Black, Franz Wagner, Noah Clowney, Jalen Smith, Buddy Hield, Michael Porter Jr., Ausar Thompson",0,29.6
+3,balanced,3000,8,49800,275.87,10.53,30.65,"Davion Mitchell, Buddy Hield, Ausar Thompson, Alperen Sengun, Jalen Smith, Anthony Black, Nolan Traore, Day'Ron Sharpe",0,28.18

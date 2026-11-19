@@ -1,6 +1,6 @@
 
 # git pull
-# python -m src.daily_pipeline --date 2026-11-16
+# python -m src.daily_pipeline --date 2026-11-18
 
 
 """Run the complete NBA DraftKings daily production pipeline."""

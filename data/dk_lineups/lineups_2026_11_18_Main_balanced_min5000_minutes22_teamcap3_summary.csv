@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,5000,3,49900,268.54,10.95,31.82,"Davion Mitchell, Daniss Jenkins, Norman Powell, Ausar Thompson, Day'Ron Sharpe, Immanuel Quickley, Klay Thompson, Jalen Smith",22,29.75
+2,balanced,5000,3,50000,267.91,10.26,29.52,"Davion Mitchell, Norman Powell, Ausar Thompson, Tristan da Silva, Jalen Smith, Michael Porter Jr., Aday Mara, Day'Ron Sharpe",22,29.65
+3,balanced,5000,3,50000,267.04,9.74,28.23,"Davion Mitchell, Ja'Kobe Walter, Ausar Thompson, Julius Randle, Day'Ron Sharpe, Norman Powell, Kyle Kuzma, Jalen Smith",22,29.55
