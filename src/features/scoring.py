@@ -39,6 +39,20 @@ def calculate_rolling_scoring_features(games):
 
         record = {"ESPN_PLAYER_ID": player_id}
 
+        dk = player_games["DK_POINTS"]
+
+        prior_expected = dk.shift(1).expanding().mean()
+        valid_expected = prior_expected >= 10
+
+        for threshold in [70, 80, 90]:
+            downside = (
+                dk < (threshold / 100) * prior_expected
+            ).where(valid_expected)
+
+            record[f"DK_BELOW_{threshold}_RATE_LAST_10"] = (
+                downside.tail(10).mean()
+            )
+
         for window in ROLLING_WINDOWS:
             recent = player_games.tail(window)
 
@@ -120,5 +134,31 @@ def add_historical_scoring_features(games, windows=ROLLING_WINDOWS):
                 ).std()
             )
         )
+
+    # Historical downside frequency using the expected DK average
+    # available before each prior game.
+    prior_expected = grouped["DK_POINTS"].transform(
+        lambda s: s.shift(1).expanding().mean()
+    )
+
+    valid_expected = prior_expected >= 10
+
+    for threshold in [70, 80, 90]:
+        downside = (
+            games["DK_POINTS"] <
+            (threshold / 100) * prior_expected
+        ).where(valid_expected)
+
+        games[f"DK_BELOW_{threshold}_RATE_LAST_10"] = (
+            downside.groupby(games["PLAYER_ID"]).transform(
+                lambda s: s.shift(1).rolling(
+                    window=10,
+                    min_periods=1
+                ).mean()
+            )
+        )
+
+
+
 
     return games
