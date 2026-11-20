@@ -225,17 +225,17 @@ def build_pregame_features(slate, historical_players, historical_teams):
         pregame_players["PLAYER_ID"].dropna().astype(str)
     )
 
-    print("Historical ID dtype:", historical_players["PLAYER_ID"].dtype)
-    print("Pregame ID dtype:", pregame_players["PLAYER_ID"].dtype)
-    print("Historical unique players:", len(historical_ids))
+   # print("Historical ID dtype:", historical_players["PLAYER_ID"].dtype)
+   # print("Pregame ID dtype:", pregame_players["PLAYER_ID"].dtype)
+   # print("Historical unique players:", len(historical_ids))
     print("Pregame unique players:", len(pregame_ids))
     print("Matching IDs:", len(historical_ids & pregame_ids))
 
-    print("\nExample historical IDs:")
-    print(historical_players["PLAYER_ID"].head(5).tolist())
+    #print("\nExample historical IDs:")
+    #print(historical_players["PLAYER_ID"].head(5).tolist())
 
-    print("\nExample pregame IDs:")
-    print(pregame_players["PLAYER_ID"].head(5).tolist())
+    #print("\nExample pregame IDs:")
+    #print(pregame_players["PLAYER_ID"].head(5).tolist())
 
 
     # Load participation history for the current season.

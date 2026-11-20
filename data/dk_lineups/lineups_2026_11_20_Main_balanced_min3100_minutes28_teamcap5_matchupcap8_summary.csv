@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,5,50000,261.31,10.07,29.26,"Anthony Black, Kyshawn George, Herbert Jones, Naz Reid, Onyeka Okongwu, Norman Powell, AJ Dybantsa, Jalen Smith",28,32.03
+2,balanced,3100,5,50000,261.31,10.07,29.26,"Anthony Black, Kyshawn George, AJ Dybantsa, Naz Reid, Jalen Smith, Norman Powell, Herbert Jones, Onyeka Okongwu",28,32.03
+3,balanced,3100,5,50000,261.31,10.07,29.26,"Anthony Black, Kyshawn George, AJ Dybantsa, Naz Reid, Jalen Smith, Norman Powell, Herbert Jones, Onyeka Okongwu",28,32.03

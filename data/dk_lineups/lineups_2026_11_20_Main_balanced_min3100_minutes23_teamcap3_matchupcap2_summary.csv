@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,3,50000,260.57,10.03,28.96,"Jalen Suggs, Anthony Black, Meleek Thomas, Naz Reid, Isaiah Hartenstein, Kyshawn George, AJ Dybantsa, Onyeka Okongwu",23,31.55
+2,balanced,3100,3,50000,260.45,10.15,29.43,"Jordan Poole, Meleek Thomas, Kelly Oubre Jr., Naz Reid, Jalen Smith, Kyshawn George, Franz Wagner, Anthony Black",23,30.82
+3,balanced,3100,3,50000,260.25,9.4,27.55,"Anthony Black, Kyshawn George, Sion James, Aday Mara, Jalen Smith, Meleek Thomas, Franz Wagner, Isaiah Hartenstein",23,30.55

@@ -199,21 +199,21 @@ def main():
         else:
             history = new_records.copy()
 
-    # Keep verified records over estimates, then deduplicate.
-    history["CONTEST_ID"] = history["CONTEST_ID"].astype(str)
-    history["_VERIFIED"] = history["CUTOFF_TYPE"].eq(
-        "PAID_PLACES_SUPPLIED"
-    )
+        # Keep verified records over estimates, then deduplicate.
+        history["CONTEST_ID"] = history["CONTEST_ID"].astype(str)
+        history["_VERIFIED"] = history["CUTOFF_TYPE"].eq(
+            "PAID_PLACES_SUPPLIED"
+        )
 
-    history = (
-        history.sort_values("_VERIFIED")
-        .drop_duplicates(subset=["CONTEST_ID"], keep="last")
-        .drop(columns="_VERIFIED")
-        .sort_values(["DATE", "CONTEST_ID"])
-    )
+        history = (
+            history.sort_values("_VERIFIED")
+            .drop_duplicates(subset=["CONTEST_ID"], keep="last")
+            .drop(columns="_VERIFIED")
+            .sort_values(["DATE", "CONTEST_ID"])
+        )
 
-    history.to_csv(history_path, index=False)
-    print(f"Updated: {history_path} ({len(history)} contests)")
+        history.to_csv(history_path, index=False)
+        print(f"Updated: {history_path} ({len(history)} contests)")
 
 
 if __name__ == "__main__":

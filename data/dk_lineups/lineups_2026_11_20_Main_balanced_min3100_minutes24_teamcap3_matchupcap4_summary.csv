@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,3,49900,262.61,10.31,29.92,"Jordan Poole, Kyshawn George, AJ Dybantsa, Franz Wagner, Alexandre Sarr, Anthony Black, Kelly Oubre Jr., Jalen Smith",24,31.82
+2,balanced,3100,3,50000,261.3,9.33,27.04,"Anthony Black, Kyshawn George, Ajay Mitchell, Franz Wagner, Isaiah Hartenstein, Jase Richardson, AJ Dybantsa, Jordan Poole",24,30.95
+3,balanced,3100,3,50000,260.82,9.99,29.19,"Anthony Black, Kyshawn George, AJ Dybantsa, Naz Reid, Jalen Smith, Jase Richardson, Danny Wolf, Franz Wagner",24,31.65

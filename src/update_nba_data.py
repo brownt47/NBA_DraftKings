@@ -1,39 +1,24 @@
-
-# ---------------------------------------------------------
-# NBA DATA UPDATE CONTROLLER
-# Run player and team scrapers in sequence.
-# ---------------------------------------------------------
+﻿"""Update NBA player, participation, and team data."""
 
 import subprocess
 import sys
 
 
-# ---------------------------------------------------------
-# RUN SCRAPER
-# Execute a Python module and stop if it fails.
-# ---------------------------------------------------------
-
-def run_scraper(module_name):
-
+def run_scraper(module_name, *args):
     print(f"\nRunning {module_name}...", flush=True)
 
     subprocess.run(
-        [sys.executable, "-m", module_name],
-        check=True
+        [sys.executable, "-m", module_name, *args],
+        check=True,
     )
 
 
-# ---------------------------------------------------------
-# MAIN
-# ---------------------------------------------------------
-
 def main():
-
     print("=" * 40)
     print("NBA DATA UPDATE STARTED")
     print("=" * 40)
 
-    run_scraper("src.nba_scraper")
+    run_scraper("src.nba_scraper", "--participation")
     run_scraper("src.nba_team_scraper")
 
     print("\n" + "=" * 40)

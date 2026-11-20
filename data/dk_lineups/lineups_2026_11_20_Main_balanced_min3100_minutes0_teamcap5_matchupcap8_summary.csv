@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,3100,5,50000,263.84,10.66,30.79,"Anthony Black, Tre Jones, AJ Dybantsa, Derik Queen, Alexandre Sarr, Kyshawn George, Franz Wagner, Jalen Smith",0,30.38
+2,balanced,3100,5,50000,263.84,10.66,30.79,"Anthony Black, Kyshawn George, AJ Dybantsa, Derik Queen, Alexandre Sarr, Tre Jones, Franz Wagner, Jalen Smith",0,30.38
+3,balanced,3100,5,50000,263.84,10.66,30.79,"Anthony Black, Kyshawn George, AJ Dybantsa, Derik Queen, Alexandre Sarr, Tre Jones, Franz Wagner, Jalen Smith",0,30.38

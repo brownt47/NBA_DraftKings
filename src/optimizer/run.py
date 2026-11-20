@@ -13,7 +13,7 @@ from src.optimizer.classic import optimize_classic
 # LINEUP EXPERIMENT SETTINGS
 # ============================================================
 
-SLATE_DATE = "2026_11_18"
+SLATE_DATE = "2026_11_20"
 
 PROJECTIONS_FILE = (
     f"data/dk_projections/projections_{SLATE_DATE}_Main.pkl"
@@ -21,13 +21,15 @@ PROJECTIONS_FILE = (
 
 NUM_LINEUPS = 3
 MAX_PLAYER_OVERLAP = 5
-MAX_PLAYERS_PER_TEAM = 3
-MIN_PLAYER_SALARY = 5000
-MIN_PLAYER_MINUTES = 22
+MAX_PLAYERS_PER_TEAM = 8
+MAX_PLAYERS_PER_MATCHUP = 8
+MIN_PLAYER_SALARY = 3100
+MIN_PLAYER_MINUTES = 0
 
-EXCLUDE_QUESTIONABLE = True
+EXCLUDE_QUESTIONABLE = False
 
 EXCLUDED_PLAYERS = [
+    "Meleek Thomas",
     #"Terrence Shannon Jr.",
     #"Nolan Traore",
     #"Ryan Conwell",
@@ -46,6 +48,7 @@ EXCLUDED_PLAYERS = [
 
 
 LOCKED_PLAYERS = [
+    #"Franz Wagner",
     #"Darryn Peterson",
     #"Cade Cunningham",
     #"Dyson Daniels",
@@ -200,6 +203,7 @@ def main():
             )
 
     print(f"Maximum players per team: {team_cap or 'Disabled'}")
+    print(f"Maximum players per matchup: {MAX_PLAYERS_PER_MATCHUP if MAX_PLAYERS_PER_MATCHUP is not None else 'Unlimited'}")
     print(f"Minimum player salary: ${args.min_salary:,}")
 
     print(f"Minimum average minutes: {args.min_minutes:g}")
@@ -259,6 +263,7 @@ def main():
                 previous_lineups=previous_lineups,
                 max_player_overlap=MAX_PLAYER_OVERLAP,
                 max_players_per_team=team_cap,
+                max_players_per_matchup=MAX_PLAYERS_PER_MATCHUP,
                 min_salary=args.min_salary,
                 min_minutes=args.min_minutes,
             )
@@ -355,6 +360,7 @@ def main():
             f"_min{args.min_salary}"
             f"_minutes{args.min_minutes:g}"
             f"_teamcap{team_cap or 0}"
+            f"_matchupcap{MAX_PLAYERS_PER_MATCHUP if MAX_PLAYERS_PER_MATCHUP is not None else 0}"
         )
 
         details_file = (

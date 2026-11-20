@@ -1,0 +1,4 @@
+Lineup,Strategy,Min Salary,Max Players Per Team,Salary,Projected Points,Avg Player STD,Lineup STD Proxy,Players,Min Minutes,Avg Lineup Minutes
+1,balanced,5000,3,50000,261.83,10.0,29.15,"Nolan Traore, Kyshawn George, AJ Dybantsa, Naz Reid, Isaiah Hartenstein, Anthony Black, Aday Mara, Jalen Smith",23,30.35
+2,balanced,5000,3,50000,260.77,10.53,30.54,"Anthony Black, Kyshawn George, Ajay Mitchell, Naz Reid, Aday Mara, Jalen Suggs, AJ Dybantsa, Alexandre Sarr",23,31.45
+3,balanced,5000,3,49900,259.87,10.62,30.52,"Jalen Suggs, Anthony Black, AJ Dybantsa, Tristan da Silva, Onyeka Okongwu, Kyshawn George, Naz Reid, Jalen Smith",23,32.55

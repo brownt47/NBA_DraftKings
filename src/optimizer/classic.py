@@ -42,6 +42,7 @@ def optimize_classic(
     min_dk_per_minute=0,
     max_minutes_std=None,
     max_players_per_team=3,
+    max_players_per_matchup=None,
 ):
     """Return the highest-projected valid NBA Classic lineup."""
 
@@ -74,6 +75,18 @@ def optimize_classic(
 
         if "TEAM" not in projection_slate.columns:
             raise ValueError("TEAM is required when the team cap is enabled.")
+
+    if max_players_per_matchup is not None:
+        if (
+            isinstance(max_players_per_matchup, (bool, np.bool_))
+            or not isinstance(max_players_per_matchup, (int, np.integer))
+            or not 1 <= max_players_per_matchup <= 8
+        ):
+            raise ValueError(
+                "max_players_per_matchup must be an integer 1-8, or None."
+            )
+        if "MATCHUP" not in projection_slate.columns:
+            raise ValueError("MATCHUP is required for matchup cap.")
 
     locked_players = set(locked_players or [])
 
@@ -239,6 +252,14 @@ def optimize_classic(
 
         players["TEAM"] = players["TEAM"].astype(str).str.strip()
 
+    if max_players_per_matchup is not None:
+        if (
+            players["MATCHUP"].isna().any()
+            or players["MATCHUP"].astype(str).str.strip().eq("").any()
+        ):
+            raise ValueError("Eligible players have missing MATCHUP.")
+        players["MATCHUP"] = players["MATCHUP"].astype(str).str.strip()
+
     if players["DK_ID"].duplicated().any():
         raise ValueError("Duplicate DraftKings player IDs.")
 
@@ -268,6 +289,12 @@ def optimize_classic(
         else []
     )
 
+    matchups = (
+        sorted(players["MATCHUP"].unique())
+        if max_players_per_matchup is not None
+        else []
+    )
+
     # Constraints:
     # 8 roster slots filled exactly once.
     # Each player selected at most once.
@@ -278,6 +305,7 @@ def optimize_classic(
         + 1
         + len(previous_lineups)
         + len(teams)
+        + len(matchups)
     )
     matrix = lil_matrix((rows, n), dtype=float)
 
@@ -338,6 +366,18 @@ def optimize_classic(
         lower[team_row] = 0
         upper[team_row] = max_players_per_team
 
+    matchup_row_start = team_row_start + len(teams)
+
+    for matchup_idx, matchup in enumerate(matchups):
+        matchup_row = matchup_row_start + matchup_idx
+
+        for j, (player_idx, slot) in enumerate(assignments):
+            if players.at[player_idx, "MATCHUP"] == matchup:
+                matrix[matchup_row, j] = 1
+
+        lower[matchup_row] = 0
+        upper[matchup_row] = max_players_per_matchup
+
     result = milp(
         c=costs,
         integrality=np.ones(n),
@@ -397,6 +437,11 @@ def optimize_classic(
         team_counts = lineup["TEAM"].value_counts()
         if (team_counts > max_players_per_team).any():
             raise RuntimeError("Team player cap exceeded.")
+
+    if max_players_per_matchup is not None:
+        matchup_counts = lineup["MATCHUP"].value_counts()
+        if (matchup_counts > max_players_per_matchup).any():
+            raise RuntimeError("Matchup player cap exceeded.")
 
     missing_locks = locked_players - set(lineup["DK_NAME"])
 
