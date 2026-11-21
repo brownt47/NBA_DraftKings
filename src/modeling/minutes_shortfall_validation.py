@@ -87,7 +87,7 @@ def main():
         df["MIN_AVG_LAST_5"] < 30, "22-29", "30+"
     )
 
-    months = sorted(df["GAME_DATE"].dt.to_period("M").unique())
+    folds = sorted(df["FOLD"].unique())
     results = []
     predictions = []
 
@@ -98,15 +98,9 @@ def main():
         ).astype(int)
 
         for role, group in df.groupby("ROLE"):
-            for i in range(1, len(months)):
-                month = months[i]
-
-                train = group.loc[
-                    group["GAME_DATE"].dt.to_period("M") < month
-                ]
-                test = group.loc[
-                    group["GAME_DATE"].dt.to_period("M") == month
-                ]
+            for fold in folds[1:]:
+                train = group.loc[group["FOLD"] < fold]
+                test = group.loc[group["FOLD"] == fold]
 
                 if len(train) < 200 or len(test) < 50:
                     continue
@@ -120,7 +114,7 @@ def main():
                     results.append({
                         "THRESHOLD": threshold,
                         "ROLE": role,
-                        "MONTH": str(month),
+                        "FOLD": int(fold),
                         "MODEL": name,
                         "N": len(test),
                         "EVENT_RATE": test["TARGET"].mean(),
@@ -143,7 +137,7 @@ def main():
                     predictions.append(pd.DataFrame({
                         "THRESHOLD": threshold,
                         "ROLE": role,
-                        "MONTH": str(month),
+                        "FOLD": int(fold),
                         "MODEL": name,
                         "GAME_ID": test["GAME_ID"].values,
                         "PLAYER_ID": test["PLAYER_ID"].values,
